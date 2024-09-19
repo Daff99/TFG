@@ -24,5 +24,21 @@ public class Player {
     @JoinColumn(name = "IDUSER")
     @JsonIgnore
     private User user;
-    
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

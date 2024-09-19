@@ -1,10 +1,9 @@
 package com.example.demo.services;
 
-import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 
@@ -21,10 +20,14 @@ public class UserService {
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
-        user.setFavouriteChampionships(new HashSet<>());
-        user.setFavouritePlayers(new HashSet<>());
+        user.setFavouriteChampionships(new ArrayList<>());
+        user.setFavouritePlayers(new ArrayList<>());
         userRepository.save(user);
         return user;
+    }
+
+    public boolean validatePassword(User user, String password) {
+        return user.getPassword().equals(password);
     }
     
 }

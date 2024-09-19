@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
-import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
@@ -29,10 +30,20 @@ public class User {
     private String password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    private HashSet<Player> favouritePlayers;
+    private List<Player> favouritePlayers;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    private HashSet<Championship> favouriteChampionships;
+    private List<Championship> favouriteChampionships;
+
+    public User() {}
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.favouriteChampionships = new ArrayList<>();
+        this.favouritePlayers = new ArrayList<>();
+    }
 
     public Long getId() {
         return this.id;
@@ -66,19 +77,19 @@ public class User {
         this.password = password;
     }
 
-    public HashSet<Player> getFavouritePlayers() {
+    public List<Player> getFavouritePlayers() {
         return this.favouritePlayers;
     }
 
-    public void setFavouritePlayers(HashSet<Player> favouritePlayers) {
+    public void setFavouritePlayers(List<Player> favouritePlayers) {
         this.favouritePlayers = favouritePlayers;
     }
 
-    public HashSet<Championship> getFavouriteChampionships() {
+    public List<Championship> getFavouriteChampionships() {
         return this.favouriteChampionships;
     }
 
-    public void setFavouriteChampionships(HashSet<Championship> favouriteChampionships) {
+    public void setFavouriteChampionships(List<Championship> favouriteChampionships) {
         this.favouriteChampionships = favouriteChampionships;
     }
 
