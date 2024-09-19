@@ -92,7 +92,7 @@
 	</dependencies>
 
 	<build>
-		<plugins>8.0.30.redhat-00002
+		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

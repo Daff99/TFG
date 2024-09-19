@@ -139,17 +139,6 @@
     display: inline-block;
 }
 
-.search-icon {
-    cursor: pointer;
-    font-size: 24px;
-    color: #00c9c8;
-    transition: color 0.3s ease-in-out;
-}
-
-.search-icon:hover {
-    color: #000;
-}
-
 .profile img {
     width: 40px;
     height: 40px;
