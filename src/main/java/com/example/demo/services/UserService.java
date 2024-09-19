@@ -26,8 +26,8 @@ public class UserService {
         return user;
     }
 
-    public User getByEmail(String email) {
-        return userRepository.getByEmail(email);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public boolean validatePassword(User user, String password) {
