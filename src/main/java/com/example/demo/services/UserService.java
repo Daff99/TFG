@@ -26,6 +26,10 @@ public class UserService {
         return user;
     }
 
+    public User getByEmail(String email) {
+        return userRepository.getByEmail(email);
+    }
+
     public boolean validatePassword(User user, String password) {
         return user.getPassword().equals(password);
     }

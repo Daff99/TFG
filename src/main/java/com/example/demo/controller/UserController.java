@@ -25,8 +25,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute("user") User user, @RequestParam("email") String email,
+    public String loginUser(@RequestParam("email") String email,
         @RequestParam("password") String password, Model model) {
+            User user = userService.getByEmail(email);
             if (user != null && userService.validatePassword(user, password)) {
                 model.addAttribute("session", true);
                 return "redirect:/index.html";
