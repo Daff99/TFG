@@ -20,7 +20,7 @@ public class UserController {
     public String showLoginForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "loginregister.html";
+        return "loginregister";
     }
 
     @PostMapping("/login")
@@ -29,10 +29,10 @@ public class UserController {
             User user = userService.findByEmail(email);
             if (user != null && userService.validatePassword(user, password)) {
                 model.addAttribute("session", true);
-                return "redirect:/index.html";
+                return "redirect:/index";
             } else {
                 model.addAttribute("error", "Correo o contraseña incorrectos");
-                return "loginregister.html";
+                return "loginregister";
             }
             
     }
@@ -42,6 +42,6 @@ public class UserController {
             @RequestParam("password") String password, Model model) {
         userService.createUser(name, email, password);
         model.addAttribute("session", true);
-        return "redirect:/index.html";
+        return "redirect:/index";
     }
 }
