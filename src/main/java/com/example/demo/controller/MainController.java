@@ -35,5 +35,4 @@ public class MainController {
     public String showChampionships() {
         return "championships";
     }
-    
 }
