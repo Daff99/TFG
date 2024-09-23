@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif; 
+    font-family: 'Montserrat', sans-serif;
 }
 
 .fancy {
@@ -19,23 +21,23 @@
     margin: 0;
     outline: none;
     overflow: visible;
-    padding: 0.75em 1.5em; /* Ajuste para hacerlo más pequeño */
+    padding: 0.75em 1.5em; 
     position: relative;
     text-align: center;
     text-decoration: none;
     text-transform: none;
     transition: all 0.3s ease-in-out;
     user-select: none;
-    font-size: 12px; /* Ajuste del tamaño de fuente */
+    font-size: 12px; 
 }
    
 .fancy::before {
     content: " ";
-    width: 1.25rem; /* Ajuste para adaptarse al nuevo tamaño */
+    width: 1.25rem; 
     height: 2px;
     background: #00c9c8;
     top: 50%;
-    left: 1.25em; /* Ajuste de posición */
+    left: 1.25em;
     position: absolute;
     transform: translateY(-50%);
     transform-origin: center;
@@ -43,9 +45,9 @@
 }
    
 .fancy .text {
-    font-size: 1.05em; /* Ajuste del tamaño del texto */
+    font-size: 1.05em; 
     line-height: 1.33333em;
-    padding-left: 1.75em; /* Ajuste del padding para adaptarse al nuevo tamaño */
+    padding-left: 1.75em; 
     display: block;
     text-align: left;
     transition: all 0.3s ease-in-out;
@@ -56,7 +58,7 @@
    
 .fancy .top-key {
     height: 2px;
-    width: 1.25rem; /* Ajuste del ancho */
+    width: 1.25rem; 
     top: -2px;
     left: 0.625rem;
     position: absolute;
@@ -66,7 +68,7 @@
    
 .fancy .bottom-key-1 {
     height: 2px;
-    width: 1.25rem; /* Ajuste del ancho */
+    width: 1.25rem; 
     right: 1.875rem;
     bottom: -2px;
     position: absolute;
@@ -96,7 +98,7 @@
    
 .fancy:hover .text {
     color: #00c9c8;
-    padding-left: 1.25em; /* Ajuste del padding en el hover */
+    padding-left: 1.25em; 
 }
    
 .fancy:hover .top-key {
@@ -175,6 +177,16 @@
 
 .navbar2 li a:hover {
     color: black;
+}
+
+.main-container {
+    background-color: #2a272a;
+    background: linear-gradient(to right, #00aaa9, #00c9c8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
 }
 
 h1 {
