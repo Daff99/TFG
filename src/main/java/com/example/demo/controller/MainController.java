@@ -8,15 +8,10 @@ public class MainController {
 
     @RequestMapping("/")
     public String showHomePage() {
-        return "index";
-    }
-
-    @RequestMapping("/live")
-    public String showLive() {
         return "live";
     }
 
-    @RequestMapping("/fav")
+    @RequestMapping("/favs")
     public String showFavs() {
         return "favs";
     }

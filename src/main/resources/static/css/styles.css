@@ -7,6 +7,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+html, body {
+    height: 100%;
+}
+
 .fancy {
     background-color: transparent;
     border: 2px solid #00c9c8;
@@ -179,19 +183,13 @@
     color: black;
 }
 
-.main-container {
-    background-color: #2a272a;
-    background: linear-gradient(to right, #00aaa9, #00c9c8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
+.container-widget {
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
-h1 {
-    text-transform: uppercase;
-    color: black;
-}
+
+
 
 
