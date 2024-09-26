@@ -30,5 +30,35 @@ public class MainController {
     public String showChampionships() {
         return "championships";
     }
+
+    @RequestMapping("/laliga")
+    public String showLaLiga() {
+        return "laliga";
+    }
+
+    @RequestMapping("/premier")
+    public String showPremier() {
+        return "premier";
+    }
+
+    @RequestMapping("/seriea")
+    public String showSerieA() {
+        return "seriea";
+    }
+
+    @RequestMapping("/bundesliga")
+    public String showBundesliga() {
+        return "bundesliga";
+    }
+
+    @RequestMapping("/ligue1")
+    public String showLigue1() {
+        return "ligue1";
+    }
+
+    @RequestMapping("/champions")
+    public String showChampionsLeague() {
+        return "champions";
+    }
     
 }
