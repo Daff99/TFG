@@ -19,6 +19,7 @@ html, body {
 }
 
 .main img {
-    padding-top: 70px;
+    padding-top: 0;
+    width: 100%;
 }
 
