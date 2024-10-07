@@ -1,10 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 .teams-container {
-    height: 100%;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 150px;
+    margin-top: 60px;
+}
+
+.logo-container img {
+    width: 65px;
+    height: 70px;
+    margin-left: 160px;
 }
 
 .select-menu {
@@ -56,37 +76,94 @@
 }
 
 .premier-teams {
-    background-color: purple;
-    display: inline-flex;
-    height: 100%;
+    background: linear-gradient(to right, #ffff, #7734E4); 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 10px;
     width: 20%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.premier-teams article {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    text-align: left;
+    color: white;
+    height: 100%;
+    width: 100%;
+}
+
+.premier-teams img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.premier-teams h2 {
+    font-size: 16px;
+    margin: 0;
+    flex: 1;
+    text-align: left;
 }
 
 .laliga-teams {
-    background-color: white;
-    display: inline-flex;
-    height: 100%;
+    background: linear-gradient(to right, #fff, #e63946); 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
     width: 20%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .bundesliga-teams {
-    background-color: red;
-    display: inline-flex;
-    height: 100%;
+    background: linear-gradient(to right, #ffff, #BD001C); 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
     width: 20%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .serieA-teams {
-    background-color: blue;
-    display: inline-flex;
-    height: 100%;
+    background: linear-gradient(to right, #ffff, #6051D5); 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
     width: 20%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .ligue1-teams {
-    background-color: black;
-    display: inline-flex;
-    height: 100%;
+    background: linear-gradient(to right, #ffff, #000); 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
     width: 20%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
