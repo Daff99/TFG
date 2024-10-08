@@ -1,4 +1,4 @@
-function getTeamsAndLogoPremier(done) {
+/* function getTeamsAndLogoPremier(done) {
     const url = 'https://v3.football.api-sports.io/teams?league=39&season=2022';
     const options = {
         method: 'GET',
@@ -158,4 +158,63 @@ getTeamsAndLogoLigue1(data => {
         const ligue1teams = document.querySelector(".ligue1-teams");
         ligue1teams.append(article5);
     });
-})
+}) */
+
+const premierId = 39;
+const laligaId = 140;
+const bundesligaId = 78;
+const serieAId = 135;
+const ligue1Id = 61;
+
+function getTeamsAndLogo(leagueId, done) {
+    const url = `https://v3.football.api-sports.io/teams?league=${leagueId}&season=2022`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': '62814ce7392f82d3441e6c84135d1f70',
+            'x-rapidapi-host': 'sportapi7.p.rapidapi.com'
+        }
+    };
+    const results = fetch(url, options);
+    results.then(response => response.json()).then(data => {
+        done(data);
+    });
+}
+
+function appendTeams(container, teams) {
+    const cont = document.querySelector(container);
+    teams.forEach(team => {
+        const teamName = team.team.name;
+        const teamLogo = team.team.logo;
+        const article = document.createRange(). createContextualFragment(`
+            <article>
+                <div class="image-container">
+                    <img src="${teamLogo}" alt="name">
+                </div>
+                <h2>${teamName}</h2>
+            </article>
+        `);
+        cont.append(article);
+    });
+}
+
+getTeamsAndLogo(premierId, data => {
+    appendTeams('.premier-teams', data.response);
+});
+
+getTeamsAndLogo(laligaId, data => {
+    appendTeams('.laliga-teams', data.response);
+});
+
+getTeamsAndLogo(bundesligaId, data => {
+    appendTeams('.bundesliga-teams', data.response);
+});
+
+getTeamsAndLogo(serieAId, data => {
+    appendTeams('.serieA-teams', data.response);
+});
+
+getTeamsAndLogo(ligue1Id, data => {
+    appendTeams('.ligue1-teams', data.response);
+});
+

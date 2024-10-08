@@ -89,7 +89,7 @@
     margin-right: 20px;
 }
 
-.premier-teams article {
+.premier-teams article, .laliga-teams article, .bundesliga-teams article, .serieA-teams article, .ligue1-teams article {
     display: flex;
     align-items: center;
     margin: 10px 0;
@@ -99,12 +99,12 @@
     width: 100%;
 }
 
-.premier-teams img {
+.premier-teams img, .laliga-teams img, .bundesliga-teams img, .serieA-teams img, .ligue1-teams img {
     width: 50px;
     margin-right: 10px;
 }
 
-.premier-teams h2 {
+.premier-teams h2, .laliga-teams h2, .bundesliga-teams h2, .serieA-teams h2, .ligue1-teams h2 {
     font-size: 16px;
     margin: 0;
     flex: 1;
