@@ -8,7 +8,7 @@
 }
 
 html, body {
-    height: 100%;
+    min-height: 100vh;
 }
 
 header {
@@ -119,7 +119,6 @@ header {
     width: 0;
 }
 
-
 .navbar1 {
     display: flex;
     align-items: center;
@@ -185,6 +184,23 @@ header {
 
 .navbar2 li a:hover {
     color: black;
+}
+
+footer {
+    margin-top: 20px;
+    background-color: #b1bdc5;
+    height: 50px;
+    align-items: center;
+    border-color: #b1bdc5;
+    border-top: 1px solid;
+}
+
+footer p {
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    justify-content: center;
+    text-align: center;
+    padding-top: 15px;
 }
 
 .container-widget {
