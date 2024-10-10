@@ -30,7 +30,7 @@ function appendTeams(container, teams) {
     teams.forEach(team => {
         const teamName = team.team.name;
         const teamLogo = team.team.logo;
-        const article = document.createRange(). createContextualFragment(`
+        const article = document.createRange().createContextualFragment(`
             <article>
                 <div class="image-container">
                     <img src="${teamLogo}" alt="name">
