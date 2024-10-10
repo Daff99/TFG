@@ -8,30 +8,36 @@
 }
 
 html, body {
-    height: 100%;
+    min-height: 100vh;
 }
 
-.main {
+.slider {
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.main img {
+.slider img {
     padding-top: 0;
     width: 100%;
 }
 
+.matches {
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+}
+
 .dashboard {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
 }
 
 .dashboard-games {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
 }
 
