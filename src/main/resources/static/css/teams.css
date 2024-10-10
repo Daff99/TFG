@@ -8,6 +8,9 @@
     align-items: stretch;
     justify-content: space-between;
     gap: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
 }
 
 .logo-container {
@@ -17,17 +20,18 @@
     height: 50px;
     width: 100%;
     margin-bottom: 20px;
-    gap: 150px;
+    gap: 135px;
     margin-top: 60px;
 }
 
 .logo-container img {
     width: 65px;
     height: 70px;
-    margin-left: 160px;
+    margin-left: 100px;
 }
 
 .select-menu {
+    position: relative;
     width: 300px;
     margin: 40px auto;
     margin-left: 30px;
@@ -47,10 +51,11 @@
 }
 
 .select-menu .options {
-    position: relative;
+    position: absolute;
     padding: 20px;
     border-radius: 8px;
     margin-top: 10px;
+    z-index: 10; /* Para que no se superponga en mi div de la premier */
     background: #fff;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
     display: none; /* Por defecto estan ocultas */
@@ -85,8 +90,6 @@
     width: 20%;
     box-sizing: border-box;
     border-radius: 8px;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 .premier-teams article, .laliga-teams article, .bundesliga-teams article, .serieA-teams article, .ligue1-teams article {
@@ -101,12 +104,12 @@
 
 .premier-teams img, .laliga-teams img, .bundesliga-teams img, .serieA-teams img, .ligue1-teams img {
     width: 50px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .premier-teams h2, .laliga-teams h2, .bundesliga-teams h2, .serieA-teams h2, .ligue1-teams h2 {
     font-size: 16px;
-    margin: 0;
+    margin-left: 20px;
     flex: 1;
     text-align: left;
 }
@@ -121,8 +124,6 @@
     padding: 10px;
     box-sizing: border-box;
     border-radius: 8px;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 .bundesliga-teams {
@@ -135,8 +136,6 @@
     padding: 10px;
     box-sizing: border-box;
     border-radius: 8px;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 .serieA-teams {
@@ -149,8 +148,6 @@
     padding: 10px;
     box-sizing: border-box;
     border-radius: 8px;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 
 .ligue1-teams {
@@ -163,7 +160,5 @@
     padding: 10px;
     box-sizing: border-box;
     border-radius: 8px;
-    margin-left: 20px;
-    margin-right: 20px;
 }
 

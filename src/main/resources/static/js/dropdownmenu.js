@@ -64,6 +64,12 @@ function updateTeamsForSeason(season) {
     });
 }
 
+const defaultSeason = "2023/2024"; //Por defecto, cada vez que cargue la pagina aparecerá la temporada 2023/2024
+text.innerText = defaultSeason;
+
+const defaultSeasonYear = defaultSeason.split("/")[0];
+updateTeamsForSeason(defaultSeasonYear);
+
 select.addEventListener("click", () => optionMenu.classList.toggle("active"));
 
 options.forEach(option => { //Por cada opcion del desplegable añado un evento de click
