@@ -1,0 +1,71 @@
+.select-menus-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    margin: 40px 30px;
+}
+
+.select-menu, .select-menuMW {
+    position: relative;
+    width: 300px;
+    margin: 0;
+}
+
+.select-menu .select-button, .select-menuMW .select-buttonMW {
+    display: flex;
+    height: 55px;
+    background-color: #fff;
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+}
+
+.select-menu .options {
+    position: absolute;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    z-index: 10;
+    background-color: #fff;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    display: none;
+    width: 100%;
+}
+
+.select-menuMW .optionsMW {
+    position: absolute;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    z-index: 10;
+    background-color: #fff;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    display: none;
+    width: 100%;
+    max-height: 300px; /* Altura máxima del desplegable de jornadas */
+    overflow-y: auto; /* Así le meto scroll vertical */
+}
+
+.select-menu.active .options, .select-menuMW.active .optionsMW {
+    display: block;
+}
+
+.options .option, .optionsMW .optionMW {
+    display: flex;
+    height: 30px;
+    cursor: pointer;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 8px;
+    background-color: #FFF;
+}
+
+.options .option:hover, .optionsMW .optionMW:hover {
+    background: #00c9c8;
+    color: #fff;
+}
