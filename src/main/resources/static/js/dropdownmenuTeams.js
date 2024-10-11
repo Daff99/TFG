@@ -32,9 +32,7 @@ function appendTeams(container, teams) {
         const teamLogo = team.team.logo;
         const article = document.createRange().createContextualFragment(`
             <article>
-                <div class="image-container">
-                    <img src="${teamLogo}" alt="name">
-                </div>
+                <img src="${teamLogo}" alt="name">
                 <h2>${teamName}</h2>
             </article>
         `);
@@ -66,7 +64,6 @@ function updateTeamsForSeason(season) {
 
 const defaultSeason = "2023/2024"; //Por defecto, cada vez que cargue la pagina aparecerá la temporada 2023/2024
 text.innerText = defaultSeason;
-
 const defaultSeasonYear = defaultSeason.split("/")[0];
 updateTeamsForSeason(defaultSeasonYear);
 
@@ -81,24 +78,4 @@ options.forEach(option => { //Por cada opcion del desplegable añado un evento d
         optionMenu.classList.remove("active") //Dejo de visualizar las demas opciones del desplegable
     });
 });
-
-
-
-
-
-
-/* const optionMenu = document.querySelector(".select-menu");
-const select = optionMenu.querySelector(".select-button");
-const options = optionMenu.querySelectorAll(".option");
-const text = optionMenu.querySelector(".text");
-
-select.addEventListener("click", () => optionMenu.classList.toggle("active"));
-
-options.forEach(option => { //Por cada opcion del desplegable añado un evento de click
-    option.addEventListener("click", () => { 
-        let selectedOption = option.innerText; //Cojo la opcion seleccionada
-        text.innerText = selectedOption; //La coloco en el contenido de mi select-menu
-        optionMenu.classList.remove("active") //Dejo de visualizar las demas opciones del desplegable
-    })
-}) */
 

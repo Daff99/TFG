@@ -23,12 +23,6 @@ html, body {
     width: 100%;
 }
 
-.matches {
-    width: 100%;
-    height: 100vh;
-    background-color: white;
-}
-
 .dashboard {
     width: 100%;
     height: 100vh;

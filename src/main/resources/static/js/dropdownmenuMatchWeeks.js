@@ -3,6 +3,13 @@ const select = optionMenu.querySelector(".select-button");
 const options = optionMenu.querySelectorAll(".option");
 const text = optionMenu.querySelector(".text");
 
+const optionMenuMW = document.querySelector(".select-menuMW");
+const selectMW = optionMenuMW.querySelector(".select-buttonMW");
+const optionsMW = optionMenuMW.querySelectorAll(".optionMW");
+const textMW = optionMenuMW.querySelector(".textMW");
+
+let allMatches = [];
+
 function getMatches(season, done) {
     const url = `https://v3.football.api-sports.io/fixtures?league=39&season=${season}`;
     const apiOptions = {
@@ -14,7 +21,7 @@ function getMatches(season, done) {
     };
     const results = fetch(url, apiOptions);
     results.then(response => response.json()).then(data => {
-        done(data);
+        done(data.response);
     });
 }
 
@@ -22,7 +29,9 @@ function appendMatches(container, matches) {
     const cont = document.querySelector(container);
     cont.innerHTML = '';
     matches.forEach(match => {
-        const matchweek = match.league.round;
+        const date_ = match.fixture.date.split("T")[0];
+        const [year, month, day] = date_.split("-");
+        const date2_ = `${day}-${month}-${year}`;
         const localTeamName = match.teams.home.name;
         const localTeamLogo = match.teams.home.logo;
         const awayTeamName = match.teams.away.name;
@@ -31,17 +40,19 @@ function appendMatches(container, matches) {
         const resultAway = match.goals.away;
         const article = document.createRange().createContextualFragment(`
             <article>
-                <div class="image-container-localLogo">
+                <h2>${date2_}</h2>
+                <div class="match-info">
+                    <p>${localTeamName}</p>
                     <img src="${localTeamLogo}" alt="LocalLogo">
-                </div>
-                <div class="image-container-awayLogo">
+                    <div class="result">
+                        <p>${resultHome}</p>
+                        <p>-</p>
+                        <p>${resultAway}</p>
+                    </div>
                     <img src="${awayTeamLogo}" alt="AwayLogo">
+                    <p>${awayTeamName}</p>
                 </div>
-                <p>${matchweek}</p>
-                <p>${localTeamName}</p>
-                <p>${awayTeamName}</p>
-                <p>${resultHome}</p>
-                <p>${resultAway}</p>
+                
             </article>
         `);
         cont.append(article);
@@ -49,14 +60,23 @@ function appendMatches(container, matches) {
 }
 
 function updateMatchWeek(season) {
-    getMatches(season, data => {
-        appendMatches('.matches', data.response);
+    getMatches(season, matches => {
+        allMatches = matches;
+        filterByMW(1);
+        //appendMatches('.matches', data.response);
     });
+}
+
+function filterByMW(mw) {
+    const filteredMatches = allMatches.filter(m => {
+        const num = m.league.round.split(" - ")[1];
+        return num === mw.toString();
+    });
+    appendMatches(".matches", filteredMatches);
 }
 
 const defaultSeason = "2023/2024"; //Por defecto, cada vez que cargue la pagina aparecerá la temporada 2023/2024
 text.innerText = defaultSeason;
-
 const defaultSeasonYear = defaultSeason.split("/")[0];
 updateMatchWeek(defaultSeasonYear);
 
@@ -69,5 +89,20 @@ options.forEach(option => { //Por cada opcion del desplegable añado un evento d
         const season = selectedOption.split("/")[0];
         updateMatchWeek(season);
         optionMenu.classList.remove("active") //Dejo de visualizar las demas opciones del desplegable
-    })
-}) 
+    });
+});
+
+const defaultMW = "1";
+textMW.innerText = `Jornada ${defaultMW}`;
+filterByMW(defaultMW);
+
+selectMW.addEventListener("click", () => optionMenuMW.classList.toggle("active"));
+
+optionsMW.forEach(op => {
+    op.addEventListener("click", () => {
+        let selectedMW = op.innerText.split(" ")[1];
+        textMW.innerText = op.innerText;
+        filterByMW(selectedMW);
+        optionMenuMW.classList.remove("active");
+    });
+});
