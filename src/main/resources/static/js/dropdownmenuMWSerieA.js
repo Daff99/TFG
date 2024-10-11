@@ -42,17 +42,16 @@ function appendMatches(container, matches) {
             <article>
                 <h2>${date2_}</h2>
                 <div class="match-info">
-                    <p>${localTeamName}</p>
-                    <img src="${localTeamLogo}" alt="LocalLogo">
+                    <p class="localName">${localTeamName}</p>
                     <div class="result">
-                        <p>${resultHome}</p>
+                    <img src="${localTeamLogo}" alt="LocalLogo">
+                        <p class="localResult">${resultHome}</p>
                         <p>-</p>
-                        <p>${resultAway}</p>
+                        <p class="awayResult">${resultAway}</p>
+                        <img src="${awayTeamLogo}" alt="AwayLogo">
                     </div>
-                    <img src="${awayTeamLogo}" alt="AwayLogo">
-                    <p>${awayTeamName}</p>
+                    <p class="awayName">${awayTeamName}</p>
                 </div>
-                
             </article>
         `);
         cont.append(article);
