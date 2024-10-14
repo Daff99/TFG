@@ -30,6 +30,11 @@ public class Team {
         this.image = image;
         this.apiId = apiId;
     }
+
+    public Team(String name, String image) {
+        this.name = name;
+        this.image = image;
+    }
     
     public String getName() {
         return this.name;
