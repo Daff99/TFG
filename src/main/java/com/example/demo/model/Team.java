@@ -25,9 +25,10 @@ public class Team {
 
     public Team() {}
 
-    public Team(String name, String image) {
+    public Team(String name, String image, Long apiId) {
         this.name = name;
         this.image = image;
+        this.apiId = apiId;
     }
     
     public String getName() {
@@ -52,5 +53,13 @@ public class Team {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Long getApiId() {
+        return this.apiId;
+    }
+
+    public void setApiId(Long apiId) {
+        this.apiId = apiId;
     }
 }

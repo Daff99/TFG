@@ -6,5 +6,4 @@ import com.example.demo.model.Team;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
     Team findByApiId(Long apiId);
-    
 }

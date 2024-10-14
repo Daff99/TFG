@@ -16,6 +16,4 @@ public class TeamsService {
     public Team findByApiId(Long apiId) {
         return teamRepository.findByApiId(apiId);
     }
-
-
 }

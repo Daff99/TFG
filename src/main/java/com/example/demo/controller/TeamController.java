@@ -22,7 +22,11 @@ public class TeamController {
     @RequestMapping("/showTeam")
     public String showTeam(@RequestParam("id") Long apiId, Model model) {
         Team team = teamsService.findByApiId(apiId);
-        model.addAttribute("listTeam", team);
+        if (team != null) {
+            model.addAttribute("team", team);
+        } else {
+            System.out.println("Equipo no encontrado con API ID: " + apiId);
+        }
         return "showTeam";
     }
 }
