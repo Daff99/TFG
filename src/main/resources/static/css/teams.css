@@ -31,7 +31,7 @@
 }
 
 .premier-teams {
-    background: linear-gradient(to right, #ffff, #7734E4); 
+    background: linear-gradient(to right, #ffff, #360c3a); 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
