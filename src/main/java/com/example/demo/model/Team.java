@@ -5,17 +5,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 
 @Entity
 @Table(name = "TEAMS")
 @Data
 public class Team {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "IDTEAM")
-    private Long id_team;
     @Column(name = "API_ID")
     private Long apiId;
     @Column(name = "NAME")
@@ -42,14 +37,6 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getIdTeam() {
-        return this.id_team;
-    }
-
-    public void setIdTeam(Long id) {
-        this.id_team = id;
     }
 
     public String getImage() {
