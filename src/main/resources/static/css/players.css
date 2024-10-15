@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-.teams-container, .players-container {
+.players-container {
     height: auto;
     width: 100%;
     display: flex;
@@ -30,11 +30,11 @@
     margin-left: 150px;
 }
 
-.premier-teams, .premier-players {
+.premier-players {
     background: linear-gradient(to right, #ffff, #360c3a); 
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     height: auto;
     padding: 10px;
     width: 20%;
@@ -42,32 +42,30 @@
     border-radius: 8px;
 }
 
-.premier-teams article, .laliga-teams article, .bundesliga-teams article, .serieA-teams article, .ligue1-teams article,
 .premier-players article, .laliga-players article, .bundesliga-players article, .serieA-players article, .ligue1-players article {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     margin: 10px 0;
     text-align: left;
     color: white;
     height: 100%;
     width: 100%;
 }
-
-.premier-teams img, .laliga-teams img, .bundesliga-teams img, .serieA-teams img, .ligue1-teams img, 
+ 
 .premier-players img, .laliga-players img, .bundesliga-players img, .serieA-players img, .ligue1-players img {
     width: 50px;
     margin-right: 5px;
 }
 
-.premier-teams h2, .laliga-teams h2, .bundesliga-teams h2, .serieA-teams h2, .ligue1-teams h2, 
 .premier-players h2, .laliga-players h2, .bundesliga-players h2, .serieA-players h2, .ligue1-players h2 {
     font-size: 16px;
-    margin-left: 20px;
-    flex: 1;
+    margin: 10px 0;
+    width: 100%;
     text-align: left;
 }
 
-.laliga-teams, .laliga-players {
+.laliga-players {
     background: linear-gradient(to right, #fff, #e63946); 
     display: flex;
     flex-direction: column;
@@ -79,7 +77,7 @@
     border-radius: 8px;
 }
 
-.bundesliga-teams, .bundesliga-players {
+.bundesliga-players {
     background: linear-gradient(to right, #ffff, #BD001C); 
     display: flex;
     flex-direction: column;
@@ -91,7 +89,7 @@
     border-radius: 8px;
 }
 
-.serieA-teams, .serieA-players {
+.serieA-players {
     background: linear-gradient(to right, #ffff, #6051D5); 
     display: flex;
     flex-direction: column;
@@ -103,7 +101,7 @@
     border-radius: 8px;
 }
 
-.ligue1-teams, .ligue1-players {
+.ligue1-players {
     background: linear-gradient(to right, #ffff, #000); 
     display: flex;
     flex-direction: column;
@@ -119,5 +117,36 @@
     border-radius: 50%;
     width: 100px;
     height: 50px;
+}
+
+.player-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    gap: 15px;
+    margin: 10px;
+}
+
+.player-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-info h3 {
+    font-size: 14px;
+    margin: 0;
+}
+
+.team-info img {
+    width: 25px;
+    height: 25px;
 }
 

@@ -30,12 +30,21 @@ function appendPlayers(container, players) {
     players.forEach(player => {
         const playerName = player.player.name;
         const playerLogo = player.player.photo;
+        const teamStats = player.statistics[0];
+        const teamName = teamStats.team.name;
+        const teamLogo = teamStats.team.logo;
         const article = document.createRange().createContextualFragment(`
-            <article>
+            <article class="player-card">
                 <a href="/showPlayer">
                     <img class="photo" src="${playerLogo}" alt="name">
                 </a>
-                <h2>${playerName}</h2>
+                <div class="player-details">
+                    <h2>${playerName}</h2>
+                    <div class="team-info">
+                        <h3>${teamName}</h3>
+                        <img class="teamLogo" src="${teamLogo}">
+                    </div>
+                </div>
             </article>
         `);
         cont.append(article);
