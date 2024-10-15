@@ -8,16 +8,16 @@
 
 .select-menu, .select-menuMW {
     position: relative;
-    width: 300px;
+    width: 200px;
     margin: 0;
 }
 
 .select-menu .select-button, .select-menuMW .select-buttonMW {
     display: flex;
-    height: 55px;
+    height: 40px;
     background-color: #fff;
-    padding: 20px;
-    font-size: 18px;
+    padding: 10px;
+    font-size: 14px;
     border-radius: 8px;
     align-items: center;
     justify-content: space-between;
@@ -27,24 +27,24 @@
 
 .select-menu .options {
     position: absolute;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
-    margin-top: 10px;
+    margin-top: 5px;
     z-index: 10;
     background-color: #fff;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
     display: none;
     width: 100%;
 }
 
 .select-menuMW .optionsMW {
     position: absolute;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
-    margin-top: 10px;
+    margin-top: 5px;
     z-index: 10;
     background-color: #fff;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
     display: none;
     width: 100%;
     max-height: 300px; /* Altura máxima del desplegable de jornadas */
@@ -57,12 +57,13 @@
 
 .options .option, .optionsMW .optionMW {
     display: flex;
-    height: 30px;
+    height: 25px;
     cursor: pointer;
     align-items: center;
-    padding: 0 16px;
+    padding: 0 12px;
     border-radius: 8px;
     background-color: #FFF;
+    font-size: 13px;
 }
 
 .options .option:hover, .optionsMW .optionMW:hover {

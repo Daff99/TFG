@@ -62,7 +62,7 @@ function updateMatchWeek(season) {
     getMatches(season, matches => {
         allMatches = matches;
         filterByMW(1);
-        //appendMatches('.matches', data.response);
+        textMW.innerText = "Jornada 1";
     });
 }
 
@@ -90,10 +90,6 @@ options.forEach(option => { //Por cada opcion del desplegable añado un evento d
         optionMenu.classList.remove("active") //Dejo de visualizar las demas opciones del desplegable
     });
 });
-
-const defaultMW = "1";
-textMW.innerText = `Jornada ${defaultMW}`;
-filterByMW(defaultMW);
 
 selectMW.addEventListener("click", () => optionMenuMW.classList.toggle("active"));
 

@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+h1 {
+    color: white;
+}
+
 .main-container {
     height: auto;
     display: flex;
@@ -17,6 +23,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 40%;
     margin-bottom: 10px;
+    
 }
 
 .premier-container {

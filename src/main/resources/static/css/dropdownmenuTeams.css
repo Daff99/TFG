@@ -1,0 +1,50 @@
+.select-menu {
+    position: relative;
+    width: 200px;
+    margin: 20px auto;
+    margin-left: 30px;
+}
+
+.select-menu .select-button {
+    display: flex;
+    height: 40px;
+    background-color: #FFF;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+.select-menu .options {
+    position: absolute;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 5px;
+    z-index: 10; /* Para que no se superponga en mi div de la premier */
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    display: none; /* Por defecto estan ocultas */
+}
+
+.select-menu.active .options {
+    display: block; /* Cuando le doy click, se visualizan */
+}
+
+.options .option {
+    display: flex;
+    height: 25px;
+    cursor: pointer;
+    align-items: center;
+    padding: 0 12px;
+    border-radius: 8px;
+    background: #FFF;
+    font-size: 13px;
+}
+
+.options .option:hover {
+    background: #00c9c8;
+    color: #FFF;
+}

@@ -61,8 +61,8 @@ function appendMatches(container, matches) {
 function updateMatchWeek(season) {
     getMatches(season, matches => {
         allMatches = matches;
-        filterByMW(1);
-        //appendMatches('.matches', data.response);
+        filterByMW(1); //Siempre que cambio de temporada, establezco la jornada 1 por defecto
+        textMW.innerText = "Jornada 1"; //Mostraré el texto en el desplegable de jornadas
     });
 }
 
@@ -90,10 +90,6 @@ options.forEach(option => { //Por cada opcion del desplegable añado un evento d
         optionMenu.classList.remove("active") //Dejo de visualizar las demas opciones del desplegable
     });
 });
-
-const defaultMW = "1";
-textMW.innerText = `Jornada ${defaultMW}`;
-filterByMW(defaultMW);
 
 selectMW.addEventListener("click", () => optionMenuMW.classList.toggle("active"));
 

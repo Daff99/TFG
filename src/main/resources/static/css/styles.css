@@ -9,6 +9,7 @@
 
 html, body {
     min-height: 100vh;
+    font-size: 90%;
 }
 
 header {
@@ -17,7 +18,7 @@ header {
 
 .fav-button {
     background-color: transparent;
-    border: 2px solid #00c9c8;
+    border: 1.5px solid #00c9c8;
     border-radius: 0;
     box-sizing: border-box;
     color: #00c9c8;
@@ -25,27 +26,27 @@ header {
     display: inline-block;
     float: right;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     margin: 0;
     outline: none;
     overflow: visible;
-    padding: 0.75em 1.5em; 
+    padding: 0.5em 1em; 
     position: relative;
     text-align: center;
     text-decoration: none;
     text-transform: none;
     transition: all 0.3s ease-in-out; /* Transicion al pasar el raton por encima */
     user-select: none;
-    font-size: 12px; 
+    font-size: 0.85em; 
 }
    
 .fav-button::before {
     content: " ";
-    width: 1.25rem; 
-    height: 2px;
+    width: 0.4rem; 
+    height: 1.5px;
     background: #00c9c8;
     top: 50%;
-    left: 1.25em;
+    left: 1.1em;
     position: absolute;
     transform: translateY(-50%);
     transform-origin: center;
@@ -53,9 +54,9 @@ header {
 }
    
 .fav-button .text {
-    font-size: 1.05em; 
-    line-height: 1.33333em;
-    padding-left: 1.75em; 
+    font-size: 0.9em; 
+    line-height: 1.33em;
+    padding-left: 1em; 
     display: block;
     text-align: left;
     transition: all 0.3s ease-in-out;
@@ -65,30 +66,30 @@ header {
 }
    
 .fav-button .top {
-    height: 2px;
-    width: 1.25rem; 
-    top: -2px;
-    left: 0.625rem;
+    height: 1.5px;
+    width: 1rem; 
+    top: -1.5px;
+    left: 0.5rem;
     position: absolute;
     background: #000;
     transition: width 0.5s ease-out, left 0.3s ease-out;
 }
    
 .fav-button .bottom1 {
-    height: 2px;
-    width: 1.25rem; 
-    right: 1.875rem;
-    bottom: -2px;
+    height: 1.5px;
+    width: 1rem; 
+    right: 1.5rem;
+    bottom: -1.5px;
     position: absolute;
     background: #000;
     transition: width 0.5s ease-out, right 0.3s ease-out;
 }
    
 .fav-button .bottom2 {
-    height: 2px;
-    width: 0.625rem;
-    right: 0.625rem;
-    bottom: -2px;
+    height: 1.5px;
+    width: 0.5rem;
+    right: 0.5rem;
+    bottom: -1.5px;
     position: absolute;
     background: #000;
     transition: width 0.5s ease-out, right 0.3s ease-out;
@@ -100,7 +101,7 @@ header {
 }
    
 .fav-button:hover::before {
-    width: 0.9375rem;
+    width: 0.5rem;
     background: #00c9c8;
 }
    
@@ -110,7 +111,7 @@ header {
 }
    
 .fancy:hover .top {
-    left: -2px;
+    left: -1px;
     width: 0px;
 }
    
@@ -124,7 +125,7 @@ header {
     align-items: center;
     justify-content: space-between;
     background-color: black;
-    padding: 10px 20px;
+    padding: 5px 15px;
 }
 
 .logo {
@@ -133,14 +134,14 @@ header {
 }
 
 .logo img {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
 }
 
 .user-options {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     margin-left: auto; 
 }
 
@@ -149,8 +150,8 @@ header {
 }
 
 .profile img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -158,15 +159,16 @@ header {
 .navbar2 {
     display: flex;
     width: 100%;
-    height: 80px;
+    height: 50px;
     align-items: center;
     justify-content: space-around;
     background-color: #00aaa9;
+    padding: 5px 10px;
 }
 
 .navbar2 ul {
     display: flex;
-    gap: 40px;
+    gap: 20px;
 }
 
 .navbar2 li {
@@ -177,8 +179,8 @@ header {
     color: white;
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 10px;
-    font-size: 12px;
+    letter-spacing: 5px;
+    font-size: 10px;
     transition: color 0.3s ease-in-out;
 }
 
