@@ -60,7 +60,7 @@
 
 .premier-players h2, .laliga-players h2, .bundesliga-players h2, .serieA-players h2, .ligue1-players h2 {
     font-size: 16px;
-    margin: 10px 0;
+    margin: 5px 0;
     width: 100%;
     text-align: left;
 }
@@ -121,17 +121,18 @@
 
 .player-card {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: left;
+    flex-direction: row !important;
+    justify-content: flex-start;
+    align-items: center;
     gap: 15px;
-    margin: 10px;
+    margin: 0px;
 }
 
 .player-details {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    text-align: left;
 }
 
 .team-info {
