@@ -1,8 +1,8 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 import com.example.demo.model.Team;
 import com.example.demo.repositories.TeamRepository;
 import java.net.http.HttpClient;
@@ -12,27 +12,45 @@ import java.net.http.HttpResponse;
 import java.net.URI;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class DataInitializer {
 
     @Autowired
     private TeamRepository teamRepository;
+    private String apiKey = "62814ce7392f82d3441e6c84135d1f70";
+    private final int PREMIER = 39;
+    private final int LALIGA = 140;
+    private final int BUNDESLIGA = 78;
+    private final int SERIEA = 135;
+    private final int LIGUE1 = 61;
 
     @PostConstruct
     public void init() {
 
-        //Equipos Premier League
-        String apiKey = "62814ce7392f82d3441e6c84135d1f70";
-        String url = "https://v3.football.api-sports.io/teams?league=39&season=2022";
-        List<Team> teams = getPremierTeams(url, apiKey);
-        for (Team t: teams) {
-            teamRepository.save(t);
+        //Equipos
+        for (int year = 2013; year <= 2023; year ++) {
+            int season = year;
+            saveTeamsForLeague(PREMIER, season);
+            saveTeamsForLeague(LALIGA, season);
+            saveTeamsForLeague(BUNDESLIGA, season);
+            saveTeamsForLeague(SERIEA, season);
+            saveTeamsForLeague(LIGUE1, season);
+        }
+        
+    }
+
+    private void saveTeamsForLeague(int leagueId, int season) {
+        Set<Team> teams = getTeamsForLeague(leagueId, season, apiKey);
+        for (Team team: teams) {
+            teamRepository.save(team);
         }
     }
 
-    public static List<Team> getPremierTeams(String url, String apiKey) {
-        List<Team> teamList = new ArrayList<>();
+    private static Set<Team> getTeamsForLeague(int leagueId, int season, String apiKey) {
+        String url = "https://v3.football.api-sports.io/teams?league=" + leagueId + "&season=" + season;
+        Set<Team> teamList = new HashSet<>();
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()

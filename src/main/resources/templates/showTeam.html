@@ -3,9 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <nav class="navbar1">
+            <div class="logo">
+                <img src="assets/img/95.jpg" alt="Logo">
+            </div>
+            <div class="user-options">
+                <a href="/favs" class="fav-button">
+                    <span class="top"></span>
+                    <span class="text">FAVORITOS</span>
+                    <span class="bottom1"></span>
+                    <span class="bottom2"></span>
+                </a>
+                <a href="/login" class="profile">
+                    <img src="assets/user.png" alt="Profile">
+                </a>
+            </div>
+        </nav>
+        <nav class="navbar2">
+            <ul>
+                <li><a href="/">En directo</a></li>
+                <li><a href="/players">Jugadores</a></li>
+                <li><a href="/teams">Equipos</a></li>
+                <li><a href="/championships">Competiciones</a></li>
+            </ul>
+        </nav>
+    </header>
     <h1>PANTALLA DE MOSTRAR EQUIPO</h1>
     <p>{{team.name}}</p>
     <img src="{{team.image}}" alt="imagen">
