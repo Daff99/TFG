@@ -34,7 +34,7 @@ function appendTeams(container, teams) {
         const article = document.createRange().createContextualFragment(`
             <article>
                 <a href="/showTeam?id=${teamId}">
-                    <img src="${teamLogo}" alt="name">
+                    <img src="${teamLogo}" alt="name" loading="lazy">
                 </a>
                 <h2>${teamName}</h2>
             </article>
