@@ -5,8 +5,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,13 +15,24 @@ import jakarta.persistence.Entity;
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "IDPLAYER")
+    @Column(name = "API_IDPLAYER")
     private Long id;
+    @Column(name = "NAME")
+    private String name;
+    @Column(name ="PHOTO")
+    private String image;
     @ManyToOne
     @JoinColumn(name = "IDUSER")
     @JsonIgnore
     private User user;
+
+    public Player() {}
+
+    public Player(String name, String image, Long apiId) {
+        this.name = name;
+        this.image = image;
+        this.id = apiId;
+    }
 
     public Long getId() {
         return this.id;
@@ -31,6 +40,14 @@ public class Player {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public User getUser() {

@@ -3,7 +3,10 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Set;
 import java.util.HashSet;
+
+import com.example.demo.model.Player;
 import com.example.demo.model.Team;
+import com.example.demo.repositories.PlayerRepository;
 import com.example.demo.repositories.TeamRepository;
 import java.net.http.HttpClient;
 import jakarta.annotation.PostConstruct;
@@ -19,6 +22,8 @@ public class DataInitializer {
 
     @Autowired
     private TeamRepository teamRepository;
+    @Autowired
+    private PlayerRepository playerRepository;
     private String apiKey = "62814ce7392f82d3441e6c84135d1f70";
     private final int PREMIER = 39;
     private final int LALIGA = 140;
@@ -29,23 +34,56 @@ public class DataInitializer {
     @PostConstruct
     public void init() {
 
-        //Equipos
+        //Equipos y Jugadores
         for (int year = 2013; year <= 2023; year ++) {
             int season = year;
-            saveTeamsForLeague(PREMIER, season);
-            saveTeamsForLeague(LALIGA, season);
-            saveTeamsForLeague(BUNDESLIGA, season);
-            saveTeamsForLeague(SERIEA, season);
-            saveTeamsForLeague(LIGUE1, season);
+            saveTeamsAndPlayersForLeague(PREMIER, season);
+            saveTeamsAndPlayersForLeague(LALIGA, season);
+            saveTeamsAndPlayersForLeague(BUNDESLIGA, season);
+            saveTeamsAndPlayersForLeague(SERIEA, season);
+            saveTeamsAndPlayersForLeague(LIGUE1, season);
         }
         
     }
 
-    private void saveTeamsForLeague(int leagueId, int season) {
+    private void saveTeamsAndPlayersForLeague(int leagueId, int season) {
         Set<Team> teams = getTeamsForLeague(leagueId, season, apiKey);
         for (Team team: teams) {
             teamRepository.save(team);
         }
+        Set<Player> players = getPlayersForLeague(leagueId, season, apiKey);
+        for (Player player: players) {
+            playerRepository.save(player);
+        }
+    }
+
+    private static Set<Player> getPlayersForLeague(int leagueId, int season, String apiKey) {
+        String url = "https://v3.football.api-sports.io/players/topscorers?season=" + season + "&league=" + leagueId;
+        Set<Player> playerList = new HashSet<>();
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("x-rapidapi-key", apiKey)
+                .header("x-rapidapi-host", "v3.football.api-sports.io").build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                JSONObject jsonResponse = new JSONObject(response.body());
+                JSONArray playersArray = jsonResponse.getJSONArray("response");
+                for (int i = 0; i < playersArray.length(); i ++) {
+                    JSONObject playerObject = playersArray.getJSONObject(i).getJSONObject("player");
+                    String playerName = playerObject.getString("name");
+                    String playerLogo = playerObject.getString("photo");
+                    Long apiId = playerObject.getLong("id");
+
+                    Player player = new Player(playerName, playerLogo, apiId);
+                    playerList.add(player);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return playerList;
     }
 
     private static Set<Team> getTeamsForLeague(int leagueId, int season, String apiKey) {
