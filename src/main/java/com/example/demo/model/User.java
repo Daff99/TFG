@@ -28,6 +28,8 @@ public class User {
     private String email;
     @Column(name = "PASSWORD")
     private String password;
+    @Column(name = "ROL")
+    private String rol;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Player> favouritePlayers;
@@ -43,6 +45,14 @@ public class User {
         this.password = password;
         this.favouriteChampionships = new ArrayList<>();
         this.favouritePlayers = new ArrayList<>();
+    }
+
+    public String getRol() {
+        return this.rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public Long getId() {
