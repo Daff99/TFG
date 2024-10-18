@@ -23,25 +23,10 @@ public class UserController {
         return "loginregister";
     }
 
-    @PostMapping("/login")
-    public String loginUser(@RequestParam("email") String email,
-        @RequestParam("password") String password, Model model) {
-            User user = userService.findByEmail(email);
-            if (user != null && userService.validatePassword(user, password)) {
-                model.addAttribute("session", true);
-                return "redirect:/index";
-            } else {
-                model.addAttribute("error", "Correo o contraseña incorrectos");
-                return "loginregister";
-            }
-            
-    }
-
     @PostMapping("/register")
     public String processRegistration(@RequestParam("name") String name, @RequestParam("email") String email, 
             @RequestParam("password") String password, Model model) {
         userService.createUser(name, email, password);
-        model.addAttribute("session", true);
-        return "redirect:/index";
+        return "redirect:/";
     }
 }

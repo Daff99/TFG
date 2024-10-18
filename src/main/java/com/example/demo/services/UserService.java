@@ -17,7 +17,7 @@ public class UserService {
 
     public User createUser(String name, String email, String password) {
         User user = new User();
-        user.setName(name);
+        user.setUsername(name);
         user.setEmail(email);
         user.setPassword(password);
         user.setFavouriteChampionships(new ArrayList<>());
