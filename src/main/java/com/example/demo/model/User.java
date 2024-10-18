@@ -23,7 +23,7 @@ public class User {
     @Column(name = "IDUSER")
     private Long id;
     @Column(name = "NAME")
-    private String name;
+    private String username;
     @Column(name = "EMAIL")
     private String email;
     @Column(name = "PASSWORD")
@@ -38,7 +38,7 @@ public class User {
     public User() {}
 
     public User(String name, String email, String password) {
-        this.name = name;
+        this.username = name;
         this.email = email;
         this.password = password;
         this.favouriteChampionships = new ArrayList<>();
@@ -53,12 +53,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getEmail() {
