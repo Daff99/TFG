@@ -1,10 +1,10 @@
 package com.example.demo.services;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.example.demo.model.User;
@@ -15,6 +15,8 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserService() {}
 
@@ -22,19 +24,12 @@ public class UserService implements UserDetailsService {
         User user = new User();
         user.setUsername(name);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRol("client");
         user.setFavouriteChampionships(new ArrayList<>());
         user.setFavouritePlayers(new ArrayList<>());
         userRepository.save(user);
         return user;
-    }
-
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    public boolean validatePassword(User user, String password) {
-        return user.getPassword().equals(password);
     }
 
     @Override
