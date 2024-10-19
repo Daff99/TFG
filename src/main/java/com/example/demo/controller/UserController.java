@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.model.Register;
 import com.example.demo.model.User;
 import com.example.demo.services.UserService;
 
@@ -20,7 +21,14 @@ public class UserController {
     public String showLoginForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "loginregister";
+        return "register";
+    }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        Register r = new Register();
+        model.addAttribute(r);
+        return "register";
     }
 
     @PostMapping("/register")
