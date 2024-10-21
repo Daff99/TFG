@@ -1,10 +1,18 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.example.demo.model.User;
+import com.example.demo.repositories.UserRepository;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping("/")
     public String showHomePage() {
@@ -14,6 +22,13 @@ public class MainController {
     @RequestMapping("/favs")
     public String showFavs() {
         return "favs";
+    }
+
+    @RequestMapping("/profile")
+    public String showProfile(Authentication auth, Model model) {
+        User user = userRepository.findByEmail(auth.getName());
+        model.addAttribute("user", user);
+        return "profile";
     }
 
     @RequestMapping("/players")

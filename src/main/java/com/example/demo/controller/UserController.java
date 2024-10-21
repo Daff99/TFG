@@ -28,7 +28,6 @@ public class UserController {
     public String register(Model model) {
         Register r = new Register();
         model.addAttribute("r", r);
-        model.addAttribute("success", true);
         return "register";
     }
 
@@ -36,7 +35,6 @@ public class UserController {
     public String processRegistration(@RequestParam("name") String name, @RequestParam("email") String email, 
             @RequestParam("password") String password, Model model) {
         userService.createUser(name, email, password);
-        model.addAttribute("success", true);
         return "redirect:/login";
     }
 }
