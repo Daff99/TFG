@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 
@@ -30,12 +32,30 @@ public class User {
     private String password;
     @Column(name = "ROL")
     private String rol;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "USER_FAVOURITE_PLAYERS", 
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
     @JsonIgnore
     private List<Player> favouritePlayers;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "USER_FAVOURITE_CHAMPIONSHIPS",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "championships_id")
+    )
     @JsonIgnore
     private List<Championship> favouriteChampionships;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "USER_FAVOURITE_TEAMS",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    @JsonIgnore
+    private List<Team> favouriteTeams;
 
     public User() {}
 
@@ -45,6 +65,7 @@ public class User {
         this.password = password;
         this.favouriteChampionships = new ArrayList<>();
         this.favouritePlayers = new ArrayList<>();
+        this.favouriteTeams = new ArrayList<>();
     }
 
     public String getRol() {
@@ -103,5 +124,11 @@ public class User {
         this.favouriteChampionships = favouriteChampionships;
     }
 
+    public List<Team> getFavouriteTeams() {
+        return this.favouriteTeams;
+    }
 
+    public void setFavouriteTeams(List<Team> favouriteTeams) {
+        this.favouriteTeams = favouriteTeams;
+    }
 }

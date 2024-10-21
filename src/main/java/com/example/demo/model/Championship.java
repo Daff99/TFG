@@ -1,15 +1,16 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name ="CHAMPIONSHIPS")
@@ -22,10 +23,11 @@ public class Championship {
     private Long id;
     @Column(name = "NAME")
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "IDUSER")
+    @ManyToMany(mappedBy =  "favouriteChampionships")
     @JsonIgnore
-    private User user;
+    private List<User> users = new ArrayList<>();
+
+    public Championship() {}
 
     public Long getId() {
         return this.id;
@@ -43,11 +45,11 @@ public class Championship {
         this.name = name;
     }
 
-    public User getUser() {
-        return this.user;
+    public List<User> getUsers() {
+        return this.users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }  
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }

@@ -19,7 +19,11 @@ public class SecurityConfig {
                     .requestMatchers("/favs").authenticated()
                     .anyRequest().permitAll()
                 )
-                .formLogin(form -> form.defaultSuccessUrl("/", true)
+                .formLogin(form -> form
+                    .loginPage("/login")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/", true)
                 )
                 .logout(config -> config.logoutSuccessUrl("/"))
                 .build();

@@ -2,8 +2,12 @@ package com.example.demo.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 
 @Entity
@@ -17,6 +21,9 @@ public class Team {
     private String name;
     @Column(name = "LOGO")
     private String image;
+    @ManyToMany(mappedBy =  "favouriteTeams")
+    @JsonIgnore
+    private List<User> users;
 
     public Team() {}
 
@@ -24,6 +31,7 @@ public class Team {
         this.name = name;
         this.image = image;
         this.apiId = apiId;
+        this.users = new ArrayList<>();
     }
     
     public String getName() {
@@ -48,5 +56,13 @@ public class Team {
 
     public void setApiId(Long apiId) {
         this.apiId = apiId;
+    }
+
+    public List<User> getUsers() {
+        return this.users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

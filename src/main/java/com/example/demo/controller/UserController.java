@@ -21,7 +21,7 @@ public class UserController {
     public String showLoginForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "register";
+        return "login";
     }
 
     @GetMapping("/register")
@@ -37,6 +37,6 @@ public class UserController {
             @RequestParam("password") String password, Model model) {
         userService.createUser(name, email, password);
         model.addAttribute("success", true);
-        return "redirect:/";
+        return "redirect:/login";
     }
 }
