@@ -32,6 +32,8 @@ public class User {
     private String password;
     @Column(name = "ROL")
     private String rol;
+    @Column(name = "IMAGE")
+    private String image;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "USER_FAVOURITE_PLAYERS", 
