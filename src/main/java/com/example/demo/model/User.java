@@ -32,7 +32,7 @@ public class User {
     private String password;
     @Column(name = "ROL")
     private String rol;
-    @Column(name = "IMAGE")
+    @Column(name = "IMAGE", nullable = true, length = 64)
     private String image;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -132,5 +132,13 @@ public class User {
 
     public void setFavouriteTeams(List<Team> favouriteTeams) {
         this.favouriteTeams = favouriteTeams;
+    }
+
+    public String getImage() {
+        return this.image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

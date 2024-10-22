@@ -1,12 +1,14 @@
 package com.example.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import org.springframework.security.core.Authentication;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 
@@ -44,5 +46,18 @@ public class UserService implements UserDetailsService {
             return usuario;
         }
         throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
+    }
+
+    public User findById2(Long id) {
+        return userRepository.getById(id);
+    }
+
+    public User updateUser(User user) {
+        User user2 = userRepository.getById(user.getId());
+        user2.setUsername(user.getUsername());
+        user2.setPassword(passwordEncoder.encode(user.getPassword()));
+        user2.setImage(user.getImage());
+        userRepository.save(user2);
+        return user;
     }
 }

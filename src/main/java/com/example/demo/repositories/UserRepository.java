@@ -5,4 +5,5 @@ import com.example.demo.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     public User findByEmail(String email);
+    public User getById(Long id);
 }

@@ -33,7 +33,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-
+        /* 
         //Equipos y Jugadores
         for (int year = 2013; year <= 2023; year ++) {
             int season = year;
@@ -43,6 +43,7 @@ public class DataInitializer {
             saveTeamsAndPlayersForLeague(SERIEA, season);
             saveTeamsAndPlayersForLeague(LIGUE1, season);
         }
+            */
         
     }
 
