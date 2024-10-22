@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,7 +44,8 @@ public class UserController {
 
     @PostMapping("/register")
     public String processRegistration(@RequestParam("name") String name, @RequestParam("email") String email, 
-            @RequestParam("password") String password, Model model) {
+            @RequestParam("password") String password, /*@RequestParam("image") String imagen*/ Model model) {
+        //userService.createUser(name, email, password, imagen);
         userService.createUser(name, email, password);
         return "redirect:/login";
     }
@@ -59,27 +59,37 @@ public class UserController {
     }
 
     @PostMapping("editProfile")
-    public String updateProfile(@ModelAttribute User user, Authentication auth, @RequestParam("image") MultipartFile image) throws IOException {
+    public String updateProfile(Model model, 
+                                @RequestParam("image") MultipartFile image, 
+                                @RequestParam("id") Long userId, 
+                                @RequestParam("username") String username, 
+                                @RequestParam("password") String password, 
+                                Authentication auth) {
+        // Obtener el usuario existente
+        User user = userService.findById2(userId);
+        
+        // Actualizar los campos
+        user.setUsername(username);
+        user.setPassword(password); // Considera hacer hashing de la contraseña aquí
+
         if (!image.isEmpty()) {
-            String fileName = StringUtils.cleanPath(image.getOriginalFilename());
-            user.setImage(fileName);
-            String upload = "images/" + user.getId();
-            saveImage(upload, fileName, image);
+            // Define el directorio donde se guardará la imagen
+            Path directorio = Paths.get("demo\\src\\main\\resources\\static\\assets\\img\\profile");
+            String nombreArchivo = StringUtils.cleanPath(image.getOriginalFilename());
+            Path rutaCompleta = directorio.resolve(nombreArchivo);
+            
+            try (InputStream inputStream = image.getInputStream()) {
+                // Guarda la imagen en el directorio
+                Files.copy(inputStream, rutaCompleta, StandardCopyOption.REPLACE_EXISTING);
+                user.setImage(nombreArchivo); // Actualiza el nombre de la imagen en la base de datos
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
         }
-        userService.updateUser(user);
-        return "redirect:/profile";
+
+        userService.updateUser(user); // Actualiza el usuario en la base de datos
+        return "redirect:/profile"; // Redirige a la página de perfil
     }
 
-    private void saveImage(String dir, String fileName, MultipartFile image) throws IOException {
-        Path upPath = Paths.get(dir);
-        if (!Files.exists(upPath)) {
-            Files.createDirectories(upPath);
-        }
-        try (InputStream is = image.getInputStream()) {
-            Path filePath = upPath.resolve(fileName);
-            Files.copy(is, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            throw new IOException("No se puede guardar el archivo");
-        }
-    }
+
 }

@@ -1,14 +1,12 @@
 package com.example.demo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
-import org.springframework.security.core.Authentication;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 
@@ -22,12 +20,13 @@ public class UserService implements UserDetailsService {
 
     public UserService() {}
 
-    public User createUser(String name, String email, String password) {
+    public User createUser(String name, String email, String password/* , String imagen*/) {
         User user = new User();
         user.setUsername(name);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         user.setRol("client");
+        //user.setImage(imagen);
         user.setFavouriteChampionships(new ArrayList<>());
         user.setFavouritePlayers(new ArrayList<>());
         userRepository.save(user);
@@ -55,7 +54,9 @@ public class UserService implements UserDetailsService {
     public User updateUser(User user) {
         User user2 = userRepository.getById(user.getId());
         user2.setUsername(user.getUsername());
-        user2.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getPassword() != null &&!user.getPassword().isEmpty()) {
+            user2.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         user2.setImage(user.getImage());
         userRepository.save(user2);
         return user;

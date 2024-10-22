@@ -32,7 +32,7 @@ public class User {
     private String password;
     @Column(name = "ROL")
     private String rol;
-    @Column(name = "IMAGE", nullable = true, length = 64)
+    @Column(name = "IMAGE")
     private String image;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

@@ -42,10 +42,10 @@
             </ul>
         </nav>
     </header>
-    <div class="user-data">
-        <img class="image-user" src="${user.image}" alt="">
+    <div class="user-data" th:object="${user}">
+        <img class="image-user" th:src="${user.image}" alt="hola">
         <h2 class="h2-name" th:text="${user.username}"></h2>
-        <span class="span-email "th:text="${user.email}">Email:</span>
+        <span class="span-email "th:text="${user.email}"></span>
         <div class="buttons-container">
             <a th:href="@{/editProfile(id=${user.id})}">
                 <button class="modify">Modificar datos</button>
@@ -57,7 +57,6 @@
                 </form>
             </div>
         </div>
-        
     </div>
     <footer>
         <p>David Navarro Romero</p>

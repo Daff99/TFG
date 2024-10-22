@@ -26,7 +26,8 @@ public class MainController {
 
     @RequestMapping("/profile")
     public String showProfile(Authentication auth, Model model) {
-        User user = userRepository.findByEmail(auth.getName());
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
         model.addAttribute("user", user);
         return "profile";
     }
