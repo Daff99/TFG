@@ -43,7 +43,7 @@
         </nav>
     </header>
     <div class="user-data" th:object="${user}">
-        <img class="image-user" th:src="${user.image}" alt="hola">
+        <img class="image-user" th:src="@{/assets/img/profile/{userImage}(userImage=${user.image})}" alt="hola">
         <h2 class="h2-name" th:text="${user.username}"></h2>
         <span class="span-email "th:text="${user.email}"></span>
         <div class="buttons-container">
