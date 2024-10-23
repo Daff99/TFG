@@ -26,7 +26,7 @@ function getTeamsAndLogo(leagueId, season, done) {
 
 function appendTeams(container, teams) {
     const cont = document.querySelector(container);
-    cont.innerHTML = '';
+    cont.innerHTML = ''; 
     teams.forEach(team => {
         const teamName = team.team.name;
         const teamLogo = team.team.logo;
@@ -34,14 +34,31 @@ function appendTeams(container, teams) {
         const article = document.createRange().createContextualFragment(`
             <article>
                 <a href="/showTeam?id=${teamId}">
-                    <img src="${teamLogo}" alt="name" loading="lazy">
+                    <img src="${teamLogo}" alt="${teamName}" loading="lazy">
                 </a>
                 <h2>${teamName}</h2>
+                ${isLog ? `
+                    <span class="star-icon" sec:authorize="isAuthenticated()">
+                        <ion-icon name="star-outline"></ion-icon>
+                    </span>` : ''}
             </article>
         `);
         cont.append(article);
+        if (isLog) {
+            const starIcon = cont.lastElementChild.querySelector('.star-icon ion-icon');
+            starIcon.addEventListener('click', function() {
+                if (this.getAttribute('name') === 'star-outline') {
+                    this.setAttribute('name', 'star');
+                    this.classList.add('marked'); 
+                } else {
+                    this.setAttribute('name', 'star-outline');
+                    this.classList.remove('marked');
+                }
+            });
+        }
     });
 }
+
 
 function updateTeamsForSeason(season) {
     getTeamsAndLogo(premierId, season, data => {

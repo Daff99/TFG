@@ -118,3 +118,13 @@
     height: 50px;
 }
 
+.star-icon {
+    position: relative;
+    height: 35px;
+    width: 35px;
+    color: #fff;
+    font-size: 1.2em;
+    line-height: 57px;
+    margin-bottom: 25px;
+}
+
