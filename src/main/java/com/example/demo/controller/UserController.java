@@ -14,9 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
+import com.amazonaws.regions.Regions;
 import com.example.demo.model.Register;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.S3Service;
 import com.example.demo.services.UserService;
 import java.nio.file.StandardCopyOption;
 
@@ -27,6 +32,10 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private S3Service awsService;
+    private String bucketName = "images-daff";
+    private Regions regions = Regions.EU_NORTH_1;
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
@@ -64,32 +73,25 @@ public class UserController {
                                 @RequestParam("id") Long userId, 
                                 @RequestParam("username") String username, 
                                 @RequestParam("password") String password, 
-                                Authentication auth) {
-        // Obtener el usuario existente
+                                Authentication auth) throws AmazonServiceException, SdkClientException, IOException {
         User user = userService.findById2(userId);
-        
-        // Actualizar los campos
         user.setUsername(username);
-        user.setPassword(password); // Considera hacer hashing de la contraseña aquí
-
+        user.setPassword(password); 
+        String filename = image.getOriginalFilename();
+        awsService.uploadToS3(image.getInputStream(), filename);
         if (!image.isEmpty()) {
-            // Define el directorio donde se guardará la imagen
-            Path directorio = Paths.get("demo\\src\\main\\resources\\static\\assets\\img\\profile");
-            String nombreArchivo = StringUtils.cleanPath(image.getOriginalFilename());
-            Path rutaCompleta = directorio.resolve(nombreArchivo);
-            
-            try (InputStream inputStream = image.getInputStream()) {
-                // Guarda la imagen en el directorio
-                Files.copy(inputStream, rutaCompleta, StandardCopyOption.REPLACE_EXISTING);
-                user.setImage(nombreArchivo); // Actualiza el nombre de la imagen en la base de datos
-            } catch(IOException e) {
+            try {
+                String nombreArchivo = image.getOriginalFilename();
+                awsService.uploadToS3(image.getInputStream(), nombreArchivo);
+                user.setImage("https://" + bucketName + ".s3." + regions.getName() + ".amazonaws.com/" + nombreArchivo);
+            } catch(IOException | SdkClientException e) {
                 e.printStackTrace();
+                model.addAttribute("error", "error");
             }
+            model.addAttribute("message", "imagen subida correctamente!");
         }
 
-        userService.updateUser(user); // Actualiza el usuario en la base de datos
-        return "redirect:/profile"; // Redirige a la página de perfil
+        userService.updateUser(user); 
+        return "redirect:/profile"; 
     }
-
-
 }
