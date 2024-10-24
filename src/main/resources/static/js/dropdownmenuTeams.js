@@ -47,6 +47,7 @@ function appendTeams(container, teams) {
         if (isLog) {
             const starIcon = cont.lastElementChild.querySelector('.star-icon ion-icon');
             starIcon.addEventListener('click', function() {
+                const teamData = {id: teamId, name: teamName, logo: teamLogo};
                 if (this.getAttribute('name') === 'star-outline') {
                     this.setAttribute('name', 'star');
                     this.classList.add('marked'); 
@@ -54,6 +55,18 @@ function appendTeams(container, teams) {
                     this.setAttribute('name', 'star-outline');
                     this.classList.remove('marked');
                 }
+                fetch('/addFavouriteTeam', {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRF-Token': document.querySelector('input[name=_csrf]').value
+                    }, 
+                    body: `teamId=${teamId}` 
+                })
+                .then(() => {
+                    window.location.href = "/favs";
+                })
+                .catch(error => console.error('Error al actualizar favoritos'));
             });
         }
     });

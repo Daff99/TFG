@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.favs-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    min-height: 74.5vh;
+    margin: 50px 40px 20px 40px;
+}
+
+.favs-data ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.favourite-teams {
+    background: grey;
+
+}
+
+.trash-icon {
+    position: relative;
+    color: #000;
+    font-size: 25px;
+    line-height: 57px;
+    margin-left: 15px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.trash-icon:hover {
+    color: red;
+}
+
+.article-teams {
+    display: flex;
+    flex-direction: row;
+}
+
+.team-image {
+    width: 55px;
+    height: 50px;
+}
+
+.team-name {
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 20px;
+    font-size: 16px;
+    color: white;
+}
+
+.favourite-players {
+    background: grey;
+}
+
+.favourite-championships {
+    background: grey;
+}

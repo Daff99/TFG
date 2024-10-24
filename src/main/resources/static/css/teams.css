@@ -112,12 +112,6 @@
     border-radius: 8px;
 }
 
-.photo {
-    border-radius: 50%;
-    width: 100px;
-    height: 50px;
-}
-
 .star-icon {
     position: relative;
     height: 35px;

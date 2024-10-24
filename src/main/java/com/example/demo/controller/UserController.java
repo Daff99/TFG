@@ -19,11 +19,14 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.regions.Regions;
 import com.example.demo.model.Register;
+import com.example.demo.model.Team;
 import com.example.demo.model.User;
+import com.example.demo.repositories.TeamRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.S3Service;
 import com.example.demo.services.UserService;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -34,6 +37,8 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private S3Service awsService;
+    @Autowired
+    private TeamRepository teamRepository;
     private String bucketName = "images-daff";
     private Regions regions = Regions.EU_NORTH_1;
 
@@ -94,4 +99,28 @@ public class UserController {
         userService.updateUser(user); 
         return "redirect:/profile"; 
     }
+
+    @GetMapping("/favs")
+    public String showFavourites(Model model, Authentication auth) {
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        List<Team> favouriteTeams = user.getFavouriteTeams();
+        model.addAttribute("favouriteTeams", favouriteTeams);
+        return "favs";
+    }
+
+    @PostMapping("/addFavouriteTeam")
+    public String addFavouriteTeams(@RequestParam("teamId") Long teamId, Authentication auth) {
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        Team team = teamRepository.findByApiId(teamId);
+        if (user.getFavouriteTeams().contains(team)) {
+            user.getFavouriteTeams().remove(team);
+        } else {
+            user.getFavouriteTeams().add(team);
+        }
+        userRepository.save(user);
+        return "redirect:/favs";
+    }
+    
 }
