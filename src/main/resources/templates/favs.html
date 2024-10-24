@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/favs.css">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
     <title>Document</title>
 </head>
 <body>
@@ -45,11 +46,13 @@
         <div class="favourite-teams">
             <h2>Equipos Favoritos</h2>
             <ul>
-                <li th:each="team : ${favouriteTeams}">
+                <li th:each="team : ${favouriteTeams}" th:attr="data-team-id=${team.apiId}">
                     <article class="article-team">
                         <img class="team-image" th:src="${team.image}" th:alt="${team.name}">
                         <span class="team-name" th:text="${team.name}"></span>
-                        <span class="trash-icon"><ion-icon name="trash-outline"></ion-icon></span>
+                        <span class="trash-icon" onclick="removeTeamFromFavorites(this)">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </span>
                     </article>
                 </li>
             </ul>
@@ -67,5 +70,6 @@
     </footer>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="js/removeTeam.js"></script>
 </body>
 </html>

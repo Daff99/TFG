@@ -122,5 +122,17 @@ public class UserController {
         userRepository.save(user);
         return "redirect:/favs";
     }
+
+    @PostMapping("/removeFavouriteTeam")
+    public String remove(@RequestParam("teamId") Long teamId, Authentication auth, Model model) {
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        Team team = teamRepository.findByApiId(teamId);
+        if (team != null && user.getFavouriteTeams().contains(team)) {
+            user.getFavouriteTeams().remove(team);
+            userRepository.save(user);
+        }
+        return "redirect:/favs";
+    }
     
 }
