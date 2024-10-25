@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/css/dropdownmenu2.css}" rel="stylesheet">
+    <link th:href="@{/css/individualchampionship.css}" rel="stylesheet">
+    <link th:href="@{/css/matchweeks.css}" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar1">
+            <div class="logo">
+                <img src="assets/img/95.jpg" alt="Logo">
+            </div>
+            <div class="user-options">
+                <a href="/favs" class="fav-button">
+                    <span class="top"></span>
+                    <span class="text">FAVORITOS</span>
+                    <span class="bottom1"></span>
+                    <span class="bottom2"></span>
+                </a>
+                <div sec:authorize="!isAuthenticated()">
+                    <a href="/login" class="profile">
+                        <img th:src="@{/assets/user.png}" alt="Profile">
+                    </a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <a href="/profile" class="profile">
+                        <img src="assets/user.png" alt="Profile">
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar2">
+            <ul>
+                <li><a href="/">En directo</a></li>
+                <li><a href="/players">Jugadores</a></li>
+                <li><a href="/teams">Equipos</a></li>
+                <li><a href="/championships">Competiciones</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="slider">
+        <img th:src="@{/assets/img/sliders/} + ${championship.slider}" alt="">
+    </div>
+    <div class="select-menus-container">
+        <div class="select-menu">
+            <div class="select-button">
+                <span class="text">Selecciona una temporada</span>
+                <i class="bx bx-chevron-down"></i>
+            </div>
+            <ul class="options">
+                <li class="option">2023/2024</li>
+                <li class="option">2022/2023</li>
+                <li class="option">2021/2022</li>
+                <li class="option">2020/2021</li>
+                <li class="option">2019/2020</li>
+                <li class="option">2018/2019</li>
+                <li class="option">2017/2018</li>
+                <li class="option">2016/2017</li>
+                <li class="option">2015/2016</li>
+                <li class="option">2014/2015</li>
+                <li class="option">2013/2014</li>
+            </ul>
+        </div>
+        <div class="select-menuMW">
+            <div class="select-buttonMW">
+                <span class="textMW">Selecciona una jornada</span>
+                <i class="bx bx-chevron-down"></i>
+            </div>
+            <ul class="optionsMW">
+                <li class="optionMW" th:if="${championship.name == 'Bundesliga' || championship.name == 'Ligue 1'}"
+                    th:each="i : ${#numbers.sequence(1, 34)}" 
+                    th:text="'Jornada ' + ${i}">
+                </li>
+                <li class="optionMW" th:if="${championship.name == 'La Liga' || championship.name == 'Premier League' || championship.name == 'Serie A'}"
+                    th:each="i : ${#numbers.sequence(1, 38)}" 
+                    th:text="'Jornada ' + ${i}">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="matches"></div>
+    <div class="dashboard">
+        <iframe width="100%" height="100%" th:src="${powerBi}" frameborder="0" allowFullScreen="true"></iframe>
+    </div>
+    <script th:inline="javascript">
+        /*[[${leagueId}]]*/ 
+        const leagueId = /*[[${leagueId}]]*/ ""; 
+    </script>
+    <script th:src="@{/js/matches.js}"></script>
+
+</body>
+</html>

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Set;
 import java.util.HashSet;
 
+import com.example.demo.model.Championship;
 import com.example.demo.model.Player;
 import com.example.demo.model.Team;
+import com.example.demo.repositories.ChampionshipsRepository;
 import com.example.demo.repositories.PlayerRepository;
 import com.example.demo.repositories.TeamRepository;
 import java.net.http.HttpClient;
@@ -24,6 +26,8 @@ public class DataInitializer {
     private TeamRepository teamRepository;
     @Autowired
     private PlayerRepository playerRepository;
+    @Autowired
+    private ChampionshipsRepository championshipsRepository;
     private String apiKey = "62814ce7392f82d3441e6c84135d1f70";
     private final int PREMIER = 39;
     private final int LALIGA = 140;
@@ -43,7 +47,27 @@ public class DataInitializer {
             saveTeamsAndPlayersForLeague(SERIEA, season);
             saveTeamsAndPlayersForLeague(LIGUE1, season);
         }
-            */
+        */
+        /* 
+        Championship premier = new Championship("Premier League", "assets/img/championships/premier.png", "sliderpremier.jpg");
+        Championship laliga = new Championship("La Liga", "assets/img/championships/laliga.png", "sliderlaliga.jpg");
+        Championship bundesliga = new Championship("Bundesliga", "assets/img/championships/bundesliga.png", "sliderbundesliga.jpg");
+        Championship serieA = new Championship("Serie A", "assets/img/championships/seriea.png", "sliderseriea.jpg");
+        Championship ligue1 = new Championship("Ligue 1", "assets/img/championships/ligue1.png", "sliderligue1.jpg");
+
+        premier.setId(39);
+        laliga.setId(140);
+        bundesliga.setId(78);
+        serieA.setId(135);
+        ligue1.setId(61);
+
+        championshipsRepository.save(premier);
+        championshipsRepository.save(laliga);
+        championshipsRepository.save(bundesliga);
+        championshipsRepository.save(serieA);
+        championshipsRepository.save(ligue1);
+        */
+        
         
     }
 

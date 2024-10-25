@@ -41,7 +41,7 @@
             </ul>
         </nav>
     </header>
-    <div class="main-container">
+    <!-- <div class="main-container">
         <div class="laliga-container">
             <a href="laliga">
                 <img src="assets/img/championships/laliga.png" alt="">
@@ -72,7 +72,17 @@
             </a>
             <h1>Ligue 1</h1>
         </div>
-    </div>  
+    </div>  -->
+    <div style="min-height: 100vh;">
+        <li th:each="championship : ${listChampionships}">
+            <article>
+                <a th:href="@{/showChampionship/{id}(id=${championship.id})}">
+                    <img th:src="${championship.image}" th:alt="${championship.name}">
+                </a>
+                <span th:text="${championship.name}"></span>
+            </article>
+        </li>
+    </div>
     <footer>
         <p>David Navarro Romero</p>
     </footer>  

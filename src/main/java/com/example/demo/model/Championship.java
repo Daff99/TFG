@@ -9,8 +9,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 
 @Entity
 @Table(name ="CHAMPIONSHIPS")
@@ -18,22 +16,31 @@ import jakarta.persistence.GenerationType;
 public class Championship {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "IDCHAMPIONSHIP")
-    private Long id;
+    private Integer id;
     @Column(name = "NAME")
     private String name;
+    @Column(name = "IMAGE")
+    private String image;
+    @Column(name = "SLIDER")
+    private String slider;
     @ManyToMany(mappedBy =  "favouriteChampionships")
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
     public Championship() {}
 
-    public Long getId() {
+    public Championship(String name, String image, String slider) {
+        this.name = name;
+        this.image = image;
+        this.slider = slider;
+    }
+
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -51,5 +58,21 @@ public class Championship {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public String getImage() {
+        return this.image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getSlider() {
+        return this.slider;
+    }
+
+    public void setSlider(String slider) {
+        this.slider = slider;
     }
 }
