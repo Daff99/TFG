@@ -19,6 +19,7 @@
 .favs-data ul {
     list-style-type: none;
     padding-left: 0;
+    margin-top: 10px;
 }
 
 .favourite-teams {
@@ -40,9 +41,13 @@
     color: red;
 }
 
-.article-teams {
+.article-team {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .team-image {

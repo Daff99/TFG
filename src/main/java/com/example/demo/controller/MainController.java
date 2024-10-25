@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -32,12 +30,5 @@ public class MainController {
         User user = userRepository.findByEmail(username);
         model.addAttribute("user", user);
         return "profile";
-    }
-
-    @RequestMapping("/players")
-    public String showPlayers(Model model, Principal principal) {
-        boolean isLog = (principal != null);
-        model.addAttribute("isLog", isLog);
-        return "players";
     }
 }

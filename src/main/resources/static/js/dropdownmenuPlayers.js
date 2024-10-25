@@ -40,6 +40,10 @@ function appendPlayers(container, players) {
                 </a>
                 <div class="player-details">
                     <h2>${playerName}</h2>
+                    ${isLog ? `
+                        <span class="star-icon" sec:authorize="isAuthenticated()">
+                            <ion-icon name="star-outline"></ion-icon>
+                        </span>` : ''}
                     <div class="team-info">
                         <h3>${teamName}</h3>
                         <img class="teamLogo" src="${teamLogo}">
