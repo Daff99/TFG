@@ -41,46 +41,14 @@
             </ul>
         </nav>
     </header>
-    <!-- <div class="main-container">
-        <div class="laliga-container">
-            <a href="laliga">
-                <img src="assets/img/championships/laliga.png" alt="">
-            </a>
-            <h1>La Liga</h1>
-        </div>
-        <div class="premier-container">
-            <a href="/premier">
-                <img src="assets/img/championships/premier.png" alt="">
-            </a>
-            <h1>Premier League</h1>
-        </div>
-        <div class="seriea-container">
-            <a href="/seriea">
-                <img src="assets/img/championships/seriea.png" alt="">
-            </a>
-            <h1>Serie A</h1>
-        </div>
-        <div class="bundesliga-container">
-            <a href="/bundesliga">
-                <img src="assets/img/championships/bundesliga.png" alt="">
-            </a>
-            <h1>Bundesliga</h1>
-        </div>
-        <div class="ligue1-container">
-            <a href="/ligue1">
-                <img src="assets/img/championships/ligue1.png" alt="">
-            </a>
-            <h1>Ligue 1</h1>
-        </div>
-    </div>  -->
-    <div style="min-height: 100vh;">
+    <div class="team-container">
         <li th:each="championship : ${listChampionships}">
-            <article>
+            <div class="article-content">
                 <a th:href="@{/showChampionship/{id}(id=${championship.id})}">
                     <img th:src="${championship.image}" th:alt="${championship.name}">
                 </a>
-                <span th:text="${championship.name}"></span>
-            </article>
+                <h1 th:text="${championship.name}"></h1>
+            </div>
         </li>
     </div>
     <footer>
