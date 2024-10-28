@@ -72,9 +72,6 @@ function appendPlayers(container, players) {
                     }, 
                     body: `id=${playerId}` 
                 })
-                .then(() => {
-                    window.location.href= "/favs";
-                })
                 .catch(error => console.error('Error al actualizar favoritos'));
             });
         }

@@ -63,9 +63,6 @@ function appendTeams(container, teams) {
                     }, 
                     body: `teamId=${teamId}` 
                 })
-                .then(() => {
-                    window.location.href = "/favs";
-                })
                 .catch(error => console.error('Error al actualizar favoritos'));
             });
         }

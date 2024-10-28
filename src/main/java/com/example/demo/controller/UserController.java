@@ -24,7 +24,6 @@ import com.example.demo.repositories.TeamRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.S3Service;
 import com.example.demo.services.UserService;
-import java.util.List;
 
 @Controller
 public class UserController {

@@ -13,8 +13,5 @@ function toggleFavourites(icon) {
         }, 
         body: `id=${championshipId}` 
     })
-    .then(() => {
-        window.location.href = "/favs";
-    })
     .catch(error => console.error('Error al actualizar favoritos'));
 }
