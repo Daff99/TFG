@@ -27,7 +27,7 @@
                 </div>
                 <div sec:authorize="isAuthenticated()">
                     <a href="/profile" class="profile">
-                        <img src="assets/user.png" alt="Profile">
+                        <img th:src="${user.image}" alt="Profile">
                     </a>
                 </div>
             </div>

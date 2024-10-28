@@ -7,23 +7,24 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #000;
+}
+
 .favs-data {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
     min-height: 74.5vh;
-    margin: 50px 40px 20px 40px;
+    margin: 50px 300px 20px 300px;
 }
 
 .favs-data ul {
     list-style-type: none;
     padding-left: 0;
     margin-top: 10px;
-}
-
-.favourite-teams {
-    background: grey;
 }
 
 .trash-icon {
@@ -43,34 +44,39 @@
 .article-team, .article-player, .article-championship {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     text-align: center;
     margin-top: 10px;
+    padding: 15px;
+    width: 100%;
+    max-width: 250px;
+    background-color: ghostwhite;
+    border-radius: 8px;
 }
 
 .team-image, .championship-image {
     width: 55px;
     height: 50px;
+    margin-right: 15px;
 }
 
 .player-image {
     border-radius: 50%;
     width: 55px;
     height: 50px;
+    margin-right: 15px;
 }
 
 .team-name, .player-name, .championship-name {
     font-family: 'Montserrat', sans-serif;
     padding-left: 20px;
     font-size: 16px;
-    color: white;
+    color: #000;
 }
 
-.favourite-players {
-    background: grey;
-}
-
-.favourite-championships {
-    background: grey;
+.favourite-teams, .favourite-players, .favourite-championships {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
 }

@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.security.core.Authentication;
 import java.security.Principal;
 import java.util.List;
 import com.example.demo.services.ChampionshipsService;
 import com.example.demo.model.Championship;
+import com.example.demo.model.User;
+import com.example.demo.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 
 @Controller
@@ -16,11 +19,19 @@ public class ChampionshipsController {
 
     @Autowired
     private ChampionshipsService championshipsService;
+    @Autowired
+    private UserRepository userRepository;
     
     @RequestMapping("/championships")
     public String showChampionships(Model model, Principal principal) {
         boolean isLog = (principal != null);
         model.addAttribute("isLog", isLog);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            String username = auth.getName();
+            User user = userRepository.findByEmail(username);
+            model.addAttribute("user", user);
+        }
         List<Championship> listChampionships = championshipsService.findAll();
         model.addAttribute("listChampionships", listChampionships);
         return "championships";
@@ -28,6 +39,12 @@ public class ChampionshipsController {
 
     @RequestMapping("/showChampionship/{id}")
     public String showChampionship(@PathVariable("id") Integer id, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            String username = auth.getName();
+            User user = userRepository.findByEmail(username);
+            model.addAttribute("user", user);
+        }
         Championship champ = championshipsService.findById2(id);
         if (champ != null) {
             model.addAttribute("championship", champ);
