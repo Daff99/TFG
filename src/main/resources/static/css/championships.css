@@ -4,7 +4,7 @@ h1 {
     color: black;
 }
 
-.team-container {
+.championship-container {
     width: 100%;
     height: auto;
     display: flex;
@@ -29,4 +29,15 @@ li {
     width: 100%;
     min-width: 50vh;
     margin: 10px auto;
+}
+
+.star-icon {
+    position: relative;
+    justify-content: flex-start;
+    height: 35px;
+    width: 35px;
+    color: #000;
+    font-size: 1.2em;
+    line-height: 57px;
+    margin-bottom: 17px;
 }

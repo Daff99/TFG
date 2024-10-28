@@ -14,7 +14,11 @@ import com.amazonaws.SdkClientException;
 import com.amazonaws.regions.Regions;
 import com.example.demo.model.Register;
 import com.example.demo.model.Team;
+import com.example.demo.model.Player;
+import com.example.demo.model.Championship;
 import com.example.demo.model.User;
+import com.example.demo.repositories.ChampionshipsRepository;
+import com.example.demo.repositories.PlayerRepository;
 import com.example.demo.repositories.TeamRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.S3Service;
@@ -32,6 +36,11 @@ public class UserController {
     private S3Service awsService;
     @Autowired
     private TeamRepository teamRepository;
+    @Autowired
+    private PlayerRepository playerRepository;
+    @Autowired
+    private ChampionshipsRepository championshipsRepository;
+
     private String bucketName = "images-daff";
     private Regions regions = Regions.EU_NORTH_1;
 
@@ -98,7 +107,11 @@ public class UserController {
         String username = auth.getName();
         User user = userRepository.findByEmail(username);
         List<Team> favouriteTeams = user.getFavouriteTeams();
+        List<Player> favouritePlayers = user.getFavouritePlayers();
+        List<Championship> favouriteChampionships = user.getFavouriteChampionships();
         model.addAttribute("favouriteTeams", favouriteTeams);
+        model.addAttribute("favouritePlayers", favouritePlayers);
+        model.addAttribute("favouriteChampionships", favouriteChampionships);
         return "favs";
     }
 
@@ -127,5 +140,56 @@ public class UserController {
         }
         return "redirect:/favs";
     }
-    
+
+    @PostMapping("/addFavouriteChampionship")
+    public String addFavouriteChampionships(@RequestParam("id") Integer id, Authentication auth) {
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        Championship championship = championshipsRepository.getById(id);
+        if (user.getFavouriteChampionships().contains(championship)) {
+            user.getFavouriteChampionships().remove(championship);
+        } else {
+            user.getFavouriteChampionships().add(championship);
+        }
+        userRepository.save(user);
+        return "redirect:/favs";
+    }
+
+    @PostMapping("/removeFavouriteChampionship")
+    public String removeChampionship(@RequestParam("id") Integer id, Authentication auth, Model model) {
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        Championship championship = championshipsRepository.getById(id);
+        if (championship != null && user.getFavouriteChampionships().contains(championship)) {
+            user.getFavouriteChampionships().remove(championship);
+            userRepository.save(user);
+        }
+        return "redirect:/favs";
+    }
+
+    @PostMapping("/addFavouritePlayer")
+    public String addFavouritePlayers(@RequestParam("id") Long id, Authentication auth) {
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        Player player = playerRepository.getById(id);
+        if (user.getFavouritePlayers().contains(player)) {
+            user.getFavouritePlayers().remove(player);
+        } else {
+            user.getFavouritePlayers().add(player);
+        }
+        userRepository.save(user);
+        return "redirect:/favs";
+    }
+
+    @PostMapping("/removeFavouritePlayer")
+    public String removePlayer(@RequestParam("id") Long id, Authentication auth, Model model) {
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        Player player = playerRepository.getById(id);
+        if (player != null && user.getFavouritePlayers().contains(player)) {
+            user.getFavouritePlayers().remove(player);
+            userRepository.save(user);
+        }
+        return "redirect:/favs";
+    }
 }

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 import java.util.List;
 import com.example.demo.services.ChampionshipsService;
 import com.example.demo.model.Championship;
@@ -16,7 +18,9 @@ public class ChampionshipsController {
     private ChampionshipsService championshipsService;
     
     @RequestMapping("/championships")
-    public String showChampionships(Model model) {
+    public String showChampionships(Model model, Principal principal) {
+        boolean isLog = (principal != null);
+        model.addAttribute("isLog", isLog);
         List<Championship> listChampionships = championshipsService.findAll();
         model.addAttribute("listChampionships", listChampionships);
         return "championships";

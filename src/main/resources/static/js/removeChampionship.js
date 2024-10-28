@@ -1,13 +1,13 @@
-function removePlayerFromFavorites(trashIcon) {
+function removeChampionshipFromFavorites(trashIcon) {
     const liElement = trashIcon.closest('li'); 
-    const playerId = liElement.getAttribute('data-player-id'); 
-    fetch('/removeFavouritePlayer', {
+    const championshipId = liElement.getAttribute('data-championship-id'); 
+    fetch('/removeFavouriteChampionship', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-CSRF-Token': document.querySelector('input[name=_csrf]').value 
         },
-        body: `id=${playerId}`
+        body: `id=${championshipId}`
     })
     .then(response => {
         if (response.ok) {
@@ -15,4 +15,3 @@ function removePlayerFromFavorites(trashIcon) {
         }
     });
 }
-

@@ -30,6 +30,7 @@ function appendPlayers(container, players) {
     players.forEach(player => {
         const playerName = player.player.name;
         const playerLogo = player.player.photo;
+        const playerId = player.player.id;
         const teamStats = player.statistics[0];
         const teamName = teamStats.team.name;
         const teamLogo = teamStats.team.logo;
@@ -52,6 +53,31 @@ function appendPlayers(container, players) {
             </article>
         `);
         cont.append(article);
+        if (isLog) {
+            const starIcon = cont.lastElementChild.querySelector('.star-icon ion-icon');
+            starIcon.addEventListener('click', function() {
+                const playerData = {id: playerId, name: playerName, logo: playerLogo};
+                if (this.getAttribute('name') === 'star-outline') {
+                    this.setAttribute('name', 'star');
+                    this.classList.add('marked');
+                } else {
+                    this.setAttribute('name', 'star-outline');
+                    this.classList.remove('marked');
+                }
+                fetch('/addFavouritePlayer', {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRF-Token': document.querySelector('input[name=_csrf]').value
+                    }, 
+                    body: `id=${playerId}` 
+                })
+                .then(() => {
+                    window.location.href= "/favs";
+                })
+                .catch(error => console.error('Error al actualizar favoritos'));
+            });
+        }
     });
 }
 

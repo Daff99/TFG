@@ -59,11 +59,32 @@
         </div>
         <div class="favourite-players">
             <h2>Jugadores favoritos</h2>
+            <ul>
+                <li th:each="player : ${favouritePlayers}" th:attr="data-player-id=${player.id}">
+                    <article class="article-player">
+                        <img class="player-image" th:src="${player.image}" th:alt="${player.image}">
+                        <span class="player-name" th:text="${player.name}"></span>
+                        <span class="trash-icon" onclick="removePlayerFromFavorites(this)">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </span>
+                    </article>
+                </li>
+            </ul>
         </div>
         <div class="favourite-championships">
             <h2>Competiciones favoritas</h2>
+            <ul>
+                <li th:each="championship : ${favouriteChampionships}" th:attr="data-championship-id=${championship.id}">
+                    <article class="article-championship">
+                        <img class="championship-image" th:src="${championship.image}" th:alt="${championship.name}">
+                        <span class="championship-name" th:text="${championship.name}"></span>
+                        <span class="trash-icon" onclick="removeChampionshipFromFavorites(this)">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </span>
+                    </article>
+                </li>
+            </ul>
         </div>
-        
     </div>
     <footer>
         <p>David Navarro Romero</p>
@@ -71,5 +92,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="js/removeTeam.js"></script>
+    <script src="js/removePlayer.js"></script>
+    <script src="js/removeChampionship.js"></script>
 </body>
 </html>
