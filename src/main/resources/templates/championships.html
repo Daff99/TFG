@@ -44,10 +44,10 @@
     <div class="championship-container">
         <li th:each="championship : ${listChampionships}">
             <div class="article-content">
+                <img th:src="${championship.image}" th:alt="${championship.name}">
                 <a th:href="@{/showChampionship/{id}(id=${championship.id})}">
-                    <img th:src="${championship.image}" th:alt="${championship.name}">
+                    <h1 th:text="${championship.name}"></h1>
                 </a>
-                <h1 th:text="${championship.name}"></h1>
                 <span class="star-icon" sec:authorize="isAuthenticated()">
                     <ion-icon name="star-outline" th:attr="data-id=${championship.id}" onclick="toggleFavourites(this)"></ion-icon>
                 </span>

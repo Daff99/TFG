@@ -7,7 +7,7 @@ function removeTeamFromFavorites(trashIcon) {
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-CSRF-Token': document.querySelector('input[name=_csrf]').value 
         },
-        body: `teamId=${teamId}`
+        body: `id=${teamId}`
     })
     .then(response => {
         if (response.ok) {

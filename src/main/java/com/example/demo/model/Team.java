@@ -21,6 +21,8 @@ public class Team {
     private String name;
     @Column(name = "LOGO")
     private String image;
+    @Column(name = "COMPETITION")
+    private String competition;
     @ManyToMany(mappedBy =  "favouriteTeams")
     @JsonIgnore
     private List<User> users;
@@ -32,6 +34,14 @@ public class Team {
         this.image = image;
         this.apiId = apiId;
         this.users = new ArrayList<>();
+    }
+
+    public String getCompetition() {
+        return this.competition;
+    }
+
+    public void setCompetition(String competition) {
+        this.competition = competition;
     }
     
     public String getName() {

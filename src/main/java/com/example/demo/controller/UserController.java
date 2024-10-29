@@ -78,33 +78,32 @@ public class UserController {
     }
 
     @PostMapping("editProfile")
-public String updateProfile(Model model, 
-                            @RequestParam("image") MultipartFile image, 
-                            @RequestParam("id") Long userId, 
-                            @RequestParam("username") String username, 
-                            @RequestParam("password") String password, 
-                            Authentication auth) throws AmazonServiceException, SdkClientException, IOException {
-    
-    User user = userService.findById2(userId);
-    user.setUsername(username);
-    user.setPassword(password);
-    if (!image.isEmpty()) {
-        try {
-            String nombreArchivo = image.getOriginalFilename();
-            awsService.uploadToS3(image.getInputStream(), nombreArchivo);
-            user.setImage("https://" + bucketName + ".s3." + regions.getName() + ".amazonaws.com/" + nombreArchivo);
-        } catch(IOException | SdkClientException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Error al subir la imagen.");
+    public String updateProfile(Model model, 
+                                @RequestParam("image") MultipartFile image, 
+                                @RequestParam("id") Long userId, 
+                                @RequestParam("username") String username, 
+                                @RequestParam("password") String password, 
+                                Authentication auth) throws AmazonServiceException, SdkClientException, IOException {
+        
+        User user = userService.findById2(userId);
+        user.setUsername(username);
+        user.setPassword(password);
+        if (!image.isEmpty()) {
+            try {
+                String nombreArchivo = image.getOriginalFilename();
+                awsService.uploadToS3(image.getInputStream(), nombreArchivo);
+                user.setImage("https://" + bucketName + ".s3." + regions.getName() + ".amazonaws.com/" + nombreArchivo);
+            } catch(IOException | SdkClientException e) {
+                e.printStackTrace();
+                model.addAttribute("error", "Error al subir la imagen.");
+            }
         }
+        userService.updateUser(user); 
+        return "redirect:/profile"; 
     }
-    userService.updateUser(user); 
-    return "redirect:/profile"; 
-}
-
 
     @PostMapping("/addFavouriteTeam")
-    public String addFavouriteTeams(@RequestParam("teamId") Long teamId, Authentication auth) {
+    public String addFavouriteTeams(@RequestParam("id") Long teamId, Authentication auth) {
         String username = auth.getName();
         User user = userRepository.findByEmail(username);
         Team team = teamRepository.findByApiId(teamId);
@@ -118,7 +117,7 @@ public String updateProfile(Model model,
     }
 
     @PostMapping("/removeFavouriteTeam")
-    public String remove(@RequestParam("teamId") Long teamId, Authentication auth, Model model) {
+    public String remove(@RequestParam("id") Long teamId, Authentication auth, Model model) {
         String username = auth.getName();
         User user = userRepository.findByEmail(username);
         Team team = teamRepository.findByApiId(teamId);

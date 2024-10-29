@@ -39,7 +39,7 @@ public class DataInitializer {
     public void init() {
         /* 
         //Equipos y Jugadores
-        for (int year = 2013; year <= 2023; year ++) {
+        for (int year = 2018; year <= 2023; year ++) {
             int season = year;
             saveTeamsAndPlayersForLeague(PREMIER, season);
             saveTeamsAndPlayersForLeague(LALIGA, season);
@@ -74,6 +74,23 @@ public class DataInitializer {
     private void saveTeamsAndPlayersForLeague(int leagueId, int season) {
         Set<Team> teams = getTeamsForLeague(leagueId, season, apiKey);
         for (Team team: teams) {
+            switch (leagueId) {
+                case 39:    
+                    team.setCompetition("Premier League");
+                    break;
+                case 140:
+                    team.setCompetition("La Liga");
+                    break;
+                case 78:
+                    team.setCompetition("Bundesliga");
+                    break;
+                case 61:
+                    team.setCompetition("Ligue 1");
+                    break;
+                case 135:
+                    team.setCompetition("Serie A");
+                    break;
+            }
             teamRepository.save(team);
         }
         Set<Player> players = getPlayersForLeague(leagueId, season, apiKey);
