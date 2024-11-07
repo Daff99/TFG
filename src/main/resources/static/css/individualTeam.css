@@ -1,0 +1,14 @@
+.header-team {
+    display: flex;
+    flex-direction: column;
+    min-height: 10vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-team {
+    height: 100px;
+    width: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
