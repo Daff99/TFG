@@ -52,19 +52,19 @@ public class ChampionshipsController {
             String powerBiURL;
             switch (champ.getName()) {
                 case "Bundesliga":
-                    powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiYTQ4YzNlMjgtZTBiNC00MTlkLWE5MjEtNjA1MzJmYzllOTg2IiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9";
+                    powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiYTQ4YzNlMjgtZTBiNC00MTlkLWE5MjEtNjA1MzJmYzllOTg2IiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9&pageName=24eda314bd635c9586ac";
                     break;
                 case "La Liga":
-                    powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiNzk2ZDU0MDMtZWMxZS00NjAzLTlhNTAtMTQ3NmIxNjBlMGQzIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9";
+                    powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiNzk2ZDU0MDMtZWMxZS00NjAzLTlhNTAtMTQ3NmIxNjBlMGQzIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9&pageName=2fb42849f8433bceda63";
                     break;
                 case "Premier League":
                     powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiODI1MWMxODctYzEwNy00ZGU5LWIzZmMtNGZhZTA1OGU0ZmIwIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9";
                     break;
                 case "Serie A":
-                    powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiNmEzZGQ4NDktM2M3Yy00ODVhLWEzOWEtMDQzMWExZmVjY2U4IiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9";
+                    powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiNmEzZGQ4NDktM2M3Yy00ODVhLWEzOWEtMDQzMWExZmVjY2U4IiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9&pageName=b6e19b504af03c8ac43d";
                     break;
                 case "Ligue 1":
-                    powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiMDJiMzNkMGQtOGVkOC00YzBiLWFkYTItODc1MzUzMmY3MWZjIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9";
+                    powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiMDJiMzNkMGQtOGVkOC00YzBiLWFkYTItODc1MzUzMmY3MWZjIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9&pageName=0049490b2017f30fc5a5";
                     break;
                 default:
                     powerBiURL = null;
