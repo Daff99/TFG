@@ -94,6 +94,11 @@ button {
     font-weight: 500;
 }
 
+button:hover {
+    background-color: #00c9c8;
+    color: #fff;
+}
+
 .login-link {
     font-size: .9em;
     color: #fff;

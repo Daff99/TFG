@@ -6,11 +6,29 @@ a {
     font-size: 12px;
 }
 
-a:hover h2 {
-    color: black;
+#h2-ligue1:hover {
+    color: gray;
     text-decoration: underline;
 }
 
+#h2-seriea:hover {
+    color: #6051D5;
+    text-decoration: underline;
+}
+#h2-bundesliga:hover {
+    color: #BD001C;
+    text-decoration: underline;
+}
+
+#h2-liga:hover {
+    color: #e63946;
+    text-decoration: underline;
+}
+
+#h2-premier:hover {
+    color: #c54ad0;
+    text-decoration: underline;
+}
 .teams-container {
     height: auto;
     width: 100%;

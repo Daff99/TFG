@@ -76,7 +76,7 @@
                     <article>
                         <img th:src="${team.image}" th:alt="${team.name}">
                         <a th:href="@{/showTeam(id=${team.apiId})}">
-                            <h2 th:text="${team.name}"></h2>
+                            <h2 id="h2-premier" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
                             <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
@@ -91,7 +91,7 @@
                     <article>
                         <img th:src="${team.image}" th:alt="${team.name}">
                         <a th:href="@{/showTeam(id=${team.apiId})}">
-                            <h2 th:text="${team.name}"></h2>
+                            <h2 id="h2-liga" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
                             <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
@@ -106,7 +106,7 @@
                     <article>
                         <img th:src="${team.image}" th:alt="${team.name}">
                         <a th:href="@{/showTeam(id=${team.apiId})}">
-                            <h2 th:text="${team.name}"></h2>
+                            <h2 id="h2-bundesliga" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
                             <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
@@ -121,7 +121,7 @@
                     <article>
                         <img th:src="${team.image}" th:alt="${team.name}">
                         <a th:href="@{/showTeam(id=${team.apiId})}">
-                            <h2 th:text="${team.name}"></h2>
+                            <h2 id="h2-seriea" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
                             <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
@@ -136,7 +136,7 @@
                     <article>
                         <img class="image-team" th:src="${team.image}" th:alt="${team.name}">
                         <a th:href="@{/showTeam(id=${team.apiId})}">
-                            <h2 th:text="${team.name}"></h2>
+                            <h2 id="h2-ligue1" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
                             <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
