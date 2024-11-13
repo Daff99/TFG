@@ -18,7 +18,7 @@ public class ChampionshipsService {
         return championshipRepository.findAll();
     }
 
-    public Championship findById2(Integer id) {
+    public Championship findById2(Long id) {
         return championshipRepository.getById(id);
     }
     

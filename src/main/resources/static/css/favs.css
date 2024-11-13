@@ -85,3 +85,12 @@ h2 {
 .favourite-teams h2, .favourite-players h2, .favourite-championships h2 {
     text-align: left;
 }
+
+a {
+    text-decoration: none;
+}
+
+.championship-name:hover {
+    text-decoration: underline;
+    color: #000;
+}

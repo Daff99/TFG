@@ -17,7 +17,7 @@ public class Championship {
 
     @Id
     @Column(name = "IDCHAMPIONSHIP")
-    private Integer id;
+    private Long id;
     @Column(name = "NAME")
     private String name;
     @Column(name = "IMAGE")
@@ -36,11 +36,11 @@ public class Championship {
         this.slider = slider;
     }
 
-    public int getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

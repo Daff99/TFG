@@ -129,7 +129,7 @@ public class UserController {
     }
 
     @PostMapping("/addFavouriteChampionship")
-    public String addFavouriteChampionships(@RequestParam("id") Integer id, Authentication auth) {
+    public String addFavouriteChampionships(@RequestParam("id") Long id, Authentication auth) {
         String username = auth.getName();
         User user = userRepository.findByEmail(username);
         Championship championship = championshipsRepository.getById(id);
@@ -143,7 +143,7 @@ public class UserController {
     }
 
     @PostMapping("/removeFavouriteChampionship")
-    public String removeChampionship(@RequestParam("id") Integer id, Authentication auth, Model model) {
+    public String removeChampionship(@RequestParam("id") Long id, Authentication auth, Model model) {
         String username = auth.getName();
         User user = userRepository.findByEmail(username);
         Championship championship = championshipsRepository.getById(id);

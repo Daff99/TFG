@@ -38,7 +38,7 @@ public class ChampionshipsController {
     }
 
     @RequestMapping("/showChampionship/{id}")
-    public String showChampionship(@PathVariable("id") Integer id, Model model) {
+    public String showChampionship(@PathVariable("id") Long id, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
             String username = auth.getName();

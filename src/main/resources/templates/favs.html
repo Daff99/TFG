@@ -77,7 +77,9 @@
                 <li th:each="championship : ${favouriteChampionships}" th:attr="data-championship-id=${championship.id}">
                     <article class="article-championship">
                         <img class="championship-image" th:src="${championship.image}" th:alt="${championship.name}">
-                        <span class="championship-name" th:text="${championship.name}"></span>
+                        <a th:href="@{/showChampionship/{id}(id=${championship.id})}">
+                            <span class="championship-name" th:text="${championship.name}"></span>
+                        </a>
                         <span class="trash-icon" onclick="removeChampionshipFromFavorites(this)">
                             <ion-icon name="trash-outline"></ion-icon>
                         </span>
