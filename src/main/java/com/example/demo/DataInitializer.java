@@ -36,7 +36,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-        
+        /* 
         //Equipos y Jugadores
         for (int year = 2018; year <= 2023; year ++) {
             int season = year;
@@ -46,7 +46,7 @@ public class DataInitializer {
             saveTeamsAndPlayersForLeague(SERIEA, season);
             saveTeamsAndPlayersForLeague(LIGUE1, season);
         }
-        
+        */
         /* 
         Championship premier = new Championship("Premier League", "assets/img/championships/premier.png", "sliderpremier.jpg");
         Championship laliga = new Championship("La Liga", "assets/img/championships/laliga.png", "sliderlaliga.jpg");

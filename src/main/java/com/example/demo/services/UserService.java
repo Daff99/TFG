@@ -29,6 +29,7 @@ public class UserService implements UserDetailsService {
         //user.setImage(imagen);
         user.setFavouriteChampionships(new ArrayList<>());
         user.setFavouritePlayers(new ArrayList<>());
+        user.setImage("/assets/img/default.jpeg");
         userRepository.save(user);
         return user;
     }

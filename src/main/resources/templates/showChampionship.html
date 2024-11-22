@@ -25,12 +25,12 @@
                 </a>
                 <div sec:authorize="!isAuthenticated()">
                     <a href="/login" class="profile">
-                        <img th:src="@{/assets/user.png}" alt="Profile">
+                        <img th:src="@{/assets/img/user.png}" alt="Profile">
                     </a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
                     <a href="/profile" class="profile">
-                        <img src="assets/user.png" alt="Profile">
+                        <img th:src="${user.image}" alt="Profile">
                     </a>
                 </div>
             </div>
