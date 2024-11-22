@@ -3,7 +3,6 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Set;
 import java.util.HashSet;
-
 import com.example.demo.model.Championship;
 import com.example.demo.model.Player;
 import com.example.demo.model.Team;
@@ -37,7 +36,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-        /* 
+        
         //Equipos y Jugadores
         for (int year = 2018; year <= 2023; year ++) {
             int season = year;
@@ -47,7 +46,7 @@ public class DataInitializer {
             saveTeamsAndPlayersForLeague(SERIEA, season);
             saveTeamsAndPlayersForLeague(LIGUE1, season);
         }
-        */
+        
         /* 
         Championship premier = new Championship("Premier League", "assets/img/championships/premier.png", "sliderpremier.jpg");
         Championship laliga = new Championship("La Liga", "assets/img/championships/laliga.png", "sliderlaliga.jpg");

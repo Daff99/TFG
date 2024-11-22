@@ -30,25 +30,13 @@
     margin-left: 130px;
 }
 
-.premier-players {
-    background: linear-gradient(to right, #ffff, #360c3a); 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: auto;
-    padding: 10px;
-    width: 20%;
-    box-sizing: border-box;
-    border-radius: 8px;
-}
-
 .premier-players article, .laliga-players article, .bundesliga-players article, .serieA-players article, .ligue1-players article {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin: 10px 0;
     text-align: left;
-    color: white;
+    color: black;
     height: 100%;
     width: 100%;
 }
@@ -60,13 +48,26 @@
 
 .premier-players h2, .laliga-players h2, .bundesliga-players h2, .serieA-players h2, .ligue1-players h2 {
     font-size: 16px;
-    margin: 5px 0;
+    margin: 5px 0px;
     width: 100%;
     text-align: left;
+    color: black;
+}
+
+.premier-players {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 10px;
+    width: 20%;
+    box-sizing: border-box;
+    border-radius: 8px;
 }
 
 .laliga-players {
-    background: linear-gradient(to right, #fff, #e63946); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -78,7 +79,7 @@
 }
 
 .bundesliga-players {
-    background: linear-gradient(to right, #ffff, #BD001C); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -90,7 +91,7 @@
 }
 
 .serieA-players {
-    background: linear-gradient(to right, #ffff, #6051D5); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -102,7 +103,7 @@
 }
 
 .ligue1-players {
-    background: linear-gradient(to right, #ffff, #000); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -135,6 +136,13 @@
     text-align: left;
 }
 
+.name-star {
+    display: flex; 
+    align-items: center; 
+    gap: 0px; 
+    white-space: nowrap;
+}
+
 .team-info {
     display: flex;
     align-items: center;
@@ -151,3 +159,11 @@
     height: 25px;
 }
 
+.star-icon {
+    height: 35px;
+    width: 35px;
+    color: #000;
+    font-size: 1.2em;
+    line-height: normal;
+    padding-top: 8px;
+}

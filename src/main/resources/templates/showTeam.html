@@ -45,6 +45,11 @@
         <img class="image-team" th:src="${team.image}" alt="imagen">
         <h1 th:text="${team.name}"></h1>
     </div>
+    <div class="reports-container">
+        <div th:each="reportUrl, stat : ${listareports}" class="report">
+            <iframe width="100%" height="100%" th:src="${reportUrl}" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
+    </div>
     
 </body>
 </html>

@@ -14,6 +14,8 @@ import com.example.demo.services.TeamsService;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -25,6 +27,12 @@ public class TeamController {
     private UserRepository userRepository;
     @Autowired
     private TeamRepository teamRepository;
+    
+    private final Map<Long, String[]> reports = new HashMap<>();
+    public TeamController() {
+        reports.put(168L, new String[]{"https://app.powerbi.com/view?r=eyJrIjoiYmJhYTBlN2ItZDdjNS00MTc2LTk2ZWQtNDQyYjk0NzQ1ZDZiIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9&zoomLevel=110"});
+        reports.put(170L, new String[]{"https://app.powerbi.com/view?r=eyJrIjoiZjVmMTg3NDItMjU2Ni00NzY4LTk4ZWEtNmU2MmUzY2ViNDdhIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9", "https://app.powerbi.com/view?r=eyJrIjoiNWMzMWFmM2YtNGQyMy00YzUyLWI4ZTQtNTI2NGYwOGVhNmQwIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9"});
+    } 
 
     @RequestMapping("/teams")
     public String showTeams(Model model, Principal principal) {
@@ -61,6 +69,8 @@ public class TeamController {
         Team team = teamsService.findByApiId(apiId);
         if (team != null) {
             model.addAttribute("team", team);
+            String[] listareports = reports.get(apiId);
+            model.addAttribute("listareports", listareports);
         }
         return "showTeam";
     }
