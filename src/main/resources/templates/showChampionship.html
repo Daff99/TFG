@@ -6,7 +6,7 @@
     <link th:href="@{/css/styles.css}" rel="stylesheet">
     <link th:href="@{/css/dropdownmenu2.css}" rel="stylesheet">
     <link th:href="@{/css/individualchampionship.css}" rel="stylesheet">
-    <link th:href="@{/css/matchweeks.css}" rel="stylesheet">
+    <!-- <link th:href="@{/css/matchweeks.css}" rel="stylesheet"> -->
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
     <title>Document</title>
 </head>
@@ -88,6 +88,9 @@
     <div class="dashboard">
         <iframe width="100%" height="100%" th:src="${powerBi}" frameborder="0" allowFullScreen="true"></iframe>
     </div>
+    <footer>
+        <p>David Navarro Romero</p>
+    </footer>  
     <script th:inline="javascript">
         /*[[${leagueId}]]*/ 
         const leagueId = /*[[${leagueId}]]*/ ""; 

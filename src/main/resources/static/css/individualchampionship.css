@@ -1,3 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.matches {
+    width: auto;
+    min-height: 100vh;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.matches article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.matches article h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.match-info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.localName, .awayName {
+    flex: 1;
+    font-size: 18px;
+    color: #333;
+}
+
+.localName {
+    text-align: right;
+    padding-right: 15px;
+}
+
+.awayName {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.result {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    font-weight: bold;
+    padding: 10px 0;
+    background-color: #fff;
+}
+
+.result img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.result p {
+    font-size: 18px;
+    margin: 0 5px;
+    line-height: 1; 
+}
+
+.match-info p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0;
+    line-height: 1.5; 
+}
+
 .slider {
     height: auto;
     display: flex;
@@ -12,9 +108,14 @@
 }
 
 .dashboard {
-    width: 100%;
+    width: auto;
     height: 100vh;
     display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
 }
 
 
