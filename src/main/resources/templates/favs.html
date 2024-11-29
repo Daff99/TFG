@@ -49,7 +49,9 @@
                 <li th:each="team : ${favouriteTeams}" th:attr="data-team-id=${team.apiId}">
                     <article class="article-team">
                         <img class="team-image" th:src="${team.image}" th:alt="${team.name}">
-                        <span class="team-name" th:text="${team.name}"></span>
+                        <a th:href="@{/showTeam(id=${team.apiId})}">
+                            <span class="team-name" th:text="${team.name}"></span>
+                        </a>
                         <span class="trash-icon" onclick="removeTeamFromFavorites(this)">
                             <ion-icon name="trash-outline"></ion-icon>
                         </span>

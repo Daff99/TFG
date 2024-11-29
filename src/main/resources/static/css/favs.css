@@ -91,3 +91,8 @@ a {
     text-decoration: underline;
     color: #000;
 }
+
+.team-name:hover {
+    text-decoration: underline;
+    color: #000;
+}
