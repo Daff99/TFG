@@ -26,7 +26,7 @@ function getPlayersAndLogo(leagueId, season, done) {
 
 function appendPlayers(container, players) {
     const cont = document.querySelector(container);
-    cont.innerHTML = '';
+    cont.querySelectorAll('.player-card').forEach(playerCard => playerCard.remove());
     players.forEach(player => {
         const playerName = player.player.name;
         const playerLogo = player.player.photo;

@@ -11,10 +11,13 @@ import com.example.demo.model.User;
 import com.example.demo.repositories.TeamRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.TeamsService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.io.InputStream;
 import java.security.Principal;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -27,12 +30,19 @@ public class TeamController {
     private UserRepository userRepository;
     @Autowired
     private TeamRepository teamRepository;
+    private Map<Long, String[]> reports;
     
-    private final Map<Long, String[]> reports = new HashMap<>();
-    public TeamController() {
-        reports.put(168L, new String[]{"https://app.powerbi.com/view?r=eyJrIjoiYmJhYTBlN2ItZDdjNS00MTc2LTk2ZWQtNDQyYjk0NzQ1ZDZiIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9&zoomLevel=110"});
-        reports.put(170L, new String[]{"https://app.powerbi.com/view?r=eyJrIjoiZjVmMTg3NDItMjU2Ni00NzY4LTk4ZWEtNmU2MmUzY2ViNDdhIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9", "https://app.powerbi.com/view?r=eyJrIjoiNWMzMWFmM2YtNGQyMy00YzUyLWI4ZTQtNTI2NGYwOGVhNmQwIiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9"});
-    } 
+    @PostConstruct
+    public void initReports() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            InputStream input = getClass().getResourceAsStream("/reports.json");
+            reports = mapper.readValue(input, new TypeReference<Map<Long, String[]>>() {});
+        } catch (Exception e) {
+            e.printStackTrace();
+            reports = Map.of();
+        }
+    }
 
     @RequestMapping("/teams")
     public String showTeams(Model model, Principal principal) {
