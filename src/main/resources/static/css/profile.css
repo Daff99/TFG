@@ -43,6 +43,10 @@
     margin-top: 20px;
 }
 
+.logout-button:hover {
+    background-color: red;
+}
+
 .buttons-container {
     display: flex;
     flex-direction: row;

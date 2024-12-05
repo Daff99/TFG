@@ -1,12 +1,17 @@
 package com.example.demo.controller;
 
 import java.io.IOException;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +29,8 @@ import com.example.demo.repositories.TeamRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.S3Service;
 import com.example.demo.services.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UserController {
@@ -45,7 +52,12 @@ public class UserController {
     private Regions regions = Regions.EU_NORTH_1;
 
     @RequestMapping("/login")
-    public String showLoginForm(Model model) {
+    public String showLoginForm(Model model, HttpServletRequest request) {
+        String errorMessage = (String) request.getSession().getAttribute("errorMessage");
+        if (errorMessage != null) {
+            model.addAttribute("errorMessage", errorMessage);
+            request.getSession().removeAttribute("errorMessage");
+        }
         User user = new User();
         model.addAttribute("user", user);
         return "login";
@@ -59,10 +71,20 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String processRegistration(@RequestParam("name") String name, @RequestParam("email") String email, 
-            @RequestParam("password") String password, /*@RequestParam("image") String imagen*/ Model model) {
-        //userService.createUser(name, email, password, imagen);
-        userService.createUser(name, email, password);
+    public String processRegistration(@Valid @ModelAttribute("r") Register r, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "register";
+        }
+        if (userRepository.findByEmail(r.getEmail()) != null) {
+            model.addAttribute("errorMessage", "El correo ya está registrado");
+            return "register";
+        }
+        try {
+            userService.createUser(r.getName(), r.getEmail(), r.getPassword());
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "register";
+        }
         return "redirect:/login";
     }
 

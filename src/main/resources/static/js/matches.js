@@ -27,7 +27,7 @@ function getMatches(season, done) {
 
 function appendMatches(container, matches) {
     const cont = document.querySelector(container);
-    cont.innerHTML = '';
+    cont.querySelectorAll('.article-matches').forEach(articleMatches => articleMatches.remove());
     matches.forEach(match => {
         const date_ = match.fixture.date.split("T")[0];
         const [year, month, day] = date_.split("-");
@@ -40,7 +40,7 @@ function appendMatches(container, matches) {
         const resultAway = match.goals.away ?? '-';
 
         const article = document.createRange().createContextualFragment(`
-            <article>
+            <article class="article-matches">
                 <h2>${formattedDate}</h2>
                 <div class="match-info">
                     <p class="localName">${localTeamName}</p>

@@ -20,7 +20,10 @@ public class UserService implements UserDetailsService {
 
     public UserService() {}
 
-    public User createUser(String name, String email, String password/* , String imagen*/) {
+    public User createUser(String name, String email, String password) {
+        if (name == null || name.isBlank() || email == null || email.isBlank() || password == null || password.isBlank()) {
+            throw new IllegalArgumentException("Los campos no pueden estar vacíos");
+        }
         User user = new User();
         user.setUsername(name);
         user.setEmail(email);
