@@ -22,6 +22,22 @@
     margin-top: 10px;
 }
 
+.favourite-teams, .favourite-players, .favourite-championships {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 30%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    min-height: 100px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.favourite-teams h2, .favourite-players h2, .favourite-championships h2 {
+    text-align: center;
+}
+
 .trash-icon {
     position: relative;
     color: #000;
@@ -68,21 +84,6 @@
     padding-left: 20px;
     font-size: 16px;
     color: #000;
-}
-
-.favourite-teams, .favourite-players, .favourite-championships {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    min-width: 30%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    min-height: 100px;
-    justify-content: center;
-    text-align: center;
-}
-
-.favourite-teams h2, .favourite-players h2, .favourite-championships h2 {
-    text-align: center;
 }
 
 a {

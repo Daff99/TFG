@@ -207,6 +207,10 @@ footer p {
 }
 
 .container-widget {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 10px 10px 10px 10px;
     margin-top: 2%;
     margin-left: 5%;
     margin-right: 5%;
