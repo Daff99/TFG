@@ -90,12 +90,7 @@ a {
     text-decoration: none;
 }
 
-.championship-name:hover {
-    text-decoration: underline;
-    color: #000;
-}
-
-.team-name:hover {
+.championship-name:hover, .team-name:hover, .player-name:hover {
     text-decoration: underline;
     color: #000;
 }

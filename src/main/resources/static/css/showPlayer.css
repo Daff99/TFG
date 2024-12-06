@@ -1,0 +1,33 @@
+.header-player {
+    display: flex;
+    flex-direction: column;
+    min-height: 10vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-player2 {
+    display: flex;
+    flex-direction: row;
+}
+
+.image-player {
+    height: 110px;
+    width: 110px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    border: 3px solid #00aaa9;
+}
+
+.star-icon {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.star-icon ion-icon {
+    height: 20px;
+    width: 20px;
+    justify-content: center;
+    align-items: center;
+}

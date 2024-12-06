@@ -65,7 +65,9 @@
                 <li th:each="player : ${favouritePlayers}" th:attr="data-player-id=${player.id}">
                     <article class="article-player">
                         <img class="player-image" th:src="${player.image}" th:alt="${player.image}">
-                        <span class="player-name" th:text="${player.name}"></span>
+                        <a th:href="@{/showPlayer(id=${player.id})}">
+                            <span class="player-name" th:text="${player.name}"></span>
+                        </a>
                         <span class="trash-icon" onclick="removePlayerFromFavorites(this)">
                             <ion-icon name="trash-outline"></ion-icon>
                         </span>

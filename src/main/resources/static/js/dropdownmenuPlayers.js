@@ -36,7 +36,7 @@ function appendPlayers(container, players) {
         const teamLogo = teamStats.team.logo;
         const article = document.createRange().createContextualFragment(`
             <article class="player-card">
-                <a href="/showPlayer">
+                <a href="/showPlayer?id=${playerId}">
                     <img class="photo" src="${playerLogo}" alt="name">
                 </a>
                 <div class="player-details">
