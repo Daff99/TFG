@@ -37,6 +37,10 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public boolean checkPassword(String pw1, String pw2) {
+        return passwordEncoder.matches(pw1, pw2);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
@@ -55,11 +59,11 @@ public class UserService implements UserDetailsService {
         return userRepository.getById(id);
     }
 
-    public User updateUser(User user) {
+    public User updateUser(User user, String newPassword) {
         User user2 = userRepository.getById(user.getId());
         user2.setUsername(user.getUsername());
-        if (user.getPassword() != null &&!user.getPassword().isEmpty()) {
-            user2.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (newPassword != null && !newPassword.isEmpty()) {
+            user2.setPassword(passwordEncoder.encode(newPassword));
         }
         user2.setImage(user.getImage());
         userRepository.save(user2);

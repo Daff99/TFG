@@ -106,10 +106,23 @@ public class UserController {
                                 @RequestParam("username") String username, 
                                 @RequestParam("password") String password, 
                                 Authentication auth) throws AmazonServiceException, SdkClientException, IOException {
-        
         User user = userService.findById2(userId);
+        if (username.isBlank()) {
+            model.addAttribute("errorMessage", "El nombre no puede estar vacío");
+            model.addAttribute("user", user);
+            return "editProfile";
+        }
+        if (password.isBlank()) {
+            model.addAttribute("errorMessage", "La contraseña no puede estar vacía");
+            model.addAttribute("user", user);
+            return "editProfile";
+        }
         user.setUsername(username);
-        user.setPassword(password);
+        if (userService.checkPassword(password, user.getPassword())) {
+            model.addAttribute("errorMessage", "Ya está utilizando esta constraseña");
+            model.addAttribute("user", user);
+            return "editProfile";
+        }
         if (!image.isEmpty()) {
             try {
                 String nombreArchivo = image.getOriginalFilename();
@@ -120,7 +133,13 @@ public class UserController {
                 model.addAttribute("error", "Error al subir la imagen.");
             }
         }
-        userService.updateUser(user); 
+        try {
+            userService.updateUser(user, password); 
+        } catch(IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            model.addAttribute("user", user);
+            return "editProfile";
+        }
         return "redirect:/profile"; 
     }
 
