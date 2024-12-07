@@ -27,6 +27,9 @@ public class UserService implements UserDetailsService {
         User user = new User();
         user.setUsername(name);
         user.setEmail(email);
+        if (password.length() < 6) {
+            throw new IllegalArgumentException("La contraseña debe tener mínimo 6 caracteres");
+        }
         user.setPassword(passwordEncoder.encode(password));
         user.setRol("client");
         //user.setImage(imagen);

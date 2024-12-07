@@ -123,6 +123,11 @@ public class UserController {
             model.addAttribute("user", user);
             return "editProfile";
         }
+        if (password.length() < 6) {
+            model.addAttribute("errorMessage", "La contraseña debe tener mínimo 6 caracteres");
+            model.addAttribute("user", user);
+            return "editProfile";
+        }
         if (!image.isEmpty()) {
             try {
                 String nombreArchivo = image.getOriginalFilename();
