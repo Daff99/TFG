@@ -54,7 +54,7 @@
                             <h2 id="h2-premier" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
-                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
+                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}"></ion-icon>
                         </span>
                     </article>
                 </li>
@@ -70,7 +70,7 @@
                             <h2 id="h2-liga" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
-                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
+                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}"></ion-icon>
                         </span>
                     </article>
                 </li>
@@ -86,7 +86,7 @@
                             <h2 id="h2-bundesliga" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
-                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
+                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}"></ion-icon>
                         </span>
                     </article>
                 </li>
@@ -102,7 +102,7 @@
                             <h2 id="h2-seriea" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
-                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
+                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}"></ion-icon>
                         </span>
                     </article>
                 </li>
@@ -118,7 +118,7 @@
                             <h2 id="h2-ligue1" th:text="${team.name}"></h2>
                         </a>
                         <span class="star-icon" sec:authorize="isAuthenticated()">
-                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}" onclick="toggleFavourites(this)"></ion-icon>
+                            <ion-icon name="star-outline" th:attr="data-id=${team.apiId}"></ion-icon>
                         </span>
                     </article>
                 </li>
@@ -131,8 +131,8 @@
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         </form>
     </footer>
-    <!-- <script src="js/dropdownmenuTeams.js"></script> -->
-     <script src="js/teamFavourite.js"></script>
+    <script src="js/favourites.js"></script>
+    <script src="js/teamFavourite.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script th:inline="javascript">
