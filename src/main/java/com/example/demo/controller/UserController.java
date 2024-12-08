@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
@@ -224,5 +228,16 @@ public class UserController {
             userRepository.save(user);
         }
         return "redirect:/favs";
+    }
+
+    @RequestMapping("/favouritePlayers")
+    @ResponseBody
+    public List<Long> getFavouritePlayers(Authentication auth) {
+        if (auth == null || !auth.isAuthenticated()) {
+            return new ArrayList<>();
+        }
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        return user.getFavouritePlayers().stream().map(Player::getId).collect(Collectors.toList());
     }
 }
