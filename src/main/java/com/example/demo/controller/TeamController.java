@@ -15,11 +15,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.io.InputStream;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -86,16 +83,5 @@ public class TeamController {
             model.addAttribute("listareports", listareports);
         }
         return "showTeam";
-    }
-
-    @RequestMapping("/favouriteTeams")
-    @ResponseBody
-    public List<Long> getFavouriteTeams(Authentication auth) {
-        if (auth == null || !auth.isAuthenticated()) {
-            return new ArrayList<>();
-        }
-        String username = auth.getName();
-        User user = userRepository.findByEmail(username);
-        return user.getFavouriteTeams().stream().map(Team::getApiId).collect(Collectors.toList());
     }
 }

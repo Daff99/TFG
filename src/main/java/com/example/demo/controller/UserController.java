@@ -240,4 +240,27 @@ public class UserController {
         User user = userRepository.findByEmail(username);
         return user.getFavouritePlayers().stream().map(Player::getId).collect(Collectors.toList());
     }
+
+    @RequestMapping("/favouriteTeams")
+    @ResponseBody
+    public List<Long> getFavouriteTeams(Authentication auth) {
+        if (auth == null || !auth.isAuthenticated()) {
+            return new ArrayList<>();
+        }
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        return user.getFavouriteTeams().stream().map(Team::getApiId).collect(Collectors.toList());
+    }
+
+    @RequestMapping("/favouriteChampionships")
+    @ResponseBody
+    public List<Long> getFavouriteChampionships(Authentication auth) {
+        if (auth == null || !auth.isAuthenticated()) {
+            return new ArrayList<>();
+        }
+        String username = auth.getName();
+        User user = userRepository.findByEmail(username);
+        return user.getFavouriteChampionships().stream().map(Championship::getId).collect(Collectors.toList());
+    }
+
 }
