@@ -14,7 +14,7 @@ function getTeamsAndLogo(leagueId, season, done) {
     const apiOptions = {
         method: 'GET',
         headers: {
-            'x-rapidapi-key': '62814ce7392f82d3441e6c84135d1f70',
+            'x-rapidapi-key': '6467b905839bb394cd3c678dabff9d81',
             'x-rapidapi-host': 'sportapi7.p.rapidapi.com'
         }
     };
@@ -68,7 +68,6 @@ function appendTeams(container, teams) {
         }
     });
 }
-
 
 function updateTeamsForSeason(season) {
     getTeamsAndLogo(premierId, season, data => {

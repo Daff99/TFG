@@ -50,6 +50,7 @@
             </span>
         </div>
     </div>
+    <div class="info-team"></div>
     <div class="reports-container">
         <h1>INFORMACIÓN DE PLANTILLA</h1>
         <div th:each="reportUrl, stat : ${listareports}" class="report">
@@ -65,6 +66,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="js/teamFavourite.js"></script>
+    <script src="js/infoTeam.js"></script>
     <script th:inline="javascript">
         var isLog = /*[[${isLog}]]*/ false;
     </script>
