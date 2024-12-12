@@ -53,24 +53,27 @@ function appendPlayers(container, players, favouritePlayers) {
         const teamStats = player.statistics[0];
         const teamName = teamStats.team.name;
         const teamLogo = teamStats.team.logo;
+        const teamId = teamStats.team.id;
 
         const isFavourite = favouritePlayers.includes(playerId);
 
         const article = document.createRange().createContextualFragment(`
             <article class="player-card">
-                <a href="/showPlayer?id=${playerId}">
-                    <img class="photo" src="${playerLogo}" alt="${playerName}">
-                </a>
+                <img class="photo" src="${playerLogo}" alt="${playerName}">
                 <div class="player-details">
                     <div class="name-star">
-                        <h2>${playerName}</h2>
+                        <a href="/showPlayer?id=${playerId}">
+                            <h2>${playerName}</h2>
+                        </a>    
                         ${isLog ? `
                         <span class="star-icon">
                             <ion-icon name="${isFavourite ? 'star' : 'star-outline'}" data-id="${playerId}" class="${isFavourite ? 'marked' : ''}"></ion-icon>
                         </span>` : ''}
                     </div>
                     <div class="team-info">
-                        <h3>${teamName}</h3>
+                        <a href="/showTeam?id=${teamId}">
+                            <h3>${teamName}</h3>
+                        </a>
                         <img class="teamLogo" src="${teamLogo}">
                     </div>
                 </div>

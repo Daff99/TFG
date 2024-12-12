@@ -7,6 +7,16 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+a { 
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 .players-container {
     height: auto;
     width: 100%;
@@ -107,6 +117,7 @@
 .team-info img {
     width: 25px;
     height: 25px;
+    object-fit: contain;
 }
 
 .star-icon {
