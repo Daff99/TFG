@@ -27,7 +27,7 @@ public class DataInitializer {
     private PlayerRepository playerRepository;
     @Autowired
     private ChampionshipsRepository championshipsRepository;
-    private String apiKey = "62814ce7392f82d3441e6c84135d1f70";
+    private String apiKey = "6467b905839bb394cd3c678dabff9d81";
     private final int PREMIER = 39;
     private final int LALIGA = 140;
     private final int BUNDESLIGA = 78;
@@ -46,19 +46,19 @@ public class DataInitializer {
             saveTeamsAndPlayersForLeague(SERIEA, season);
             saveTeamsAndPlayersForLeague(LIGUE1, season);
         }
-        */
-        /* 
+        
+         
         Championship premier = new Championship("Premier League", "assets/img/championships/premier.png", "sliderpremier.jpg");
         Championship laliga = new Championship("La Liga", "assets/img/championships/laliga.png", "sliderlaliga.jpg");
         Championship bundesliga = new Championship("Bundesliga", "assets/img/championships/bundesliga.png", "sliderbundesliga.jpg");
         Championship serieA = new Championship("Serie A", "assets/img/championships/seriea.png", "sliderseriea.jpg");
         Championship ligue1 = new Championship("Ligue 1", "assets/img/championships/ligue1.png", "sliderligue1.jpg");
 
-        premier.setId(39);
-        laliga.setId(140);
-        bundesliga.setId(78);
-        serieA.setId(135);
-        ligue1.setId(61);
+        premier.setId(39L);
+        laliga.setId(140L);
+        bundesliga.setId(78L);
+        serieA.setId(135L);
+        ligue1.setId(61L);
 
         championshipsRepository.save(premier);
         championshipsRepository.save(laliga);
@@ -66,9 +66,8 @@ public class DataInitializer {
         championshipsRepository.save(serieA);
         championshipsRepository.save(ligue1);
         */
-        
-        
     }
+        
 
     private void saveTeamsAndPlayersForLeague(int leagueId, int season) {
         Set<Team> teams = getTeamsForLeague(leagueId, season, apiKey);
@@ -111,7 +110,8 @@ public class DataInitializer {
             if (response.statusCode() == 200) {
                 JSONObject jsonResponse = new JSONObject(response.body());
                 JSONArray playersArray = jsonResponse.getJSONArray("response");
-                for (int i = 0; i < playersArray.length(); i ++) {
+                int limit = Math.min(playersArray.length(), 10);
+                for (int i = 0; i < limit; i ++) {
                     JSONObject playerObject = playersArray.getJSONObject(i).getJSONObject("player");
                     String playerName = playerObject.getString("name");
                     String playerLogo = playerObject.getString("photo");

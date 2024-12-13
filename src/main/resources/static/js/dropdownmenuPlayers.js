@@ -46,7 +46,8 @@ function getFavouritePlayers(done) {
 function appendPlayers(container, players, favouritePlayers) {
     const cont = document.querySelector(container);
     cont.querySelectorAll('.player-card').forEach(playerCard => playerCard.remove());
-    players.forEach(player => {
+    const limitedPlayers = players.slice(0, 10);
+    limitedPlayers.forEach(player => {
         const playerName = player.player.name;
         const playerLogo = player.player.photo;
         const playerId = player.player.id;

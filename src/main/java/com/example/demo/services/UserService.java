@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 
@@ -23,6 +25,11 @@ public class UserService implements UserDetailsService {
     public User createUser(String name, String email, String password) {
         if (name == null || name.isBlank() || email == null || email.isBlank() || password == null || password.isBlank()) {
             throw new IllegalArgumentException("Los campos no pueden estar vacíos");
+        }
+        String formatEmail = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";
+        Pattern pattern = Pattern.compile(formatEmail, Pattern.CASE_INSENSITIVE);
+        if (!pattern.matcher(email).matches()) {
+            throw new IllegalArgumentException("El correo no tiene un formato válido");
         }
         User user = new User();
         user.setUsername(name);

@@ -23,6 +23,8 @@
 }
 
 .favourite-teams, .favourite-players, .favourite-championships {
+    display: flex;
+    flex-direction: column;
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -30,8 +32,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     min-height: 100px;
     align-items: center;
-    justify-content: center;
-    text-align: center;
 }
 
 .favourite-teams h2, .favourite-players h2, .favourite-championships h2 {
@@ -60,9 +60,9 @@
     text-align: center;
     margin-top: 10px;
     padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 250px;
-    background-color: ghostwhite;
     border-radius: 8px;
 }
 
@@ -70,6 +70,7 @@
     width: 55px;
     height: 50px;
     margin-right: 15px;
+    object-fit: contain;
 }
 
 .player-image {
@@ -82,8 +83,9 @@
 .team-name, .player-name, .championship-name {
     font-family: 'Montserrat', sans-serif;
     padding-left: 20px;
-    font-size: 16px;
+    font-size: 12px;
     color: #000;
+    font-weight: bold;
 }
 
 a {
