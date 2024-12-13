@@ -7,6 +7,15 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.info-player {
+    width: 100vh;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
 .header-player {
     display: flex;
     flex-direction: column;
@@ -40,4 +49,23 @@
     width: 20px;
     justify-content: center;
     align-items: center;
+}
+
+.ficha-tecnica {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.player-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: flex-start;
+
 }

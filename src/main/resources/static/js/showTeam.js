@@ -10,9 +10,8 @@ function getInfo(teamId, done) {
     fetch(url, apiOptions)
         .then(response => response.json())
         .then(data => done(data))
-        .catch(error => console.error('Error al obtener jugadores:', error));
+        .catch(error => console.error('Error al obtener informacion del equipo:', error));
 }
-
 function appendInfo(container, datos) {
     const cont = document.querySelector(container);
     cont.innerHTML = '';
