@@ -27,14 +27,14 @@ function appendInfo(container, datos) {
 		const weight = element.player.weight;
 		const nationality = element.player.nationality;
 		const fichaTecnica = document.createRange().createContextualFragment(`
-			<article class="ficha-tecnica">
+			<article class="article-player">
 				<h1>FICHA TÉCNICA</h1>
 				<div class="player-data">
-					<span>Edad: <span>${agePlayer}</span></span>
-					<span>Fecha de nacimiento: <span>${birthDate}</span></span>
-					<span>Altura: <span>${height}</span></span>
-					<span>Peso: <span>${weight}</span></span>
-					<span>Nacionalidad: <span>${nationality}</span></span>
+					<h3>Edad: <span>${agePlayer}</span></h3>
+					<h3>Fecha de nacimiento: <span>${birthDate}</span></h3>
+					<h3>Altura: <span>${height}</span></h3>
+					<h3>Peso: <span>${weight}</span></h3>
+					<h3>Nacionalidad: <span>${nationality}</span></h3>
 				</div>
 			</article>`); 
 		const main = document.querySelector(".info-player");

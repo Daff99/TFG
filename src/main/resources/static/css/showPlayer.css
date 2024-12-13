@@ -1,15 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}
-
 .info-player {
-    width: 100vh;
-    height: 100vh;
     display: grid;
     place-items: center;
     align-items: flex-start;
@@ -51,21 +40,20 @@
     align-items: center;
 }
 
-.ficha-tecnica {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
+.article-player {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
+    padding: 15px 15px 15px 15px;
+    border-radius: 10px;
 }
 
 .player-data {
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
-    text-align: flex-start;
+}
 
+span {
+    font-weight: normal;
 }
