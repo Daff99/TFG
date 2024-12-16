@@ -28,7 +28,6 @@ function appendInfo(container, datos) {
 		const nationality = element.player.nationality;
 		const fichaTecnica = document.createRange().createContextualFragment(`
 			<article class="article-player">
-				<h1>FICHA TÉCNICA</h1>
 				<div class="player-data">
 					<h3>Edad: <span>${agePlayer}</span></h3>
 					<h3>Fecha de nacimiento: <span>${birthDate}</span></h3>

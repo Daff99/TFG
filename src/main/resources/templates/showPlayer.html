@@ -44,15 +44,20 @@
         </nav>
     </header>
     <div class="header-player">
-        <img class="image-player" th:src="${player.image}" alt="imagen">
         <div class="header-player2">
-            <h1 th:text="${player.name}"></h1>
-            <span class="star-icon" sec:authorize="isAuthenticated()">
-                <ion-icon name="star-outline" th:attr="data-id=${player.id}"></ion-icon>
-            </span>
+            <div class="header-player3">
+                <img class="image-player" th:src="${player.image}" alt="imagen">
+                <article class="name-star">
+                    <h1 th:text="${player.name}"></h1>
+                    <span class="star-icon" sec:authorize="isAuthenticated()">
+                        <ion-icon name="star-outline" th:attr="data-id=${player.id}"></ion-icon>
+                    </span>
+                </article>
+            </div>
+            <div class="info-player"></div>
         </div>
     </div>
-    <div class="info-player"></div>
+    </div>
     <footer>
         <p>David Navarro Romero</p>
         <form th:action="@{/addFavouritePlayer}" method="post">
