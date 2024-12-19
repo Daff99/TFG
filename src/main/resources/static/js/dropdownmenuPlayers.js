@@ -48,16 +48,14 @@ function appendPlayers(container, players, favouritePlayers) {
     cont.querySelectorAll('.player-card').forEach(playerCard => playerCard.remove());
     const limitedPlayers = players.slice(0, 10);
     limitedPlayers.forEach(player => {
-        const playerName = player.player.name;
+        let playerName = player.player.name;
         const playerLogo = player.player.photo;
         const playerId = player.player.id;
         const teamStats = player.statistics[0];
         const teamName = teamStats.team.name;
         const teamLogo = teamStats.team.logo;
         const teamId = teamStats.team.id;
-
         const isFavourite = favouritePlayers.includes(playerId);
-
         const article = document.createRange().createContextualFragment(`
             <article class="player-card">
                 <img class="photo" src="${playerLogo}" alt="${playerName}">

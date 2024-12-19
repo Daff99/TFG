@@ -36,7 +36,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-        /* 
+         /*
         //Equipos y Jugadores
         for (int year = 2018; year <= 2023; year ++) {
             int season = year;
@@ -65,7 +65,7 @@ public class DataInitializer {
         championshipsRepository.save(bundesliga);
         championshipsRepository.save(serieA);
         championshipsRepository.save(ligue1);
-        */
+         */
     }
         
 
@@ -116,8 +116,14 @@ public class DataInitializer {
                     String playerName = playerObject.getString("name");
                     String playerLogo = playerObject.getString("photo");
                     Long apiId = playerObject.getLong("id");
-
-                    Player player = new Player(playerName, playerLogo, apiId);
+                    Player player = new Player();
+                    if (apiId.equals(31318L)) {
+                        player.setName("M'bala Nzola");
+                    } else {
+                        player.setName(playerName);
+                    }
+                    player.setImage(playerLogo);
+                    player.setId(apiId);
                     playerList.add(player);
                 }
             }
