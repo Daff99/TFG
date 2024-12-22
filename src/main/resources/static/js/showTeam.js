@@ -53,10 +53,10 @@ function appendInfo(container, datos) {
                     <img src="${imageStadium}" alt="Imagen">
                 </div>
                 <div class="team-data">
-                    <h3>Nombre: <span>${nameStadium}</span></h3>
-                    <h3>Ciudad: <span>${city}</span></h3>
-                    <h3>Capacidad: <span>${capacity}</span></h3>
-                    <h3>Dirección: <span>${address}</span></h3>
+                    <h3>Nombre: <span id="nameStadium">${nameStadium}</span></h3>
+                    <h3>Ciudad: <span id="city">${city}</span></h3>
+                    <h3>Capacidad: <span id="capacity">${capacity}</span></h3>
+                    <h3>Dirección: <span id="address">${address}</span></h3>
                 </div>
             </article>`); 
         const main = document.querySelector(".info-team");

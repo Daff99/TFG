@@ -5,26 +5,26 @@ a {
 }
 
 #h2-ligue1:hover {
-    color: gray;
+    color: #00aaa9;
     text-decoration: underline;
 }
 
 #h2-seriea:hover {
-    color: #6051D5;
+    color: #00aaa9;
     text-decoration: underline;
 }
 #h2-bundesliga:hover {
-    color: #BD001C;
+    color: #00aaa9;
     text-decoration: underline;
 }
 
 #h2-liga:hover {
-    color: #e63946;
+    color: #00aaa9;
     text-decoration: underline;
 }
 
 #h2-premier:hover {
-    color: #c54ad0;
+    color: #00aaa9;
     text-decoration: underline;
 }
 

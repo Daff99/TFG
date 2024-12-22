@@ -55,7 +55,7 @@
     align-items: flex-start;
 }
 
-span {
+#agePlayer, #birthDate, #height, #weight, #nationality {
     font-weight: normal;
 }
 

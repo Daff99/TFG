@@ -4,10 +4,6 @@ a {
     font-size: 12px;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
 .players-container {
     height: auto;
     width: 100%;
@@ -50,6 +46,11 @@ a:hover {
     width: auto;
     text-align: left;
     color: black;
+}
+
+.premier-players h2:hover, .laliga-players h2:hover, .bundesliga-players h2:hover, .serieA-players h2:hover, .ligue1-players h2:hover {
+    color: #00aaa9;
+    text-decoration: underline;
 }
 
 .premier-players, .laliga-players, .bundesliga-players, .serieA-players, .ligue1-players {
@@ -103,6 +104,11 @@ a:hover {
 .team-info h3 {
     font-size: 14px;
     margin: 0;
+}
+
+.team-info h3:hover {
+    color: #00aaa9;
+    text-decoration: underline;
 }
 
 .team-info img {

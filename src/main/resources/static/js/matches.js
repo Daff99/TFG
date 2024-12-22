@@ -32,6 +32,8 @@ function appendMatches(container, matches) {
         const date_ = match.fixture.date.split("T")[0];
         const [year, month, day] = date_.split("-");
         const formattedDate = `${day}-${month}-${year}`;
+        const localTeamId = match.teams.home.id;
+        const awayTeamId = match.teams.away.id;
         const localTeamName = match.teams.home.name;
         const localTeamLogo = match.teams.home.logo;
         const awayTeamName = match.teams.away.name;
@@ -43,7 +45,9 @@ function appendMatches(container, matches) {
             <article class="article-matches">
                 <h2>${formattedDate}</h2>
                 <div class="match-info">
-                    <p class="localName">${localTeamName}</p>
+                    <a href="/showTeam?id=${localTeamId}">
+                        <p class="localName">${localTeamName}</p>
+                    </a>
                     <div class="result">
                         <img src="${localTeamLogo}" alt="LocalLogo">
                         <p class="localResult">${resultHome}</p>
@@ -51,7 +55,9 @@ function appendMatches(container, matches) {
                         <p class="awayResult">${resultAway}</p>
                         <img src="${awayTeamLogo}" alt="AwayLogo">
                     </div>
-                    <p class="awayName">${awayTeamName}</p>
+                    <a href="/showTeam?id=${awayTeamId}">
+                        <p class="awayName">${awayTeamName}</p>
+                    </a>
                 </div>
             </article>
         `);

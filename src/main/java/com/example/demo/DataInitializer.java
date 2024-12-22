@@ -38,7 +38,7 @@ public class DataInitializer {
     public void init() {
          /*
         //Equipos y Jugadores
-        for (int year = 2018; year <= 2023; year ++) {
+        for (int year = 2019; year <= 2023; year ++) {
             int season = year;
             saveTeamsAndPlayersForLeague(PREMIER, season);
             saveTeamsAndPlayersForLeague(LALIGA, season);
@@ -65,7 +65,7 @@ public class DataInitializer {
         championshipsRepository.save(bundesliga);
         championshipsRepository.save(serieA);
         championshipsRepository.save(ligue1);
-         */
+           */
     }
         
 
