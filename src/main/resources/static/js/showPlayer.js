@@ -33,7 +33,7 @@ function appendInfo(container, datos) {
 					<h3>Fecha de nacimiento: <span id="birthDate">${birthDate}</span></h3>
 					<h3>Altura: <span id="height">${height}</span></h3>
 					<h3>Peso: <span id="weight">${weight}</span></h3>
-					<h3>Nacionalidad: <span id="nationality">${nationality}</span></h3>
+					<h3>País: <span id="nationality">${nationality}</span></h3>
 				</div>
 			</article>`); 
 		const main = document.querySelector(".info-player");

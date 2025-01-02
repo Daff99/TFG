@@ -36,7 +36,7 @@ public class TeamController {
     public void initReports() {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            InputStream input = getClass().getResourceAsStream("/reports.json");
+            InputStream input = getClass().getResourceAsStream("/reportsTeams.json");
             reports = mapper.readValue(input, new TypeReference<Map<Long, String[]>>() {});
         } catch (Exception e) {
             e.printStackTrace();
