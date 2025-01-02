@@ -40,56 +40,58 @@
             </ul>
         </nav>
     </header>
-    <div class="favs-data">
-        <div class="favourite-teams">
-            <h2>Equipos Favoritos</h2>
-            <ul>
-                <li th:each="team : ${favouriteTeams}" th:attr="data-team-id=${team.apiId}">
-                    <article class="article-team">
-                        <img class="team-image" th:src="${team.image}" th:alt="${team.name}">
-                        <a th:href="@{/showTeam(id=${team.apiId})}">
-                            <span class="team-name" th:text="${team.name}"></span>
-                        </a>
-                        <span class="trash-icon" onclick="removeTeamFromFavorites(this)">
-                            <ion-icon name="trash-outline"></ion-icon>
-                        </span>
-                    </article>
-                </li>
-            </ul>
+    <main>
+        <div class="favs-data">
+            <div class="favourite-teams">
+                <h2>Equipos Favoritos</h2>
+                <ul>
+                    <li th:each="team : ${favouriteTeams}" th:attr="data-team-id=${team.apiId}">
+                        <article class="article-team">
+                            <img class="team-image" th:src="${team.image}" th:alt="${team.name}">
+                            <a th:href="@{/showTeam(id=${team.apiId})}">
+                                <span class="team-name" th:text="${team.name}"></span>
+                            </a>
+                            <span class="trash-icon" onclick="removeTeamFromFavorites(this)">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </span>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+            <div class="favourite-players">
+                <h2>Jugadores favoritos</h2>
+                <ul>
+                    <li th:each="player : ${favouritePlayers}" th:attr="data-player-id=${player.id}">
+                        <article class="article-player">
+                            <img class="player-image" th:src="${player.image}" th:alt="${player.image}">
+                            <a th:href="@{/showPlayer(id=${player.id})}">
+                                <span class="player-name" th:text="${player.name}"></span>
+                            </a>
+                            <span class="trash-icon" onclick="removePlayerFromFavorites(this)">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </span>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+            <div class="favourite-championships">
+                <h2>Competiciones favoritas</h2>
+                <ul>
+                    <li th:each="championship : ${favouriteChampionships}" th:attr="data-championship-id=${championship.id}">
+                        <article class="article-championship">
+                            <img class="championship-image" th:src="${championship.image}" th:alt="${championship.name}">
+                            <a th:href="@{/showChampionship/{id}(id=${championship.id})}">
+                                <span class="championship-name" th:text="${championship.name}"></span>
+                            </a>
+                            <span class="trash-icon" onclick="removeChampionshipFromFavorites(this)">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </span>
+                        </article>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="favourite-players">
-            <h2>Jugadores favoritos</h2>
-            <ul>
-                <li th:each="player : ${favouritePlayers}" th:attr="data-player-id=${player.id}">
-                    <article class="article-player">
-                        <img class="player-image" th:src="${player.image}" th:alt="${player.image}">
-                        <a th:href="@{/showPlayer(id=${player.id})}">
-                            <span class="player-name" th:text="${player.name}"></span>
-                        </a>
-                        <span class="trash-icon" onclick="removePlayerFromFavorites(this)">
-                            <ion-icon name="trash-outline"></ion-icon>
-                        </span>
-                    </article>
-                </li>
-            </ul>
-        </div>
-        <div class="favourite-championships">
-            <h2>Competiciones favoritas</h2>
-            <ul>
-                <li th:each="championship : ${favouriteChampionships}" th:attr="data-championship-id=${championship.id}">
-                    <article class="article-championship">
-                        <img class="championship-image" th:src="${championship.image}" th:alt="${championship.name}">
-                        <a th:href="@{/showChampionship/{id}(id=${championship.id})}">
-                            <span class="championship-name" th:text="${championship.name}"></span>
-                        </a>
-                        <span class="trash-icon" onclick="removeChampionshipFromFavorites(this)">
-                            <ion-icon name="trash-outline"></ion-icon>
-                        </span>
-                    </article>
-                </li>
-            </ul>
-        </div>
-    </div>
+    </main>
     <footer>
         <p>David Navarro Romero</p>
     </footer>

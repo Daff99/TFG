@@ -22,6 +22,7 @@ a {
     height: 75px;
     width: 75px;
     margin-bottom: 20px;
+    object-fit: contain;
 }
 
 .premier-players article, .laliga-players article, .bundesliga-players article, .serieA-players article, .ligue1-players article {

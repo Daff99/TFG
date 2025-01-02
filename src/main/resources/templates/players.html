@@ -41,37 +41,39 @@
             </ul>
         </nav>
     </header>
-    <div class="select-menu">
-        <div class="select-button">
-            <span class="text">Selecciona una temporada</span>
-            <i class="bx bx-chevron-down"></i>
+    <main>
+        <div class="select-menu">
+            <div class="select-button">
+                <span class="text">Selecciona una temporada</span>
+                <i class="bx bx-chevron-down"></i>
+            </div>
+            <ul class="options">
+                <li class="option">2023/2024</li>
+                <li class="option">2022/2023</li>
+                <li class="option">2021/2022</li>
+                <li class="option">2020/2021</li>
+                <li class="option">2019/2020</li>
+                <li class="option">2018/2019</li>
+            </ul>
         </div>
-        <ul class="options">
-            <li class="option">2023/2024</li>
-            <li class="option">2022/2023</li>
-            <li class="option">2021/2022</li>
-            <li class="option">2020/2021</li>
-            <li class="option">2019/2020</li>
-            <li class="option">2018/2019</li>
-        </ul>
-    </div>
-    <div class="players-container">
-        <div class="premier-players">
-            <img id="logo-premier" src="assets/img/championships/premier.png" alt="">
+        <div class="players-container">
+            <div class="premier-players">
+                <img id="logo-premier" src="assets/img/championships/premier.png" alt="">
+            </div>
+            <div class="laliga-players">
+                <img id="logo-laliga" src="assets/img/championships/laliga.png" alt="">
+            </div>
+            <div class="bundesliga-players">
+                <img id="logo-bundesliga" src="assets/img/championships/bundesliga.png" alt="">
+            </div>
+            <div class="serieA-players">
+                <img id="logo-seriea" src="assets/img/championships/seriea.png" alt="">
+            </div>
+            <div class="ligue1-players">
+                <img id="logo-ligue1" src="assets/img/championships/ligue1.png" alt="">
+            </div>
         </div>
-        <div class="laliga-players">
-            <img id="logo-laliga" src="assets/img/championships/laliga.png" alt="">
-        </div>
-        <div class="bundesliga-players">
-            <img id="logo-bundesliga" src="assets/img/championships/bundesliga.png" alt="">
-        </div>
-        <div class="serieA-players">
-            <img id="logo-seriea" src="assets/img/championships/seriea.png" alt="">
-        </div>
-        <div class="ligue1-players">
-            <img id="logo-ligue1" src="assets/img/championships/ligue1.png" alt="">
-        </div>
-    </div>
+    </main>
     <footer>
         <p>David Navarro Romero</p>
         <form th:action="@{/addFavouritePlayer}" method="post">

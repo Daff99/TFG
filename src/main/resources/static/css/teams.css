@@ -28,6 +28,11 @@ a {
     text-decoration: underline;
 }
 
+#h2-premier, #h2-liga, #h2-bundesliga, #h2-seriea, #h2-ligue1 {
+    width: auto;
+    font-size: 16px;
+}
+
 .teams-container {
     height: auto;
     width: 100%;
@@ -60,6 +65,7 @@ li {
 
 #logo-premier, #logo-laliga, #logo-bundesliga, #logo-seriea, #logo-ligue1 {
     align-self: center;
+    object-fit: contain;
     height: 75px;
     width: 75px;
     margin-bottom: 20px;
