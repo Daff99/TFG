@@ -139,9 +139,9 @@ function appendTrophies(container, data) {
 		const trophies = document.createRange().createContextualFragment(`
 			<article class="trophies">
 				<h1>${championship}</h1>
-				<span>País: ${country}</span>
-				<span>Temporada: ${season}</span>
-				<span>Posición: ${place}</span>
+				<h2>País: <span>${country}</span></h2>
+                <h2>País: <span>${season}</span></h2>
+                <h2>País: <span>${place}</span></h2>
 			</article>
 		`);
 		const main = document.querySelector(".trophies-container");

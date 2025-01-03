@@ -79,6 +79,16 @@ public class TeamController {
         Team team = teamsService.findByApiId(apiId);
         if (team != null) {
             model.addAttribute("team", team);
+            Map<String, Long> competitionLeagueId = Map.of(
+                "Premier League", 39L,
+                "La Liga", 140L,
+                "Bundesliga", 78L,
+                "Serie A", 135L,
+                "Ligue 1", 61L
+            );
+            String competition = team.getCompetition();
+            Long leagueId = competitionLeagueId.get(competition);
+            model.addAttribute("leagueId", leagueId);
             String[] listareports = reports.get(apiId);
             model.addAttribute("listareports", listareports);
         }
