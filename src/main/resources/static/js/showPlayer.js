@@ -23,6 +23,8 @@ function appendInfo(container, datos) {
         //Ficha tecnica
 		const agePlayer = element.player.age;
 		const birthDate = element.player.birth.date;
+        const [year, month, day] = birthDate.split("-");
+        const formattedDate = `${day}-${month}-${year}`;
 		const height = element.player.height;
 		const weight = element.player.weight;
 		const nationality = element.player.nationality;
@@ -30,7 +32,7 @@ function appendInfo(container, datos) {
 			<article class="article-player">
 				<div class="player-data">
 					<h3>Edad: <span id="agePlayer">${agePlayer}</span></h3>
-					<h3>Fecha de nacimiento: <span id="birthDate">${birthDate}</span></h3>
+					<h3>Fecha de nacimiento: <span id="birthDate">${formattedDate}</span></h3>
 					<h3>Altura: <span id="height">${height}</span></h3>
 					<h3>Peso: <span id="weight">${weight}</span></h3>
 					<h3>País: <span id="nationality">${nationality}</span></h3>
@@ -62,6 +64,8 @@ function appendTranfers(container, data) {
 	data.response[0].transfers.forEach(element => {
 		const inTeam = element.teams.in.logo;
 		const outTeam = element.teams.out.logo;
+        const inNameTeam = element.teams.in.name;
+		const outNameTeam = element.teams.out.name;
 		let operation = element.type;
 		const date = element.date;
         const [year, month, day] = date.split("-");
@@ -80,6 +84,7 @@ function appendTranfers(container, data) {
 		const allTransfers = document.createRange().createContextualFragment(`
 			<article class="article-transfers">
                 <div class="transfer-info">
+                <p class="outName">${outNameTeam}</p>
                     <img class="out-Team" src="${outTeam}" alt="Logo del equipo">
                     <div class="operation-type">
                         <h1>${operation}</h1>
@@ -87,10 +92,60 @@ function appendTranfers(container, data) {
                         <h1>${formattedDate}</h1>
                     </div>
                     <img class="in-Team" src="${inTeam}" alt="Logo del equipo">
+                    <p class="inName">${inNameTeam}</p>
                 </div>
 			</article>`);
 		const main = document.querySelector(".transfers-container");
 		main.append(allTransfers);
+	});
+}
+
+function getTrophies(playerId, done) {
+    const url = `https://v3.football.api-sports.io/trophies?player=${playerId}`;
+    const apiOptions = {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': '6467b905839bb394cd3c678dabff9d81',
+            'x-rapidapi-host': 'sportapi7.p.rapidapi.com'
+        }
+    };
+    fetch(url, apiOptions)
+        .then(response => response.json())
+        .then(data => done(data))
+        .catch(error => console.error('Error al obtener jugadores:', error));
+}
+
+function appendTrophies(container, data) {
+    const cont = document.querySelector(container);
+    cont.querySelectorAll('.trophies-container').forEach(trophiesContainer => trophiesContainer.remove());
+    data.response.forEach(element => {
+		const championship = element.league;
+		const country = element.country;
+		let season = element.season;
+		if (season === 'Peru 2011') {
+			season = '2010/2011';
+		}
+		// Ordenar los trofeos de más reciente a menos reciente
+		data.response.sort((a, b) => b.season - a.season);
+		let place = element.place;
+		switch (place) {
+			case 'Winner':
+				place = 'Campeón';
+				break;
+			case '2nd Place':
+				place = 'Subcampeón';
+				break;
+		}
+		const trophies = document.createRange().createContextualFragment(`
+			<article class="trophies">
+				<h1>${championship}</h1>
+				<span>País: ${country}</span>
+				<span>Temporada: ${season}</span>
+				<span>Posición: ${place}</span>
+			</article>
+		`);
+		const main = document.querySelector(".trophies-container");
+		main.append(trophies);
 	});
 }
 
@@ -107,6 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         getTransfers(playerId, data => {
             appendTranfers('.transfers-container', data);
+        });
+        getTrophies(playerId, data => {
+            appendTrophies('.trophies-container', data);
         });
     } else {
         console.error('No se encontró el ID del equipo en la URL');
