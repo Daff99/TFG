@@ -57,4 +57,9 @@ public class MainController {
         }
         return "profile";
     }
+
+    @RequestMapping("/teamNotAvailable")
+    public String showTeamNotAvailable() {
+        return "teamNotAvailable";
+    }
 }

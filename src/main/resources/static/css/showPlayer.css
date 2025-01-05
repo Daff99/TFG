@@ -216,3 +216,13 @@
 .sp {
     font-weight: normal;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: #00aaa9;
+    text-decoration: underline;
+}

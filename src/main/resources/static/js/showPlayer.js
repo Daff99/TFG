@@ -66,6 +66,8 @@ function appendTranfers(container, data) {
 		const outTeam = element.teams.out.logo;
         const inNameTeam = element.teams.in.name;
 		const outNameTeam = element.teams.out.name;
+        const idinTeam = element.teams.in.id;
+        const idoutTeam = element.teams.out.id;
 		let operation = element.type;
 		const date = element.date;
         const [year, month, day] = date.split("-");
@@ -84,7 +86,9 @@ function appendTranfers(container, data) {
 		const allTransfers = document.createRange().createContextualFragment(`
 			<article class="article-transfers">
                 <div class="transfer-info">
-                <p class="outName">${outNameTeam}</p>
+                    <a href="/showTeam?id=${idoutTeam}">
+                        <p class="outName">${outNameTeam}</p>   
+                    </a>
                     <img class="out-Team" src="${outTeam}" alt="Logo del equipo">
                     <div class="operation-type">
                         <h1>${operation}</h1>
@@ -92,7 +96,9 @@ function appendTranfers(container, data) {
                         <h1>${formattedDate}</h1>
                     </div>
                     <img class="in-Team" src="${inTeam}" alt="Logo del equipo">
-                    <p class="inName">${inNameTeam}</p>
+                    <a href="/showTeam?id=${idinTeam}">
+                        <p class="inName">${inNameTeam}</p>    
+                    </a>
                 </div>
 			</article>`);
 		const main = document.querySelector(".transfers-container");

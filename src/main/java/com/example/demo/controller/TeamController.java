@@ -91,7 +91,9 @@ public class TeamController {
             model.addAttribute("leagueId", leagueId);
             String[] listareports = reports.get(apiId);
             model.addAttribute("listareports", listareports);
+            return "showTeam";
+        } else {
+            return "redirect:/teamNotAvailable";
         }
-        return "showTeam";
     }
 }
