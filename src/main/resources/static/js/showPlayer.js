@@ -118,6 +118,16 @@ function getTrophies(playerId, done) {
 function appendTrophies(container, data) {
     const cont = document.querySelector(container);
     cont.querySelectorAll('.trophies-container').forEach(trophiesContainer => trophiesContainer.remove());
+    if (data.response.length === 0) {
+        const noTrophies = document.createRange().createContextualFragment(`
+            <article class="trophies">
+                <h1>Sin trofeos</h1>
+                <span class="sp">Este jugador no tiene trofeos registrados.</span>
+            </article>
+        `);
+        cont.append(noTrophies);
+        return;
+    }
     data.response.forEach(element => {
 		const championship = element.league;
 		const country = element.country;
@@ -136,12 +146,12 @@ function appendTrophies(container, data) {
 				place = 'Subcampeón';
 				break;
 		}
-		const trophies = document.createRange().createContextualFragment(`
+		let trophies = document.createRange().createContextualFragment(`
 			<article class="trophies">
 				<h1>${championship}</h1>
-				<h2>País: <span>${country}</span></h2>
-                <h2>País: <span>${season}</span></h2>
-                <h2>País: <span>${place}</span></h2>
+				<h2>País: <span class="sp">${country}</span></h2>
+                <h2>País: <span class="sp">${season}</span></h2>
+                <h2>País: <span class="sp">${place}</span></h2>
 			</article>
 		`);
 		const main = document.querySelector(".trophies-container");

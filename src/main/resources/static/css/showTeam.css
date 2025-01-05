@@ -16,6 +16,7 @@
     width: 100px;
     margin-top: 30px;
     margin-bottom: 10px;
+    object-fit: contain;
 }
 
 .reports-container h1 {
@@ -110,13 +111,9 @@
     object-fit: cover; 
 }
 
-span {
-    font-weight: normal;
-}
-
 .data-team {
     width: 75%;
-    min-height: 100vh;
+    min-height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -131,6 +128,18 @@ span {
     margin-bottom: 30px;
 }
 
+.article-data-team-no-stats {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    padding: 15px 15px 15px 15px;
+    width: auto;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    margin-right: 30px;
+}
+
 .article-data-team h1 {
     text-align: center;
     margin-top: 20px;
@@ -142,3 +151,27 @@ h1 {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.sp {
+    font-weight: normal;
+}
+
+.win {
+    color: green;
+    font-weight: bold;
+}
+
+.draw {
+    color: gray;
+    font-weight: bold;
+}
+
+.lose {
+    color: red;
+    font-weight: bold;
+}	
+
+.form {
+    gap: 1px;
+}
+
