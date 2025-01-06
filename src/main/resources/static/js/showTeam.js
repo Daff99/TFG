@@ -199,7 +199,7 @@ function appendData(container, datos) {
         const frecuencyFormation = lineup.played;
         formationsHTML += `
             <h2>Formación: <span class="sp">${formation}</span></h2>
-            <h2>Frecuencia de la formación: <span v>${frecuencyFormation}</span></h2>
+            <h2>Veces utilizada: <span class="sp">${frecuencyFormation}</span></h2>
         `;
     });
     const cleanSheetsTotal = datos.clean_sheet.total;
@@ -228,7 +228,7 @@ function appendData(container, datos) {
             <h1>PORTERÍAS A CERO</h1>
             <h2>Porterías a cero: <span class="sp">${cleanSheetsTotal}</span></h2>
             <h2>Porterías a cero local: <span class="sp">${homeCleanSheets}</span></h2>
-            <h2>Porterías a cero visitante: <span v>${awayCleanSheets}</span></h2>
+            <h2>Porterías a cero visitante: <span class="sp">${awayCleanSheets}</span></h2>
         </article>
     `);
     cont.append(dataTeam);
