@@ -10,7 +10,6 @@ import java.security.Principal;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.model.Player;
 import com.example.demo.model.User;
-import com.example.demo.repositories.PlayerRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.PlayerService;
 import jakarta.annotation.PostConstruct;
@@ -26,8 +25,6 @@ public class PlayerController {
     private PlayerService playerService;
     @Autowired
     private UserRepository userRepository;
-    @Autowired 
-    private PlayerRepository playerRepository;
     private Map<Long, String> reports;
 
     @PostConstruct

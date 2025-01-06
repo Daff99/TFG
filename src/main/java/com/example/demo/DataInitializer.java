@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
+
 import java.util.Set;
 import java.util.HashSet;
 import com.example.demo.model.Championship;
@@ -17,10 +19,11 @@ import java.net.URI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 
 @Component
 public class DataInitializer {
-
+    
     @Autowired
     private TeamRepository teamRepository;
     @Autowired
@@ -65,7 +68,7 @@ public class DataInitializer {
         championshipsRepository.save(bundesliga);
         championshipsRepository.save(serieA);
         championshipsRepository.save(ligue1);
-           */
+      */    
     }
         
 
