@@ -156,7 +156,7 @@ function appendTrophies(container, data) {
 			<article class="trophies">
 				<h1>${championship}</h1>
 				<h2>País: <span class="sp">${country}</span></h2>
-                <h2>País: <span class="sp">${season}</span></h2>
+                <h2>Temporada: <span class="sp">${season}</span></h2>
                 <h2>País: <span class="sp">${place}</span></h2>
 			</article>
 		`);

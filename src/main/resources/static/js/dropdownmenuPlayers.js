@@ -146,19 +146,19 @@ options.forEach(option => {
     });
 });
 
-document.addEventListener('click', function (event) {
+document.addEventListener('click', function(event) {
     if (!searchBar.contains(event.target) && !resultsContainer.contains(event.target)) {
         resultsContainer.innerHTML = '';
     }
 });
 
-searchBar.addEventListener('focus', function () {
+searchBar.addEventListener('focus', function() {
     if (this.value.length >= 3) {
         this.dispatchEvent(new Event('input'));
     }
 });
 
-searchBar.addEventListener('input', function () {
+searchBar.addEventListener('input', function() {
     const query = this.value;
     if (query.length < 3) {
         resultsContainer.innerHTML = '';

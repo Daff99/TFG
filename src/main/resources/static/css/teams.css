@@ -4,6 +4,64 @@ a {
     font-size: 12px;
 }
 
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #00aaa9;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#search-results {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#search-results div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.searchTeamImage {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+#search-results a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-size: 13px;
+}
+
+#search-results a:hover {
+    color: #00aaa9;
+    text-decoration: underline;
+}
+
 #h2-ligue1:hover {
     color: #00aaa9;
     text-decoration: underline;

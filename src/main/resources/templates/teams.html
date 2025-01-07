@@ -42,6 +42,15 @@
         </nav>
     </header>
     <main>
+        <div class="search-container">
+            <input 
+                type="text" 
+                id="search-bar" 
+                placeholder="Buscar equipo..." 
+                autocomplete="off"
+            />
+            <div id="search-results"></div>
+        </div>
         <div class="teams-container">
             <div class="premier-teams">
                 <img id="logo-premier" src="assets/img/championships/premier.png" alt="">
@@ -132,6 +141,7 @@
         </form>
     </footer>
     <script src="js/teamFavourite.js"></script>
+    <script src="js/searchTeam.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script th:inline="javascript">
