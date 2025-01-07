@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Player;
 import com.example.demo.repositories.PlayerRepository;
+import java.util.List;
 
 @Service
 public class PlayerService {
@@ -15,6 +16,10 @@ public class PlayerService {
 
     public Player findById2(Long id) {
         return playerRepository.getById(id);
+    }
+
+    public List<Player> searchByName(String query) {
+        return playerRepository.findByNameContainingIgnoreCase(query);
     }
     
 }

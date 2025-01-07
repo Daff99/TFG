@@ -9,6 +9,9 @@ const bundesligaId = 78;
 const serieAId = 135;
 const ligue1Id = 61;
 
+const searchBar = document.getElementById('search-bar');
+const resultsContainer = document.getElementById('search-results');
+
 // Función para obtener jugadores y sus logos desde la API
 function getPlayersAndLogo(leagueId, season, done) {
     const url = `https://v3.football.api-sports.io/players/topscorers?season=${season}&league=${leagueId}`;
@@ -142,3 +145,39 @@ options.forEach(option => {
         optionMenu.classList.remove("active");
     });
 });
+
+document.addEventListener('click', function (event) {
+    if (!searchBar.contains(event.target) && !resultsContainer.contains(event.target)) {
+        resultsContainer.innerHTML = '';
+    }
+});
+
+searchBar.addEventListener('focus', function () {
+    if (this.value.length >= 3) {
+        this.dispatchEvent(new Event('input'));
+    }
+});
+
+searchBar.addEventListener('input', function () {
+    const query = this.value;
+    if (query.length < 3) {
+        resultsContainer.innerHTML = '';
+        return;
+    }
+    fetch(`/searchPlayers?query=${query}`)
+        .then(response => response.json()).then(players => {
+            resultsContainer.innerHTML = '';
+            players.forEach(player => {
+                const resultDiv = document.createElement('div');
+                resultDiv.innerHTML = `
+                    <a href="/showPlayer?id=${player.id}">
+                        <img class="searchPlayerImage" src="${player.image}" alt="${player.name}">
+                        <h3 class="searchPlayerName">${player.name}</h3>
+                    </a>
+                `;
+                resultsContainer.appendChild(resultDiv);
+            });
+        })
+        .catch(error => console.error('Error al buscar jugadores:', error));
+});
+

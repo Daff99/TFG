@@ -6,8 +6,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import java.security.Principal;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.model.Player;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
@@ -17,6 +19,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.InputStream;
+import java.util.List;
 
 @Controller
 public class PlayerController {
@@ -67,5 +70,11 @@ public class PlayerController {
             model.addAttribute("report", report);
         }
         return "showPlayer";
+    }
+
+    @GetMapping("/searchPlayers")
+    @ResponseBody
+    public List<Player> searchPlayers(@RequestParam("query") String query) {
+        return playerService.searchByName(query);
     }
 }
