@@ -29,6 +29,7 @@ function appendMatches(container, matches) {
     const cont = document.querySelector(container);
     cont.querySelectorAll('.article-matches').forEach(articleMatches => articleMatches.remove());
     matches.forEach(match => {
+        const idMatch = match.fixture.id;
         const date_ = match.fixture.date.split("T")[0];
         const [year, month, day] = date_.split("-");
         const formattedDate = `${day}-${month}-${year}`;
@@ -50,9 +51,11 @@ function appendMatches(container, matches) {
                     </a>
                     <div class="result">
                         <img src="${localTeamLogo}" alt="LocalLogo">
-                        <p class="localResult">${resultHome}</p>
-                        <p>-</p>
-                        <p class="awayResult">${resultAway}</p>
+                        <a class="result-link" href="/showMatch?id=${idMatch}">
+                            <p class="localResult">${resultHome}</p>
+                            <p>-</p>
+                            <p class="awayResult">${resultAway}</p>    
+                        </a>
                         <img src="${awayTeamLogo}" alt="AwayLogo">
                     </div>
                     <a href="/showTeam?id=${awayTeamId}">

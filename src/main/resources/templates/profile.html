@@ -43,8 +43,8 @@
         <div class="user-data" th:object="${user}">
             <img class="image-user" th:src="${user.image}">
             <article class="profile-data">
-                <h2 class="h2-name">Nombre: <span th:text="${user.username}"></span></h2>
-                <h2 class="h2-email">Email: <span th:text="${user.email}"></span></h2>
+                <h2 class="h2-name">Nombre: <span class="username-span"th:text="${user.username}"></span></h2>
+                <h2 class="h2-email">Email: <span class="email-span" th:text="${user.email}"></span></h2>
                 <div class="buttons-container">
                     <a th:href="@{/editProfile(id=${user.id})}">
                         <button class="modify">Modificar datos</button>

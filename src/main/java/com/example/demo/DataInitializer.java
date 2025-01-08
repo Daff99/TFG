@@ -1,16 +1,16 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
-
 import java.util.Set;
 import java.util.HashSet;
 import com.example.demo.model.Championship;
+import com.example.demo.model.Match;
 import com.example.demo.model.Player;
 import com.example.demo.model.Team;
 import com.example.demo.repositories.ChampionshipsRepository;
 import com.example.demo.repositories.PlayerRepository;
 import com.example.demo.repositories.TeamRepository;
+import com.example.demo.repositories.MatchRepository;
 import java.net.http.HttpClient;
 import jakarta.annotation.PostConstruct;
 import java.net.http.HttpRequest;
@@ -19,7 +19,6 @@ import java.net.URI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 
 @Component
 public class DataInitializer {
@@ -30,6 +29,8 @@ public class DataInitializer {
     private PlayerRepository playerRepository;
     @Autowired
     private ChampionshipsRepository championshipsRepository;
+    @Autowired
+    private MatchRepository matchRepository;
     private String apiKey = "6467b905839bb394cd3c678dabff9d81";
     private final int PREMIER = 39;
     private final int LALIGA = 140;
@@ -41,16 +42,14 @@ public class DataInitializer {
     public void init() {
          /*
         //Equipos y Jugadores
-        for (int year = 2019; year <= 2023; year ++) {
+        for (int year = 2018; year <= 2023; year ++) {
             int season = year;
-            saveTeamsAndPlayersForLeague(PREMIER, season);
-            saveTeamsAndPlayersForLeague(LALIGA, season);
-            saveTeamsAndPlayersForLeague(BUNDESLIGA, season);
-            saveTeamsAndPlayersForLeague(SERIEA, season);
-            saveTeamsAndPlayersForLeague(LIGUE1, season);
+            saveTeamsMatchesAndPlayersForLeague(PREMIER, season);
+            saveTeamsMatchesAndPlayersForLeague(LALIGA, season);
+            saveTeamsMatchesAndPlayersForLeague(BUNDESLIGA, season);
+            saveTeamsMatchesAndPlayersForLeague(SERIEA, season);
+            saveTeamsMatchesAndPlayersForLeague(LIGUE1, season);
         }
-        
-         
         Championship premier = new Championship("Premier League", "assets/img/championships/premier.png", "sliderpremier.jpg");
         Championship laliga = new Championship("La Liga", "assets/img/championships/laliga.png", "sliderlaliga.jpg");
         Championship bundesliga = new Championship("Bundesliga", "assets/img/championships/bundesliga.png", "sliderbundesliga.jpg");
@@ -68,11 +67,11 @@ public class DataInitializer {
         championshipsRepository.save(bundesliga);
         championshipsRepository.save(serieA);
         championshipsRepository.save(ligue1);
-      */    
+         */
     }
         
 
-    private void saveTeamsAndPlayersForLeague(int leagueId, int season) {
+    private void saveTeamsMatchesAndPlayersForLeague(int leagueId, int season) {
         Set<Team> teams = getTeamsForLeague(leagueId, season, apiKey);
         for (Team team: teams) {
             switch (leagueId) {
@@ -97,6 +96,10 @@ public class DataInitializer {
         Set<Player> players = getPlayersForLeague(leagueId, season, apiKey);
         for (Player player: players) {
             playerRepository.save(player);
+        }
+        Set<Match> matches = getMatchesForLeague(leagueId, season, apiKey);
+        for (Match match: matches) {
+            matchRepository.save(match);
         }
     }
 
@@ -136,6 +139,39 @@ public class DataInitializer {
         return playerList;
     }
 
+    private static Set<Match> getMatchesForLeague(int leagueId, int season, String apiKey) {
+        String url = "https://v3.football.api-sports.io/fixtures?league=" + leagueId + "&season=" + season;
+        Set<Match> matchList = new HashSet<>();
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("x-rapidapi-key", apiKey)
+                .header("x-rapidapi-host", "v3.football.api-sports.io").build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                JSONObject jsonResponse = new JSONObject(response.body());
+                JSONArray matchesArray = jsonResponse.getJSONArray("response");
+                for (int i = 0; i < matchesArray.length(); i ++) {
+                    JSONObject matchObject = matchesArray.getJSONObject(i);
+                    Long idMatch = matchObject.getJSONObject("fixture").getLong("id");
+                    String competition = matchObject.getJSONObject("league").getString("name");
+                    String homeTeam = matchObject.getJSONObject("teams").getJSONObject("home").getString("name");
+                    String awayTeam = matchObject.getJSONObject("teams").getJSONObject("away").getString("name");
+                    int season2 = matchObject.getJSONObject("league").getInt("season");
+                    String formattedSeason = (season2) + "/" + (season2 + 1);
+                    Match match = new Match(homeTeam, awayTeam, competition, formattedSeason);
+                    match.setMatchId(idMatch);
+                    matchList.add(match);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return matchList;
+    }
+
+
     private static Set<Team> getTeamsForLeague(int leagueId, int season, String apiKey) {
         String url = "https://v3.football.api-sports.io/teams?league=" + leagueId + "&season=" + season;
         Set<Team> teamList = new HashSet<>();
@@ -154,7 +190,6 @@ public class DataInitializer {
                     String teamName = teamObject.getString("name");
                     String teamLogo = teamObject.getString("logo");
                     Long apiId = teamObject.getLong("id");
-
                     Team team = new Team(teamName, teamLogo, apiId);
                     teamList.add(team);
                 }
