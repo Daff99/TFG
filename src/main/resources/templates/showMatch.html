@@ -1,11 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/springsecurity">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/showMatch.css">
+    <title th:text="${match.homeTeam}"></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
 </head>
 <body>
-    <h1>PANTALLA</h1>
+    <header>
+        <nav class="navbar1">
+            <img class="logo" src="assets/img/logo-powerscore2.png" alt="Logo">
+            <div class="user-options">
+                <a href="/favs" class="fav-button">
+                    <span class="top"></span>
+                    <span class="text">FAVORITOS</span>
+                    <span class="bottom1"></span>
+                    <span class="bottom2"></span>
+                </a>
+                <div sec:authorize="!isAuthenticated()">
+                    <a href="/login" class="profile">
+                        <img src="assets/img/user.png" alt="Profile">
+                    </a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <a href="/profile" class="profile">
+                        <img th:src="${user.image}" alt="Profile">
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar2">
+            <ul>
+                <li><a href="/">En directo</a></li>
+                <li><a href="/players">Jugadores</a></li>
+                <li><a href="/teams">Equipos</a></li>
+                <li><a href="/championships">Competiciones</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="statistics-match-container">
+
+        </div>
+        <div class="lineups-match-container">
+
+        </div>
+        <div class="events-match-container">
+
+        </div>
+    </main>
+    <footer>
+        <p>David Navarro Romero</p>
+    </footer>
+    <script src="js/showMatch.js"></script>
+    <script th:inline="javascript">
+        var isLog = /*[[${isLog}]]*/ false;
+        var matchResult = /*[[${result}]]*/ 'Resultado no disponible';
+    </script>
 </body>
 </html>

@@ -31,7 +31,8 @@ public class MatchController {
         }
         Match match = matchService.findById(id);
         if (match != null) {
-            model.addAttribute("match", match);   
+            model.addAttribute("match", match); 
+            model.addAttribute("result", match.getResult());  
         }
         return "showMatch";
     }

@@ -23,14 +23,17 @@ public class Match {
     private String competition;
     @Column(name = "SEASON")
     private String season;
+    @Column(name = "RESULT")
+    private String result;
 
     public Match() {}
 
-    public Match(String homeTeam, String awayTeam, String competition, String season) {
+    public Match(String homeTeam, String awayTeam, String competition, String season, String result) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.competition = competition;
         this.season = season;
+        this.result = result;
     }
 
 }

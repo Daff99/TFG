@@ -40,7 +40,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-         /*
+         /* 
         //Equipos y Jugadores
         for (int year = 2018; year <= 2023; year ++) {
             int season = year;
@@ -160,7 +160,10 @@ public class DataInitializer {
                     String awayTeam = matchObject.getJSONObject("teams").getJSONObject("away").getString("name");
                     int season2 = matchObject.getJSONObject("league").getInt("season");
                     String formattedSeason = (season2) + "/" + (season2 + 1);
-                    Match match = new Match(homeTeam, awayTeam, competition, formattedSeason);
+                    int goalsHome = matchObject.getJSONObject("goals").getInt("home");
+                    int goalsAway = matchObject.getJSONObject("goals").getInt("away");
+                    String formattedResult = goalsHome + " - " + goalsAway;
+                    Match match = new Match(homeTeam, awayTeam, competition, formattedSeason, formattedResult);
                     match.setMatchId(idMatch);
                     matchList.add(match);
                 }
