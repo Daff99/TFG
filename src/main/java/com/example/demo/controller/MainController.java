@@ -67,4 +67,9 @@ public class MainController {
     public String showPlayerNotAvailable() {
         return "playerNotAvailable";
     }
+
+    @RequestMapping("/customerror")
+    public String showError() {
+        return "error";
+    }
 }
