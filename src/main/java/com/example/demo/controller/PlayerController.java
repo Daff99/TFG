@@ -63,13 +63,15 @@ public class PlayerController {
             User user = userRepository.findByEmail(username);
             model.addAttribute("user", user);
         }
-        Player player = playerService.findById2(id);
+        Player player = playerService.findById(id);
         if (player != null) {
             model.addAttribute("player", player);
             String report = reports.get(id);
             model.addAttribute("report", report);
+            return "showPlayer";
+        } else {
+            return "redirect:/playerNotAvailable";
         }
-        return "showPlayer";
     }
 
     @GetMapping("/searchPlayers")

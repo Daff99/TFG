@@ -14,8 +14,8 @@ public class PlayerService {
 
     public PlayerService() {}
 
-    public Player findById2(Long id) {
-        return playerRepository.getById(id);
+    public Player findById(Long id) {
+        return playerRepository.findById(id).orElse(null);
     }
 
     public List<Player> searchByName(String query) {

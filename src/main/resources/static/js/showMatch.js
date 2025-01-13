@@ -128,19 +128,24 @@ function appendStatistics(container, datos) {
                 }
 
                 const element2 = datos.response[1].statistics[index];
-                const valueHome = element1.value || 0;
-                const valueAway = element2.value || 0;
-                const maxStatValue = Math.max(valueHome, valueAway);
-                const normalizedValueHome = (valueHome / maxStatValue) * 100;
-                const normalizedValueAway = (valueAway / maxStatValue) * 100;
-
+                const valueHome = parseFloat(element1.value) || 0;
+                const valueAway = parseFloat(element2.value) || 0;
+                let normalizedValueHome, normalizedValueAway;
+                if (action === 'Ball Possession' || action === 'Passes %') {
+                    normalizedValueHome = valueHome;
+                    normalizedValueAway = valueAway;
+                } else {
+                    const maxStatValue = Math.max(valueHome, valueAway, 1);
+                    normalizedValueHome = (valueHome / maxStatValue) * 100;
+                    normalizedValueAway = (valueAway / maxStatValue) * 100;
+                }
                 const allStatisticsHome = document.createRange().createContextualFragment(`
                     <article class="article-statistics">
                         <span class="stat-name">${action}</span>
                         <div class="bars">
                             <span class="bar-value home-value">${valueHome}</span>
-                            <div class="bar bar-homeTeam" style="width: ${normalizedValueHome}%; background-color: ${homeColorCss};"></div>
-                            <div class="bar bar-awayTeam" style="width: ${normalizedValueAway}%; background-color: ${awayColorCss};"></div>
+                            <div class="bar bar-homeTeam" style="width: ${Math.max(normalizedValueHome, 10)}%; background-color: ${homeColorCss};"></div>
+                            <div class="bar bar-awayTeam" style="width: ${Math.max(normalizedValueAway, 10)}%; background-color: ${awayColorCss};"></div>
                             <span class="bar-value away-value">${valueAway}</span>
                         </div>
                     </article>`);
@@ -148,6 +153,58 @@ function appendStatistics(container, datos) {
             });
         };
     };
+}
+
+function getLineups(idMatch, done) {
+    const url = `https://v3.football.api-sports.io/fixtures/lineups?fixture=${idMatch}`;
+    const apiOptions = {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': '6467b905839bb394cd3c678dabff9d81',
+            'x-rapidapi-host': 'sportapi7.p.rapidapi.com'
+        }
+    };
+    fetch(url, apiOptions)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            done(data)
+        })
+        .catch(error => console.error('Error al obtener informacion del partido:', error));
+}
+
+function appendLineups(container, datos) {
+    const cont = document.querySelector(container);
+    cont.querySelectorAll('.lineups-match-container').forEach(lmc => lmc.remove());
+    const main = document.querySelector(".lineups");
+    datos.response.forEach((element, index) => {
+        const isHomeTeam = index === 0;
+        const teamLogo = element.team.logo;
+        const formation = element.formation;
+        const lineUpContainer = document.createRange().createContextualFragment(`
+            <article class="article-lineup">
+                <div class="players-list">
+                    <img src="${teamLogo}" alt="hola">
+                    <h1>Formación: ${formation}</h1>
+                </div>
+            </article>
+        `);
+        element.startXI.forEach(e => {
+            const playerId = e.player.id;
+            const name = e.player.name;
+            const backNumber = e.player.number;
+            const playersinfo = document.createRange().createContextualFragment(`
+                <div class="player-info">
+                    <a href="/showPlayer?id=${playerId}">
+                        <h1 class="backNumber">${backNumber}</h1>
+                        <h1 class="namePlayer">${name}</h1>    
+                    </a>   
+                </div>
+            `);
+            lineUpContainer.querySelector(".players-list").appendChild(playersinfo);
+        });
+        main.appendChild(lineUpContainer);
+    });
 }
 
 function getMatchIdFromURL() {
@@ -160,6 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (matchId) {
         getStatistics(matchId, data => {
             appendStatistics('.statistics-match-container', data);
+        });
+        getLineups(matchId, data => {
+            appendLineups('.lineups-match-container', data);
         });
     } else {
         console.error('No se encontró el id del partido');

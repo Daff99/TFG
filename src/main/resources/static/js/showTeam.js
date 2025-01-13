@@ -153,6 +153,14 @@ function getData(season, teamId, leagueId, done) {
 function appendData(container, datos) {
     const cont = document.querySelector(container);
     cont.querySelectorAll(".article-data-team, .article-data-team-no-stats").forEach(article => article.remove());
+    const formationImages = {
+        "4-3-3": "assets/img/default.jpeg",
+        "4-4-2": "assets/img/default.jpeg",
+        "4-2-3-1": "assets/img/default.jpeg",
+        "4-4-1-1": "assets/img/default.jpeg",
+        "3-5-2": "assets/img/default.jpeg",
+        "5-4-1": "assets/img/default.jpeg",
+    }
     const winsTotal = datos.fixtures.wins.total;
     const winsHome = datos.fixtures.wins.home;
     const winsAway = datos.fixtures.wins.away;
@@ -193,15 +201,21 @@ function appendData(container, datos) {
     }
     const penaltyScored = datos.penalty.scored.total;
     const penaltyMissed = datos.penalty.missed.total;
-    let formationsHTML = ""; 
-    datos.lineups.forEach(lineup => {
+    let formationsHTML = `<div class="formation-container">`; 
+    const limitedLineups = datos.lineups.slice(0, 3)
+    limitedLineups.forEach(lineup => {
         const formation = lineup.formation;
         const frecuencyFormation = lineup.played;
+        const fImage = formationImages[formation];
         formationsHTML += `
-            <h2>Formación: <span class="sp">${formation}</span></h2>
-            <h2>Veces utilizada: <span class="sp">${frecuencyFormation}</span></h2>
+            <article class="article-formation">
+                <img class="formation-image" src="${fImage}" alt="hola"> 
+                <h2>Formación: <span class="sp">${formation}</span></h2>
+                <h2>Veces utilizada: <span class="sp">${frecuencyFormation}</span></h2>
+            </article>
         `;
     });
+    formationsHTML += `</div>`;
     const cleanSheetsTotal = datos.clean_sheet.total;
     const homeCleanSheets = datos.clean_sheet.home;
     const awayCleanSheets = datos.clean_sheet.away;

@@ -62,4 +62,9 @@ public class MainController {
     public String showTeamNotAvailable() {
         return "teamNotAvailable";
     }
+
+    @RequestMapping("/playerNotAvailable")
+    public String showPlayerNotAvailable() {
+        return "playerNotAvailable";
+    }
 }
