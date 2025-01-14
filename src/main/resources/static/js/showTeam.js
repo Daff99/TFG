@@ -149,46 +149,47 @@ function getData(season, teamId, leagueId, done) {
         .catch(error => console.error("Error al obtener estadísticas del equipo:", error));
 }
 
-// Función para mostrar las estadísticas en la página
 function appendData(container, datos) {
     const cont = document.querySelector(container);
     cont.querySelectorAll(".article-data-team, .article-data-team-no-stats").forEach(article => article.remove());
+
     const formationImages = {
         "4-3-3": "assets/img/default.jpeg",
         "4-4-2": "assets/img/default.jpeg",
         "4-2-3-1": "assets/img/default.jpeg",
-        "4-4-1-1": "assets/img/default.jpeg",
         "3-5-2": "assets/img/default.jpeg",
         "5-4-1": "assets/img/default.jpeg",
-    }
+    };
+
     const winsTotal = datos.fixtures.wins.total;
-    const winsHome = datos.fixtures.wins.home;
-    const winsAway = datos.fixtures.wins.away;
     const drawsTotal = datos.fixtures.draws.total;
-    const drawsHome = datos.fixtures.draws.home;
-    const drawsAway = datos.fixtures.draws.away;
     const losesTotal = datos.fixtures.loses.total;
-    const losesHome = datos.fixtures.loses.home;
-    const losesAway = datos.fixtures.loses.away;
     const form = datos.form || "";
+
+    // Colores y emojis para la forma del equipo
     const colors = form.split('').map(char => {
         let clase = '';
+        let emoji = '';
         switch (char) {
             case 'W':
                 clase = 'win';
+                emoji = '✅';
                 break;
             case 'D':
                 clase = 'draw';
+                emoji = '➖';
                 break;
             case 'L':
                 clase = 'lose';
+                emoji = '❌';
                 break;
         }
-        return `<span class="${clase}">${char}</span>`;
+        return `<span class="${clase}">${emoji}</span>`;
     }).join('');
-    //Aquí voy a añadir una clase para cada letra de form, con el fin de cambiar de color cada letra 
-    const goalsConceded = datos.goals.against.total.total;
+
     const goalsScored = datos.goals.for.total.total;
+    const goalsConceded = datos.goals.against.total.total;
+
     if (goalsScored === 0 || !goalsScored) {
         const noStats = document.createRange().createContextualFragment(`
             <article class="article-data-team-no-stats">
@@ -199,51 +200,49 @@ function appendData(container, datos) {
         cont.append(noStats);
         return;
     }
+
     const penaltyScored = datos.penalty.scored.total;
     const penaltyMissed = datos.penalty.missed.total;
+
+    // Formaciones frecuentes
     let formationsHTML = `<div class="formation-container">`; 
-    const limitedLineups = datos.lineups.slice(0, 3)
+    const limitedLineups = datos.lineups.slice(0, 3); 
     limitedLineups.forEach(lineup => {
         const formation = lineup.formation;
         const frecuencyFormation = lineup.played;
-        const fImage = formationImages[formation];
+        const fImage = formationImages[formation] || "assets/img/default.jpeg";
         formationsHTML += `
             <article class="article-formation">
-                <img class="formation-image" src="${fImage}" alt="hola"> 
+                <img class="formation-image" src="${fImage}" alt="Formación ${formation}"> 
                 <h2>Formación: <span class="sp">${formation}</span></h2>
                 <h2>Veces utilizada: <span class="sp">${frecuencyFormation}</span></h2>
             </article>
         `;
     });
     formationsHTML += `</div>`;
+
+    // Porterías a cero
     const cleanSheetsTotal = datos.clean_sheet.total;
-    const homeCleanSheets = datos.clean_sheet.home;
-    const awayCleanSheets = datos.clean_sheet.away;
+
     const dataTeam = document.createRange().createContextualFragment(`
         <article class="article-data-team">
-            <h1>PARTIDOS</h1>
-            <h2>Partidos ganados: <span class="sp">${winsTotal}</span></h2>
-            <h2>Partidos ganados local: <span class="sp">${winsHome}</span></h2>
-            <h2>Partidos ganados visitante: <span class="sp">${winsAway}</span></h2>
-            <h2>Partidos empatados: <span class="sp">${drawsTotal}</span></h2>
-            <h2>Partidos empatados local: <span class="sp">${drawsHome}</span></h2>
-            <h2>Partidos empatados visitante: <span class="sp">${drawsAway}</span></h2>
-            <h2>Partidos perdidos: <span class="sp">${losesTotal}</span></h2>
-            <h2>Partidos perdidos local: <span class="sp">${losesHome}</span></h2>
-            <h2>Partidos perdidos visitante: <span class="sp">${losesAway}</span></h2>
-            <h2>Resumen de partidos: <span class="form">${colors}</span></h2>
-            <h1>GOLES</h1>
-            <h2>Goles a favor: <span class="sp">${goalsScored}</span></h2>
-            <h2>Goles en contra: <span class="sp">${goalsConceded}</span></h2>
-            <h2>Goles de penalti: <span class="sp">${penaltyScored}</span></h2>
-            <h2>Penaltis fallados: <span class="sp">${penaltyMissed}</span></h2>
-            <h1>ALINEACIONES FRECUENTES</h1>
+            <h1>📊 Estadísticas del Equipo</h1>
+            <h2>✅ Partidos ganados: <span class="sp">${winsTotal}</span></h2>
+            <h2>➖ Partidos empatados: <span class="sp">${drawsTotal}</span></h2>
+            <h2>❌ Partidos perdidos: <span class="sp">${losesTotal}</span></h2>
+            <h2>📋 Resumen: <span class="form">${colors}</span></h2>
+            <h1>⚽ Goles</h1>
+            <h2>🟢 Goles a favor: <span class="sp">${goalsScored}</span></h2>
+            <h2>🔴 Goles en contra: <span class="sp">${goalsConceded}</span></h2>
+            <h2>🎯 Penaltis convertidos: <span class="sp">${penaltyScored}</span></h2>
+            <h2>❌ Penaltis fallados: <span class="sp">${penaltyMissed}</span></h2>
+            <h1>📖 Alineaciones Frecuentes</h1>
             ${formationsHTML}
-            <h1>PORTERÍAS A CERO</h1>
-            <h2>Porterías a cero: <span class="sp">${cleanSheetsTotal}</span></h2>
-            <h2>Porterías a cero local: <span class="sp">${homeCleanSheets}</span></h2>
-            <h2>Porterías a cero visitante: <span class="sp">${awayCleanSheets}</span></h2>
+            <h1>🛡️ Porterías a Cero</h1>
+            <h2>🔒 Total: <span class="sp">${cleanSheetsTotal}</span></h2>
         </article>
     `);
     cont.append(dataTeam);
 }
+
+

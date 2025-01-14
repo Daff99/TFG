@@ -207,6 +207,121 @@ function appendLineups(container, datos) {
     });
 }
 
+function getEvents(idMatch, done) {
+    const url = `https://v3.football.api-sports.io/fixtures/events?fixture=${idMatch}`;
+    const apiOptions = {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': '6467b905839bb394cd3c678dabff9d81',
+            'x-rapidapi-host': 'sportapi7.p.rapidapi.com'
+        }
+    };
+    fetch(url, apiOptions)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            done(data)
+        })
+        .catch(error => console.error('Error al obtener informacion del partido:', error));
+}
+
+function appendEvents(container, datos) {
+    const cont = document.querySelector(container);
+    cont.querySelectorAll('.events-match-container').forEach(e => e.remove());
+    const main = document.querySelector('.events');
+
+    datos.response.forEach(element => {
+        const team = element.team.name;
+        const logoTeam = element.team.logo;
+        const time = element.time.elapsed || '';
+        const extraTime = element.time.extra ? `+${element.time.extra}` : ''; 
+        const playerName = element.player.name || 'No disponible';
+        const assistPlayerName = element.assist && element.assist.name ? element.assist.name : '';
+        let typeEvent = element.type;
+        switch (typeEvent) {
+            case 'Card':
+                typeEvent = 'Tarjeta';
+                break;
+            case 'Goal':
+                typeEvent = 'Gol';
+                break;
+            case 'subst':
+                typeEvent = 'Sustitución';
+                break;
+            case 'Var':
+                typeEvent = 'VAR';
+                break;
+            default:
+                typeEvent = typeEvent;
+        }
+        let detailEvent = element.detail;
+        switch (detailEvent) {
+            case 'Yellow Card':
+                detailEvent = 'Tarjeta Amarilla';
+                break;
+            case 'Red Card':
+                detailEvent = 'Tarjeta Roja';
+                break;
+            case 'Normal Goal':
+                detailEvent = 'Gol Normal';
+                break;
+            case 'Penalty':
+                detailEvent = 'Penalti';
+                break;
+            case 'Substitution 1':
+                detailEvent = 'Primer cambio';
+                break;
+            case 'Substitution 2':
+                detailEvent = 'Segundo cambio';
+                break;
+            case 'Substitution 3':
+                detailEvent = 'Tercer cambio';
+                break;
+            case 'Substitution 4':
+                detailEvent = 'Cuarto cambio';
+                break;
+            case 'Substitution 5':
+                detailEvent = 'Quinto cambio';
+                break;
+            case 'Penalty confirmed':
+                detailEvent = 'Penalti concedido';
+                break;
+            case 'Penalty cancelled':
+                detailEvent = 'Penalti cancelado';
+                break;
+            default:
+                detailEvent = detailEvent || '';
+        }
+
+        const eventIcon = {
+            'Tarjeta': '⚠️',
+            'Gol': '⚽',
+            'Sustitución': '🔄',
+            'VAR': '📺',
+        }[typeEvent] || 'ℹ️';
+
+        // Crear HTML
+        const eventsInfo = document.createRange().createContextualFragment(`
+            <article class="article-events">
+                <div class="event-header">
+                    <img class="team-logo" src="${logoTeam}" alt="${team}">
+                    <h1 class="event-time">${time}' ${extraTime}</h1>
+                </div>
+                <div class="event-details">
+                    <span class="event-icon">${eventIcon}</span>
+                    <h2 class="player-name">${typeEvent === 'Sustitución' ? 'Sale del campo' : 'Jugador'}: ${playerName}</h2>
+                    ${typeEvent === 'Sustitución' && assistPlayerName ? `<h2 class="assist-name">Entra al campo: ${assistPlayerName}</h2>` : ''}
+                    ${typeEvent !== 'Sustitución' && assistPlayerName ? `<h3 class="assist-name">Asistencia: ${assistPlayerName}</h3>` : ''}
+                    <p class="event-type">Tipo de evento: ${typeEvent}</p>
+                    <p class="event-detail">Detalle: ${detailEvent}</p>
+                </div>
+            </article>
+        `);
+        main.append(eventsInfo);
+    });
+}
+
+
 function getMatchIdFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('id');
@@ -220,6 +335,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         getLineups(matchId, data => {
             appendLineups('.lineups-match-container', data);
+        });
+        getEvents(matchId, data => {
+            appendEvents('.events-match-container', data);
         });
     } else {
         console.error('No se encontró el id del partido');

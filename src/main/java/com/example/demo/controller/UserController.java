@@ -104,26 +104,23 @@ public class UserController {
     }
 
     @PostMapping("editProfile")
-    public String updateProfile(Model model, 
-                                @RequestParam("image") MultipartFile image, 
-                                @RequestParam("id") Long userId, 
-                                @RequestParam("username") String username, 
-                                @RequestParam("password") String password, 
-                                Authentication auth) throws AmazonServiceException, SdkClientException, IOException {
-        User user = userService.findById2(userId);
-        if (username.isBlank()) {
-            model.addAttribute("errorMessage", "El nombre no puede estar vacío");
-            model.addAttribute("user", user);
-            return "editProfile";
-        }
-        if (password.isBlank()) {
-            model.addAttribute("errorMessage", "La contraseña no puede estar vacía");
-            model.addAttribute("user", user);
-            return "editProfile";
-        }
+public String updateProfile(Model model, 
+                            @RequestParam("image") MultipartFile image, 
+                            @RequestParam("id") Long userId, 
+                            @RequestParam(value = "username", required = false) String username, 
+                            @RequestParam(value = "password", required = false) String password) 
+                            throws AmazonServiceException, SdkClientException, IOException {
+    User user = userService.findById2(userId);
+    
+    // Validar si se ha proporcionado un nuevo nombre de usuario
+    if (username != null && !username.isBlank()) {
         user.setUsername(username);
+    }
+    
+    // Validar si se ha proporcionado una nueva contraseña
+    if (password != null && !password.isBlank()) {
         if (userService.checkPassword(password, user.getPassword())) {
-            model.addAttribute("errorMessage", "Ya está utilizando esta constraseña");
+            model.addAttribute("errorMessage", "Ya está utilizando esta contraseña");
             model.addAttribute("user", user);
             return "editProfile";
         }
@@ -132,25 +129,26 @@ public class UserController {
             model.addAttribute("user", user);
             return "editProfile";
         }
-        if (!image.isEmpty()) {
-            try {
-                String nombreArchivo = image.getOriginalFilename();
-                awsService.uploadToS3(image.getInputStream(), nombreArchivo);
-                user.setImage("https://" + bucketName + ".s3." + regions.getName() + ".amazonaws.com/" + nombreArchivo);
-            } catch(IOException | SdkClientException e) {
-                e.printStackTrace();
-                model.addAttribute("error", "Error al subir la imagen.");
-            }
-        }
-        try {
-            userService.updateUser(user, password); 
-        } catch(IllegalArgumentException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            model.addAttribute("user", user);
-            return "editProfile";
-        }
-        return "redirect:/profile"; 
+        userService.updateUser(user, password); // Actualizar solo si la contraseña es válida
     }
+
+    // Subir una nueva imagen si se proporciona
+    if (!image.isEmpty()) {
+        try {
+            String nombreArchivo = image.getOriginalFilename();
+            awsService.uploadToS3(image.getInputStream(), nombreArchivo);
+            user.setImage("https://" + bucketName + ".s3." + regions.getName() + ".amazonaws.com/" + nombreArchivo);
+        } catch (IOException | SdkClientException e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Error al subir la imagen.");
+        }
+    }
+    
+    // Guardar los cambios del usuario
+    userRepository.save(user);
+    return "redirect:/profile";
+}
+
 
     @PostMapping("/addFavouriteTeam")
     public String addFavouriteTeams(@RequestParam("id") Long teamId, Authentication auth) {

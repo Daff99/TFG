@@ -26,7 +26,7 @@
 
 .reports-container {
     width: 100%;
-    max-width: 1500px;
+    max-width: 1200px;
     min-height: 100vh;
     padding: 10px;
     margin: 10px auto;
@@ -63,7 +63,7 @@
     align-items: flex-start;
     gap: 5px;
     width: 100%;
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 10px auto;
 }
 
@@ -131,8 +131,9 @@
 }
 
 .article-data-team {
-    margin-left: 30px;
-    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 .article-data-team-no-stats {
@@ -148,15 +149,21 @@
 }
 
 .article-data-team h1 {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.article-data-team p {
+    font-size: 1.5em;
+    line-height: 1.5;
+    margin: 5px 0;
 }
 
 .formation-container {
     display: flex;
     gap: 20px;
-    justify-content: center;
+    justify-content: flex-start;
+    padding: 20px;
 }
 
 .article-formation {
