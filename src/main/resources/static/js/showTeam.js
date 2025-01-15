@@ -154,11 +154,22 @@ function appendData(container, datos) {
     cont.querySelectorAll(".article-data-team, .article-data-team-no-stats").forEach(article => article.remove());
 
     const formationImages = {
-        "4-3-3": "assets/img/default.jpeg",
-        "4-4-2": "assets/img/default.jpeg",
-        "4-2-3-1": "assets/img/default.jpeg",
-        "3-5-2": "assets/img/default.jpeg",
-        "5-4-1": "assets/img/default.jpeg",
+        "4-3-3": "assets/img/alineaciones/433.jpeg",
+        "4-4-2": "assets/img/alineaciones/442.jpeg",
+        "4-2-3-1": "assets/img/alineaciones/4231.jpeg",
+        "3-5-2": "assets/img/alineaciones/352.jpeg",
+        "5-4-1": "assets/img/alineaciones/541.jpeg",
+        "4-2-4": "assets/img/alineaciones/424.jpeg",
+        "5-3-2": "assets/img/alineaciones/532.jpeg",
+        "3-4-1-2": "assets/img/alineaciones/3412.jpeg",
+        "3-4-2-1": "assets/img/alineaciones/3421.jpeg",
+        "3-5-1-1": "assets/img/alineaciones/3511.jpeg",
+        "4-1-4-1": "assets/img/alineaciones/4141.jpeg",
+        "4-2-2-2": "assets/img/alineaciones/4222.jpeg",
+        "4-3-1-2": "assets/img/alineaciones/4312.jpeg",
+        "4-3-2-1": "assets/img/alineaciones/4321.jpeg",
+        "4-4-1-1": "assets/img/alineaciones/4411.jpeg",
+        "4-1-2-1-2": "assets/img/alineaciones/41212.jpeg",
     };
 
     const winsTotal = datos.fixtures.wins.total;
