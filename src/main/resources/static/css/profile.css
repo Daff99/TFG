@@ -57,7 +57,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 47px;
+    gap: 20px;
 }
 
 .modify {
@@ -76,3 +76,38 @@
 .modify:hover {
     background-color: #16A1C9;
 }
+
+@media (max-width: 768px) {
+    .user-data {
+        width: 80%;
+        padding: 10px;
+        margin: 50px auto;
+        justify-self: center;
+        align-items: center;
+    }
+
+    .image-user {
+        height: 120px;
+        width: 120px;
+    }
+
+    .h2-name {
+        font-size: 1.2rem;
+    }
+
+    .h2-email {
+        font-size: 1rem;
+    }
+
+    .buttons-container {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .logout-button, .modify {
+        min-width: 100%;
+        font-size: 1rem;
+        height: 45px;
+    }
+}
+

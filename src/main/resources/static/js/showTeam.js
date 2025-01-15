@@ -170,6 +170,8 @@ function appendData(container, datos) {
         "4-3-2-1": "assets/img/alineaciones/4321.jpeg",
         "4-4-1-1": "assets/img/alineaciones/4411.jpeg",
         "4-1-2-1-2": "assets/img/alineaciones/41212.jpeg",
+        "3-1-4-2": "assets/img/alineaciones/3142.jpeg",
+        "3-2-4-1": "assets/img/alineaciones/3241.jpeg",
     };
 
     const winsTotal = datos.fixtures.wins.total;

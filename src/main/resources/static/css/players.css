@@ -28,9 +28,9 @@ a {
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
-    z-index: 10;
+    z-index: 10; /* Para superponer sobre otros elementos */
     max-height: 200px;
-    overflow-y: auto;
+    overflow-y: auto; /* Añadir scroll vertical */
 }
 
 #search-results div {
@@ -186,4 +186,40 @@ a {
     line-height: normal;
     padding-top: 8px;
     margin-left: 5px;
+}
+
+@media (max-width: 1024px) {
+    .players-container {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .premier-players, .laliga-players, .bundesliga-players, .serieA-players, .ligue1-players {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .players-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .premier-players, .laliga-players, .bundesliga-players, .serieA-players, .ligue1-players {
+        width: 80%;
+    }
+
+    .search-container {
+        max-width: 300px;
+    }
+
+    #search-bar {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #search-results div {
+        font-size: 12px;
+        padding: 8px;
+    }
 }

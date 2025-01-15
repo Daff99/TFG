@@ -212,3 +212,54 @@
 .events-match-container h1 {
     margin-bottom: 20px;
 }
+
+@media (max-width: 768px) {
+    .event-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    .header-statistics {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .homeTeamLogo, .awayTeamLogo {
+        height: 80px;
+        width: 140px;
+    }
+
+    .resulth1 {
+        font-size: 2em;
+    }
+
+    .article-statistics {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    .bars {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .lineups {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .events {
+        gap: 15px;
+    }
+
+    .article-events {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

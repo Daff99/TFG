@@ -261,3 +261,84 @@ a:hover {
     color: #00aaa9;
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .header-player, .header-player2, .header-player3 {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .info-player {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .image-player {
+        height: 90px;
+        width: 90px;
+        margin: 20px auto;
+    }
+
+    .name-star {
+        font-size: 14px;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .report-container {
+        max-width: 100%;
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .transfers-trophies {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .transfers-container, .trophies-container {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+    .article-transfers {
+        width: 100%;
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .transfer-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .outName, .inName {
+        text-align: center;
+        padding: 5px 0;
+    }
+
+    .operation-type {
+        font-size: 14px;
+        gap: 10px;
+    }
+
+    .transfer-info img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .trophies {
+        width: 90%;
+        margin: 0 auto;
+        padding: 10px;
+        align-items: center;
+    }
+
+    .trophies h1 {
+        font-size: 18px;
+        text-align: center;
+    }
+}

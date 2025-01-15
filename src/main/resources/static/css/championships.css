@@ -33,6 +33,7 @@ li {
     width: 100%;
     min-width: 60vh;
     margin: 10px auto;
+    transition: al 0.3 ease-in-out;
 }
 
 .star-icon {
@@ -45,3 +46,38 @@ li {
     line-height: 57px;
     margin-bottom: 17px;
 }
+
+@media (max-width: 1024px) {
+    .article-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 80%;
+        min-width: auto;
+    }
+
+    .championship-container {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .article-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 90%;
+        padding: 10px;
+    }
+
+    .star-icon {
+        height: 35px;
+        width: 35px;
+        font-size: 1em;
+    }
+
+    .championship-container {
+        padding: 20px 10px;
+    }
+}
+

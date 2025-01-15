@@ -209,3 +209,107 @@ h1 {
     word-break: break-word;
 }
 
+@media (max-width: 768px) {
+    .header-team {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-team2 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-team {
+        height: 80px;
+        width: 80px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .reports-container {
+        padding: 10px;
+        max-width: 100%;
+        margin: 10px auto;
+    }
+
+    .stadium-data {
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .info-team {
+        margin-top: 10px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .article-team {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .team-data {
+        align-items: center;
+        text-align: center;
+    }
+
+    .image-container {
+        max-width: 100%;
+        max-height: 300px;
+        border: 1px solid #00aaa9;
+        border-radius: 5px;
+    }
+
+    .data-team {
+        max-width: 100%;
+        margin: 10px auto;
+    }
+
+    .article-data-team {
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+
+    .article-data-team-no-stats {
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .formation-container {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+        align-items: center;
+    }
+
+    .article-formation {
+        align-items: center;
+        text-align: center;
+    }
+
+    .formation-image {
+        height: auto;
+        width: 100%;
+        max-width: 180px;
+    }
+
+    .form {
+        word-break: break-word;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin: 10px 0;
+    }
+
+    .win, .draw, .lose {
+        font-size: 1em;
+    }
+}
+
+

@@ -1,14 +1,15 @@
 .favs-data {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: stretch;
+    justify-content: space-between; /* Espacio uniforme entre los elementos que contenga */
+    align-items: stretch; /* Ajusto la altura de los elementos que contiene para que ocupe la altura del contenedor */
     min-height: 73vh;
     margin: 50px 300px 20px 300px;
+    gap: 20px;
 }
 
 .favs-data ul {
-    list-style-type: none;
+    list-style-type: none; /* Elimino los puntos o enumeración predeterminada de los ul */
     padding-left: 0;
     margin-top: 10px;
 }
@@ -19,7 +20,7 @@
     background: white;
     padding: 20px;
     border-radius: 10px;
-    min-width: 30%;
+    min-width: 30%; /* Los contenedores tendrán como mínimo el 30% del ancho de favs-data */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     min-height: 100px;
     align-items: center;
@@ -36,7 +37,7 @@
     line-height: 57px;
     margin-left: 15px;
     top: 5px;
-    cursor: pointer;
+    cursor: pointer; /* Indico que se puede hacer click en el elemento */
 }
 
 .trash-icon:hover {
@@ -53,7 +54,9 @@
     padding: 15px;
     width: 100%;
     max-width: 250px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
     border-radius: 8px;
 }
 
@@ -69,6 +72,7 @@
     width: 55px;
     height: 50px;
     margin-right: 15px;
+    border: 2px solid #00aaa9;
 }
 
 .team-name, .player-name, .championship-name {
@@ -87,3 +91,50 @@ a {
     text-decoration: underline;
     color: #000;
 }
+
+@media (max-width: 1024px) {
+    .favs-data {
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 20px auto;
+        width: 90%;
+    }
+
+    .favourite-teams, .favourite-players, .favourite-championships {
+        min-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .article-team, .article-player, .article-championship {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .favs-data {
+        flex-direction: column;
+        align-items: center;
+        margin: 20px auto;
+        width: 95%;
+    }
+
+    .favourite-teams, .favourite-players, .favourite-championships {
+        min-width: 100%;
+        padding: 15px;
+    }
+
+    .team-image, .player-image, .championship-image {
+        width: 45px;
+        height: 40px;
+    }
+
+    .team-name, .player-name, .championship-name {
+        font-size: 11px;
+        padding-left: 10px;
+    }
+
+    .trash-icon {
+        font-size: 20px;
+    }
+}
+
