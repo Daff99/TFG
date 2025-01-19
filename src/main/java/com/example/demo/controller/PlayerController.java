@@ -28,17 +28,18 @@ public class PlayerController {
     private PlayerService playerService;
     @Autowired
     private UserRepository userRepository;
-    private Map<Long, String> reports;
+    private Map<Long, String> reports; //Aquí ire almacenando los informes de los 177 jugadores que tengo 
 
     @PostConstruct
     public void initReports() {
+        //Este metodo lee mi archivo reportsPlayers.json para asignar a cada jugador su correspondiente informe de powerBi y almacenarlo en el mapa reports
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            InputStream input = getClass().getResourceAsStream("/reportsPlayers.json");
-            reports = mapper.readValue(input, new TypeReference<Map<Long, String>>() {});
+            ObjectMapper mapper = new ObjectMapper(); //Permite trabajar con JSON
+            InputStream input = getClass().getResourceAsStream("/reportsPlayers.json"); //Busco el archivo reportsPlayers.json en mi aplicacion
+            reports = mapper.readValue(input, new TypeReference<Map<Long, String>>() {}); //Convierto el contenido del archivo JSON en un objeto Java, concretamente en un objeto del tipo Map<Long, String>
         } catch (Exception e) {
             e.printStackTrace();
-            reports = Map.of();
+            reports = Map.of(); //Si hay error, inicializo un mapa vacio
         }
     }
 
@@ -74,6 +75,7 @@ public class PlayerController {
         }
     }
 
+    //Metodo para buscar jugadores en la barra de busqueda
     @GetMapping("/searchPlayers")
     @ResponseBody
     public List<Player> searchPlayers(@RequestParam("query") String query) {

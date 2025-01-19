@@ -20,138 +20,116 @@ function appendStatistics(container, datos) {
     const cont = document.querySelector(container);
     cont.innerHTML = '';
     const main = document.querySelector(".statistics-match-container");
-    const homeTeamLogo = datos.response[0].team.logo;
-    const homeTeamName = datos.response[0].team.name;
-    const awayTeamLogo = datos.response[1].team.logo;
-    const awayTeamName = datos.response[1].team.name;
-
-    const homeTeamId = datos.response[0].team.id;
-    const awayTeamId = datos.response[1].team.id;
-
-    // Crear un ColorThief
+    const homeTeam = datos.response[0].team;
+    const awayTeam = datos.response[1].team;
+    //Para el color de las barras de estadisticas, quiero extraer el color predominante que hay en los escudos de los equipos
     const colorThief = new ColorThief();
-
-    // Crear imágenes de los escudos
-    const homeImg = new Image();
-    const awayImg = new Image();
-    homeImg.crossOrigin = "Anonymous";
-    awayImg.crossOrigin = "Anonymous";
-    homeImg.src = homeTeamLogo;
-    awayImg.src = awayTeamLogo;
-
-    // Esperar a que las imágenes carguen
+    const homeImg = loadImage(homeTeam.logo);
+    const awayImg = loadImage(awayTeam.logo);
     homeImg.onload = () => {
         awayImg.onload = () => {
-            const homeColor = colorThief.getColor(homeImg);
-            const awayColor = colorThief.getColor(awayImg);
-
-            // Convertir colores a formato CSS
-            const homeColorCss = `rgb(${homeColor[0]}, ${homeColor[1]}, ${homeColor[2]})`;
-            const awayColorCss = `rgb(${awayColor[0]}, ${awayColor[1]}, ${awayColor[2]})`;
-
-            // Crear encabezado
-            const headerArticle = document.createRange().createContextualFragment(`
-                <article class="article-header">
-                    <div class="header-statistics">
-                        <div class="homeTeam-container">
-                            <img class="homeTeamLogo" src="${homeTeamLogo}" alt="${homeTeamName}">
-                            <a href="/showTeam?id=${homeTeamId}">
-                                <h1>${homeTeamName}</h1>
-                            </a>       
-                        </div>
-                        <h1 class="resulth1">${matchResult}</h1>
-                        <div class="awayTeam-container">
-                            <img class="awayTeamLogo" src="${awayTeamLogo}" alt="${awayTeamName}">
-                            <a href="/showTeam?id=${awayTeamId}">
-                                <h1>${awayTeamName}</h1>
-                            </a>
-                        </div>
-                    </div>
-                </article>`);
-            main.append(headerArticle);
-
-            // Crear estadísticas
-            datos.response[0].statistics.forEach((element1, index) => {
-                let action = element1.type;
-                switch (action) {
-                    case 'Shots on Goal':
-                        action = 'Tiros a puerta';
-                        break;
-                    case 'Shots off Goal':
-                        action = 'Tiros fuera';
-                        break;
-                    case 'Total Shots':
-                        action = 'Tiros totales';
-                        break;
-                    case 'Blocked Shots':
-                        action = 'Tiros bloqueados';
-                        break;
-                    case 'Shots insidebox':
-                        action = 'Tiros dentro del área';
-                        break;
-                    case 'Shots outsidebox':
-                        action = 'Tiros fuera del área';
-                        break;
-                    case 'Fouls':
-                        action = 'Faltas';
-                        break;
-                    case 'Corner Kicks':
-                        action = 'Córners';
-                        break;
-                    case 'Offsides':
-                        action = 'Fuera de juego';
-                        break;
-                    case 'Ball Possession':
-                        action = 'Posesión';
-                        break;
-                    case 'Yellow Cards':
-                        action = 'Tarjetas amarillas';
-                        break;
-                    case 'Red Cards':
-                        action = 'Tarjetas rojas';
-                        break;
-                    case 'Goalkeeper Saves':
-                        action = 'Paradas del portero';
-                        break;
-                    case 'Total passes':
-                        action = 'Pasas totales';
-                        break;
-                    case 'Passes accurate':
-                        action = 'Pases acertados';
-                        break;
-                    case 'Passes %':
-                        action = 'Porcentaje de pases completado';
-                        break;
-                    case 'expected_goals':
-                        action = 'Goles esperados (xG)';
-                        break;
-                }
-
-                const element2 = datos.response[1].statistics[index];
-                const valueHome = parseFloat(element1.value) || 0;
-                const valueAway = parseFloat(element2.value) || 0;
-                let normalizedValueHome, normalizedValueAway;
-                if (action === 'Ball Possession' || action === 'Passes %') {
-                    normalizedValueHome = valueHome;
-                    normalizedValueAway = valueAway;
-                } else {
-                    const maxStatValue = Math.max(valueHome, valueAway, 1);
-                    normalizedValueHome = (valueHome / maxStatValue) * 100;
-                    normalizedValueAway = (valueAway / maxStatValue) * 100;
-                }
-                const allStatisticsHome = document.createRange().createContextualFragment(`
-                    <article class="article-statistics">
-                        <span class="stat-name">${action}</span>
-                        <div class="bars">
-                            <span class="bar-value home-value">${valueHome}</span>
-                            <div class="bar bar-homeTeam" style="width: ${Math.max(normalizedValueHome, 10)}%; background-color: ${homeColorCss};"></div>
-                            <div class="bar bar-awayTeam" style="width: ${Math.max(normalizedValueAway, 10)}%; background-color: ${awayColorCss};"></div>
-                            <span class="bar-value away-value">${valueAway}</span>
-                        </div>
-                    </article>`);
-                main.append(allStatisticsHome);
-            });
+            const homeColorCss = getCssColor(colorThief.getColor(homeImg));
+            const awayColorCss = getCssColor(colorThief.getColor(awayImg));
+            createHeader(main, homeTeam, awayTeam);
+            createStatistics(main, datos, homeColorCss, awayColorCss);
         };
+    };
+}
+
+//Función para crear el encabezado
+function createHeader(main, homeTeam, awayTeam) {
+    const headerArticle = document.createRange().createContextualFragment(`
+        <article class="article-header">
+            <div class="header-statistics">
+                <div class="homeTeam-container">
+                    <img class="homeTeamLogo" src="${homeTeam.logo}" alt="${homeTeam.name}">
+                    <a href="/showTeam?id=${homeTeam.id}">
+                        <h1>${homeTeam.name}</h1>
+                    </a>       
+                </div>
+                <h1 class="resulth1">${matchResult}</h1>
+                <div class="awayTeam-container">
+                    <img class="awayTeamLogo" src="${awayTeam.logo}" alt="${awayTeam.name}">
+                    <a href="/showTeam?id=${awayTeam.id}">
+                        <h1>${awayTeam.name}</h1>
+                    </a>
+                </div>
+            </div>
+        </article>
+    `);
+    main.append(headerArticle);
+}
+
+//Función para crear las estadísticas
+function createStatistics(main, datos, homeColorCss, awayColorCss) {
+    const translations = getTranslations();
+    const homeStats = datos.response[0].statistics;
+    const awayStats = datos.response[1].statistics;
+    homeStats.forEach((stat, index) => {
+        const action = translations[stat.type] || stat.type;
+        const valueHome = parseFloat(stat.value) || 0;
+        const valueAway = parseFloat(awayStats[index]?.value) || 0;
+        const { normalizedValueHome, normalizedValueAway } = normalizeValues(action, valueHome, valueAway);
+        const statArticle = document.createRange().createContextualFragment(`
+            <article class="article-statistics">
+                <span class="stat-name">${action}</span>
+                <div class="bars">
+                    <span class="bar-value home-value">${valueHome}</span>
+                    <div class="bar bar-homeTeam" style="width: ${Math.max(normalizedValueHome, 10)}%; background-color: ${homeColorCss};"></div>
+                    <div class="bar bar-awayTeam" style="width: ${Math.max(normalizedValueAway, 10)}%; background-color: ${awayColorCss};"></div>
+                    <span class="bar-value away-value">${valueAway}</span>
+                </div>
+            </article>
+        `);
+        main.append(statArticle);
+    });
+}
+
+//Las estadisticas de posesion y porcentaje de pases completado vienen en porcentajes asi que tengo que normalizarlos para que en las barras de estadisticas se muestre una diferencia en las longitudes acorde a los valores
+function normalizeValues(action, valueHome, valueAway) {
+    if (action === 'Posesión' || action === 'Porcentaje de pases completado') {
+        return { normalizedValueHome: valueHome, normalizedValueAway: valueAway };
+    }
+    const maxStatValue = Math.max(valueHome, valueAway, 1);
+    return {
+        normalizedValueHome: (valueHome / maxStatValue) * 100,
+        normalizedValueAway: (valueAway / maxStatValue) * 100
+    };
+}
+
+//Función para cargar imágenes
+function loadImage(src) {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = src;
+    return img;
+}
+
+//Función para convertir colores a CSS
+function getCssColor(color) {
+    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+}
+
+//La API me devuelve los valores en ingles, los traduzco para mostrarlos en la vista
+function getTranslations() {
+    return {
+        'Shots on Goal': 'Tiros a puerta',
+        'Shots off Goal': 'Tiros fuera',
+        'Total Shots': 'Tiros totales',
+        'Blocked Shots': 'Tiros bloqueados',
+        'Shots insidebox': 'Tiros dentro del área',
+        'Shots outsidebox': 'Tiros fuera del área',
+        'Fouls': 'Faltas',
+        'Corner Kicks': 'Córners',
+        'Offsides': 'Fuera de juego',
+        'Ball Possession': 'Posesión',
+        'Yellow Cards': 'Tarjetas amarillas',
+        'Red Cards': 'Tarjetas rojas',
+        'Goalkeeper Saves': 'Paradas del portero',
+        'Total passes': 'Pases totales',
+        'Passes accurate': 'Pases acertados',
+        'Passes %': 'Porcentaje de pases completado',
+        'expected_goals': 'Goles esperados (xG)'
     };
 }
 
@@ -177,8 +155,7 @@ function appendLineups(container, datos) {
     const cont = document.querySelector(container);
     cont.querySelectorAll('.lineups-match-container').forEach(lmc => lmc.remove());
     const main = document.querySelector(".lineups");
-    datos.response.forEach((element, index) => {
-        const isHomeTeam = index === 0;
+    datos.response.forEach(element => {
         const teamLogo = element.team.logo;
         const formation = element.formation;
         const lineUpContainer = document.createRange().createContextualFragment(`
@@ -229,96 +206,89 @@ function appendEvents(container, datos) {
     const cont = document.querySelector(container);
     cont.querySelectorAll('.events-match-container').forEach(e => e.remove());
     const main = document.querySelector('.events');
-
-    datos.response.forEach(element => {
-        const team = element.team.name;
-        const logoTeam = element.team.logo;
-        const time = element.time.elapsed || '';
-        const extraTime = element.time.extra ? `+${element.time.extra}` : ''; 
-        const playerName = element.player.name || 'No disponible';
-        const assistPlayerName = element.assist && element.assist.name ? element.assist.name : '';
-        let typeEvent = element.type;
-        switch (typeEvent) {
-            case 'Card':
-                typeEvent = 'Tarjeta';
-                break;
-            case 'Goal':
-                typeEvent = 'Gol';
-                break;
-            case 'subst':
-                typeEvent = 'Sustitución';
-                break;
-            case 'Var':
-                typeEvent = 'VAR';
-                break;
-            default:
-                typeEvent = typeEvent;
-        }
-        let detailEvent = element.detail;
-        switch (detailEvent) {
-            case 'Yellow Card':
-                detailEvent = 'Tarjeta Amarilla';
-                break;
-            case 'Red Card':
-                detailEvent = 'Tarjeta Roja';
-                break;
-            case 'Normal Goal':
-                detailEvent = 'Gol Normal';
-                break;
-            case 'Penalty':
-                detailEvent = 'Penalti';
-                break;
-            case 'Substitution 1':
-                detailEvent = 'Primer cambio';
-                break;
-            case 'Substitution 2':
-                detailEvent = 'Segundo cambio';
-                break;
-            case 'Substitution 3':
-                detailEvent = 'Tercer cambio';
-                break;
-            case 'Substitution 4':
-                detailEvent = 'Cuarto cambio';
-                break;
-            case 'Substitution 5':
-                detailEvent = 'Quinto cambio';
-                break;
-            case 'Penalty confirmed':
-                detailEvent = 'Penalti concedido';
-                break;
-            case 'Penalty cancelled':
-                detailEvent = 'Penalti cancelado';
-                break;
-            default:
-                detailEvent = detailEvent || '';
-        }
-
-        const eventIcon = {
-            'Tarjeta': '⚠️',
-            'Gol': '⚽',
-            'Sustitución': '🔄',
-            'VAR': '📺',
-        }[typeEvent] || 'ℹ️';
-
-        // Crear HTML
-        const eventsInfo = document.createRange().createContextualFragment(`
-            <article class="article-events">
-                <div class="event-header">
-                    <img class="team-logo" src="${logoTeam}" alt="${team}">
-                    <h1 class="event-time">${time}' ${extraTime}</h1>
-                </div>
-                <div class="event-details">
-                    <span class="event-icon">${eventIcon}</span>
-                    <h2 class="player-name">${typeEvent === 'Sustitución' ? 'Sale del campo' : 'Jugador'}: ${playerName}</h2>
-                    ${typeEvent === 'Sustitución' && assistPlayerName ? `<h2 class="assist-name">Entra al campo: ${assistPlayerName}</h2>` : ''}
-                    ${typeEvent !== 'Sustitución' && assistPlayerName ? `<h3 class="assist-name">Asistencia: ${assistPlayerName}</h3>` : ''}
-                    <p class="event-type">Tipo de evento: ${typeEvent}</p>
-                    <p class="event-detail">Detalle: ${detailEvent}</p>
-                </div>
-            </article>
-        `);
-        main.append(eventsInfo);
+    const typeTranslations = {
+        'Card': 'Tarjeta',
+        'Goal': 'Gol',
+        'subst': 'Sustitución',
+        'Var': 'VAR',
+    };
+    const detailTranslations = {
+        'Yellow Card': 'Tarjeta Amarilla',
+        'Red Card': 'Tarjeta Roja',
+        'Normal Goal': 'Gol Normal',
+        'Penalty': 'Penalti',
+        'Substitution 1': 'Primer cambio',
+        'Substitution 2': 'Segundo cambio',
+        'Substitution 3': 'Tercer cambio',
+        'Substitution 4': 'Cuarto cambio',
+        'Substitution 5': 'Quinto cambio',
+        'Penalty confirmed': 'Penalti concedido',
+        'Penalty cancelled': 'Penalti cancelado',
+    };
+    const eventIcons = {
+        'Tarjeta': '⚠️',
+        'Gol': '⚽',
+        'Sustitución': '🔄',
+        'VAR': '📺',
+    };
+    datos.response.forEach(event => {
+        const {
+            team: { name: team, logo: logoTeam },
+            time: { elapsed: time = '', extra = '' },
+            player: { name: playerName = 'No disponible' } = {},
+            assist: { name: assistPlayerName = '' } = {},
+            type,
+            detail,
+        } = event;
+        const typeEvent = translateValue(type, typeTranslations);
+        const detailEvent = translateValue(detail, detailTranslations);
+        const eventIcon = eventIcons[typeEvent] || 'ℹ️';
+        const eventHtml = createEventHtml(
+            logoTeam,
+            team,
+            time,
+            extra,
+            playerName,
+            assistPlayerName,
+            typeEvent,
+            detailEvent,
+            eventIcon
+        );
+        main.append(eventHtml);
     });
+}
+
+function translateValue(value, translations) {
+    return translations[value] || value || '';
+}
+
+function createEventHtml(
+    logoTeam,
+    team,
+    time,
+    extra,
+    playerName,
+    assistPlayerName,
+    typeEvent,
+    detailEvent,
+    eventIcon
+) {
+    return document.createRange().createContextualFragment(`
+        <article class="article-events">
+            <div class="event-header">
+                <img class="team-logo" src="${logoTeam}" alt="${team}">
+                <h1 class="event-time">${time}' ${extra ? `+${extra}` : ''}</h1>
+            </div>
+            <div class="event-details">
+                <span class="event-icon">${eventIcon}</span>
+                <h2 class="player-name">${typeEvent === 'Sustitución' ? 'Sale del campo' : 'Jugador'}: ${playerName}</h2>
+                ${typeEvent === 'Sustitución' && assistPlayerName ? `<h2 class="assist-name">Entra al campo: ${assistPlayerName}</h2>` : ''}
+                ${typeEvent !== 'Sustitución' && assistPlayerName ? `<h3 class="assist-name">Asistencia: ${assistPlayerName}</h3>` : ''}
+                <p class="event-type">Tipo de evento: ${typeEvent}</p>
+                <p class="event-detail">Detalle: ${detailEvent}</p>
+            </div>
+        </article>
+    `);
 }
 
 

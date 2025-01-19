@@ -19,7 +19,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         if (exception instanceof BadCredentialsException) {
             errorMessage = "Correo o contraseña incorrectos";
         }
-        request.getSession().setAttribute("errorMessage", errorMessage);
-        response.sendRedirect("/login");
+        request.getSession().setAttribute("errorMessage", errorMessage); //Almaceno en la sesión actual el mensaje de error para mostrar al usuario 
+        response.sendRedirect("/login"); //Página de redirección en caso de que falle el intento de autenticación
     }
 }

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/championships.css">
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{/css/championships.css}" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -23,7 +23,7 @@
                         <img src="assets/img/user.png" alt="Profile">
                     </a>
                 </div>
-                <div sec:authorize="isAuthenticated()">
+                <div sec:authorize="isAuthenticated()"> <!-- Me lleva a la pantalla de profile si el usuario esta autenticado -->
                     <a href="/profile" class="profile">
                         <img th:src="${user.image}" alt="Profile">
                     </a>
@@ -44,7 +44,7 @@
             <li th:each="championship : ${listChampionships}">
                 <div class="article-content">
                     <img th:src="${championship.image}" th:alt="${championship.name}">
-                    <a th:href="@{/showChampionship/{id}(id=${championship.id})}">
+                    <a th:href="@{/showChampionship(id=${championship.id})}">
                         <h1 th:text="${championship.name}"></h1>
                     </a>
                     <span class="star-icon" sec:authorize="isAuthenticated()">

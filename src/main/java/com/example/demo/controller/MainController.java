@@ -13,6 +13,7 @@ import com.example.demo.model.Team;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 
+//En esta clase manejo controladores que no tienen nada que ver con las entidades de mi aplicacion
 @Controller
 public class MainController {
 

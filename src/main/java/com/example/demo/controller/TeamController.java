@@ -34,6 +34,7 @@ public class TeamController {
     private TeamRepository teamRepository;
     private Map<Long, String[]> reports;
     
+    //Lo mismo que hago con los jugadores, lo hago con los equipos
     @PostConstruct
     public void initReports() {
         try {
@@ -56,7 +57,8 @@ public class TeamController {
         }
         boolean isLog = (principal != null);
         model.addAttribute("isLog", isLog);
-        List<Team> teams = teamRepository.findAll();
+        List<Team> teams = teamRepository.findAll(); //Recojo todos los equipos
+        //Necesito filtrar segun la competicion asignada a cada equipo para mostrarlos en los div correspondientes, despues convierto todos los equipos de una competicion en una lista
         List<Team> premierTeams = teams.stream().filter(team -> "Premier League".equals(team.getCompetition())).collect(Collectors.toList());
         List<Team> laligaTeams = teams.stream().filter(team -> "La Liga".equals(team.getCompetition())).collect(Collectors.toList());
         List<Team> bundesligaTeams = teams.stream().filter(team -> "Bundesliga".equals(team.getCompetition())).collect(Collectors.toList());
@@ -81,6 +83,7 @@ public class TeamController {
         Team team = teamsService.findByApiId(apiId);
         if (team != null) {
             model.addAttribute("team", team);
+            //Necesitaba sacar el ID de la liga para luego poder hacer una llamada a la API
             Map<String, Long> competitionLeagueId = Map.of(
                 "Premier League", 39L,
                 "La Liga", 140L,
@@ -88,9 +91,9 @@ public class TeamController {
                 "Serie A", 135L,
                 "Ligue 1", 61L
             );
-            String competition = team.getCompetition();
-            Long leagueId = competitionLeagueId.get(competition);
-            model.addAttribute("leagueId", leagueId);
+            String competition = team.getCompetition(); //Saco la competicion del equipo
+            Long leagueId = competitionLeagueId.get(competition); //Saco el id de la competicion
+            model.addAttribute("leagueId", leagueId); //Lo paso al modelo para luego poder hacer la llamada a la API
             String[] listareports = reports.get(apiId);
             model.addAttribute("listareports", listareports);
             return "showTeam";

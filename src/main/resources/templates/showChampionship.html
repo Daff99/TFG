@@ -7,7 +7,7 @@
     <link th:href="@{/css/dropdownmenu2.css}" rel="stylesheet">
     <link th:href="@{/css/showChampionship.css}" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
-    <title>Document</title>
+    <title th:text="${championship.name}"></title>
 </head>
 <body>
     <header>
@@ -43,7 +43,7 @@
     </header>
     <main>
         <div class="slider">
-            <img th:src="@{/assets/img/sliders/} + ${championship.slider}" alt="">
+            <img th:src="@{/assets/img/sliders/} + ${championship.slider}" alt="Imagen del campeonato">
         </div>
         <div class="select-menus-container">
             <div class="select-menu">
@@ -58,12 +58,6 @@
                     <li class="option">2020/2021</li>
                     <li class="option">2019/2020</li>
                     <li class="option">2018/2019</li>
-                    <!-- 
-                    <li class="option">2017/2018</li>
-                    <li class="option">2016/2017</li>
-                    <li class="option">2015/2016</li>
-                    <li class="option">2014/2015</li>
-                    <li class="option">2013/2014</li> -->
                 </ul>
             </div>
             <div class="select-menuMW">
@@ -99,7 +93,6 @@
         <p>David Navarro Romero</p>
     </footer>  
     <script th:inline="javascript">
-        /*[[${leagueId}]]*/ 
         const leagueId = /*[[${leagueId}]]*/ ""; 
     </script>
     <script th:src="@{/js/matches.js}"></script>

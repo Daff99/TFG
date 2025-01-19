@@ -24,7 +24,7 @@ function appendInfo(container, datos) {
 		const agePlayer = element.player.age;
 		const birthDate = element.player.birth.date;
         const [year, month, day] = birthDate.split("-");
-        const formattedDate = `${day}-${month}-${year}`;
+        const formattedDate = `${day}-${month}-${year}`; //Cambio el formato de la fecha
 		const height = element.player.height;
 		const weight = element.player.weight;
 		const nationality = element.player.nationality;
@@ -68,21 +68,11 @@ function appendTranfers(container, data) {
 		const outNameTeam = element.teams.out.name;
         const idinTeam = element.teams.in.id;
         const idoutTeam = element.teams.out.id;
-		let operation = element.type;
 		const date = element.date;
         const [year, month, day] = date.split("-");
         const formattedDate = `${day}-${month}-${year}`;
-		switch (operation) {
-			case 'N/A':
-				operation = 'Fin de cesión';
-				break;
-			case 'Loan':
-				operation = 'Cedido';
-				break;
-            case 'Free':
-                operation = 'Gratis';
-                break;
-		}
+        const translations = getTranslations();
+        const operation = translations[element.type] || element.type; 
 		const allTransfers = document.createRange().createContextualFragment(`
 			<article class="article-transfers">
                 <div class="transfer-info">
@@ -106,6 +96,14 @@ function appendTranfers(container, data) {
 	});
 }
 
+function getTranslations() {
+    return {
+        'N/A' : 'Fin de cesión',
+        'Loan': 'Cedido',
+        'Free': 'Gratis'
+    };
+}
+
 function getTrophies(playerId, done) {
     const url = `https://v3.football.api-sports.io/trophies?player=${playerId}`;
     const apiOptions = {
@@ -125,44 +123,50 @@ function appendTrophies(container, data) {
     const cont = document.querySelector(container);
     cont.querySelectorAll('.trophies-container').forEach(trophiesContainer => trophiesContainer.remove());
     if (data.response.length === 0) {
-        const noTrophies = document.createRange().createContextualFragment(`
-            <article class="trophies">
-                <h1>Sin trofeos</h1>
-                <span class="sp">Este jugador no tiene trofeos registrados.</span>
-            </article>
-        `);
-        cont.append(noTrophies);
+        appendNoTrophiesArticle(cont);
         return;
     }
-    data.response.forEach(element => {
-		const championship = element.league;
-		const country = element.country;
-		let season = element.season;
-		if (season === 'Peru 2011') {
-			season = '2010/2011';
-		}
-		// Ordenar los trofeos de más reciente a menos reciente
-		data.response.sort((a, b) => b.season - a.season);
-		let place = element.place;
-		switch (place) {
-			case 'Winner':
-				place = 'Campeón';
-				break;
-			case '2nd Place':
-				place = 'Subcampeón';
-				break;
-		}
-		let trophies = document.createRange().createContextualFragment(`
-			<article class="trophies">
-				<h1>${championship}</h1>
-				<h2>País: <span class="sp">${country}</span></h2>
-                <h2>Temporada: <span class="sp">${season}</span></h2>
-                <h2>País: <span class="sp">${place}</span></h2>
-			</article>
-		`);
-		const main = document.querySelector(".trophies-container");
-		main.append(trophies);
-	});
+    const sortedTrophies = data.response.sort((a, b) => b.season - a.season); //Ordeno los trofeos que mas reciente a menos reciente
+    sortedTrophies.forEach(t => {
+        const trophyDetails = getTrophyDetails(t);
+        appendTrophyCard('.trophies-container', trophyDetails);
+    });
+}
+
+function getTrophyDetails(trophy) {
+    const translations = {
+        'Winner': 'Campeón',
+        '2nd Place': 'Subcampeón'
+    };
+    return {
+        championship: trophy.league,
+        country: trophy.country,
+        season: trophy.season === 'Peru 2011' ? '2010/2011' : trophy.season,
+        place: translations[trophy.place] || trophy.place
+    };
+}
+
+function appendTrophyCard(containerSelector, { championship, country, season, place }) {
+    const main = document.querySelector(containerSelector);
+    const trophyCard = document.createRange().createContextualFragment(`
+        <article class="trophies">
+            <h1>${championship}</h1>
+            <h2>País: <span class="sp">${country}</span></h2>
+            <h2>Temporada: <span class="sp">${season}</span></h2>
+            <h2>Lugar: <span class="sp">${place}</span></h2>
+        </article>
+    `);
+    main.append(trophyCard);
+}
+
+function appendNoTrophiesArticle(cont) {
+    const noTrophies = document.createRange().createContextualFragment(`
+        <article class="trophies">
+            <h1>Sin trofeos</h1>
+            <span class="sp">Este jugador no tiene trofeos registrados.</span>
+        </article>
+    `);
+    cont.append(noTrophies);
 }
 
 function getPlayerIdFromURL() {

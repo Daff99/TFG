@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,7 +42,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private S3Service awsService;
+    private S3Service awsService; //Para subir imagenes a Amazon S3
     @Autowired
     private TeamRepository teamRepository;
     @Autowired
@@ -52,8 +50,8 @@ public class UserController {
     @Autowired
     private ChampionshipsRepository championshipsRepository;
 
-    private String bucketName = "images-daff";
-    private Regions regions = Regions.EU_NORTH_1;
+    private String bucketName = "images-daff"; //El bucket donde almaceno las imagenes
+    private Regions regions = Regions.EU_NORTH_1; //La region de AWS para el bucket
 
     @RequestMapping("/login")
     public String showLoginForm(Model model, HttpServletRequest request) {
@@ -70,16 +68,13 @@ public class UserController {
     @RequestMapping("/register")
     public String register(Model model) {
         Register r = new Register();
-        model.addAttribute("r", r);
+        model.addAttribute("r", r); //Paso al modelo un objeto Register para ser usado en el formulario de registro de usuario
         return "register";
     }
 
     @PostMapping("/register")
     public String processRegistration(@Valid @ModelAttribute("r") Register r, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "register";
-        }
-        if (userRepository.findByEmail(r.getEmail()) != null) {
+        if (userRepository.findByEmail(r.getEmail()) != null) { 
             model.addAttribute("errorMessage", "El correo ya está registrado");
             return "register";
         }
@@ -91,6 +86,7 @@ public class UserController {
         }
         return "redirect:/login";
     }
+
 
     @RequestMapping("editProfile")
     public String editProfile(Model model) {
@@ -104,50 +100,44 @@ public class UserController {
     }
 
     @PostMapping("editProfile")
-public String updateProfile(Model model, 
-                            @RequestParam("image") MultipartFile image, 
-                            @RequestParam("id") Long userId, 
-                            @RequestParam(value = "username", required = false) String username, 
-                            @RequestParam(value = "password", required = false) String password) 
-                            throws AmazonServiceException, SdkClientException, IOException {
-    User user = userService.findById2(userId);
-    
-    // Validar si se ha proporcionado un nuevo nombre de usuario
-    if (username != null && !username.isBlank()) {
-        user.setUsername(username);
-    }
-    
-    // Validar si se ha proporcionado una nueva contraseña
-    if (password != null && !password.isBlank()) {
-        if (userService.checkPassword(password, user.getPassword())) {
-            model.addAttribute("errorMessage", "Ya está utilizando esta contraseña");
-            model.addAttribute("user", user);
-            return "editProfile";
+    public String updateProfile(Model model, 
+                                @RequestParam("image") MultipartFile image, 
+                                @RequestParam("id") Long userId, 
+                                @RequestParam(value = "username", required = false) String username, 
+                                @RequestParam(value = "password", required = false) String password) 
+                                throws AmazonServiceException, SdkClientException, IOException {
+        User user = userService.findById2(userId);
+        if (username != null && !username.isBlank()) {
+            user.setUsername(username);
         }
-        if (password.length() < 6) {
-            model.addAttribute("errorMessage", "La contraseña debe tener mínimo 6 caracteres");
-            model.addAttribute("user", user);
-            return "editProfile";
+        if (password != null && !password.isBlank()) {
+            if (userService.checkPassword(password, user.getPassword())) { //Se comprueba la contraseña que se ha introducido con la asociada en la base de datos
+                //Si es la misma, se lanza el mensaje
+                model.addAttribute("errorMessage", "Ya está utilizando esta contraseña");
+                model.addAttribute("user", user);
+                return "editProfile";
+            }
+            if (password.length() < 6) { //Para asegurarse de que la contraseña tenga una longitud minima
+                model.addAttribute("errorMessage", "La contraseña debe tener mínimo 6 caracteres");
+                model.addAttribute("user", user);
+                return "editProfile";
+            }
+            userService.updateUser(user, password);
         }
-        userService.updateUser(user, password); // Actualizar solo si la contraseña es válida
-    }
-
-    // Subir una nueva imagen si se proporciona
-    if (!image.isEmpty()) {
-        try {
-            String nombreArchivo = image.getOriginalFilename();
-            awsService.uploadToS3(image.getInputStream(), nombreArchivo);
-            user.setImage("https://" + bucketName + ".s3." + regions.getName() + ".amazonaws.com/" + nombreArchivo);
-        } catch (IOException | SdkClientException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Error al subir la imagen.");
+        //Se sube una nueva imagen si se proporciona
+        if (!image.isEmpty()) {
+            try {
+                String nombreArchivo = image.getOriginalFilename();
+                awsService.uploadToS3(image.getInputStream(), nombreArchivo);
+                user.setImage("https://" + bucketName + ".s3." + regions.getName() + ".amazonaws.com/" + nombreArchivo);
+            } catch (IOException | SdkClientException e) {
+                e.printStackTrace();
+                model.addAttribute("error", "Error al subir la imagen.");
+            }
         }
+        userRepository.save(user);
+        return "redirect:/profile";
     }
-    
-    // Guardar los cambios del usuario
-    userRepository.save(user);
-    return "redirect:/profile";
-}
 
 
     @PostMapping("/addFavouriteTeam")
@@ -155,9 +145,9 @@ public String updateProfile(Model model,
         String username = auth.getName();
         User user = userRepository.findByEmail(username);
         Team team = teamRepository.findByApiId(teamId);
-        if (user.getFavouriteTeams().contains(team)) {
+        if (user.getFavouriteTeams().contains(team)) { //Si el usuario ya tiene guardado ese equipo como favorito, se borra de la lista de favoritos
             user.getFavouriteTeams().remove(team);
-        } else {
+        } else { //Si no, se agrega el equipo
             user.getFavouriteTeams().add(team);
         }
         userRepository.save(user);
@@ -231,7 +221,7 @@ public String updateProfile(Model model,
     @RequestMapping("/favouritePlayers")
     @ResponseBody
     public List<Long> getFavouritePlayers(Authentication auth) {
-        if (auth == null || !auth.isAuthenticated()) {
+        if (auth == null || !auth.isAuthenticated()) { //Si el usuario no está autenticado, la lista de jugadores favoritos estará vacía
             return new ArrayList<>();
         }
         String username = auth.getName();

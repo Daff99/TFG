@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.security.core.Authentication;
 import java.security.Principal;
@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 @Controller
 public class ChampionshipsController {
 
+    //Inyecto dependencias
     @Autowired
     private ChampionshipsService championshipsService;
     @Autowired
@@ -24,21 +25,23 @@ public class ChampionshipsController {
     
     @RequestMapping("/championships")
     public String showChampionships(Model model, Principal principal) {
+        //Para controlar si el usuario está autenticado
         boolean isLog = (principal != null);
         model.addAttribute("isLog", isLog);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication(); //Para obtener informacion del usuario autenticado
         if (auth != null && auth.isAuthenticated()) {
             String username = auth.getName();
             User user = userRepository.findByEmail(username);
             model.addAttribute("user", user);
         }
-        List<Championship> listChampionships = championshipsService.findAll();
-        model.addAttribute("listChampionships", listChampionships);
+        List<Championship> listChampionships = championshipsService.findAll(); //Recojo la lista de campeonatos disponibles en mi base de datos
+        model.addAttribute("listChampionships", listChampionships); //Agrego al modelo los campeonatos
         return "championships";
     }
 
-    @RequestMapping("/showChampionship/{id}")
-    public String showChampionship(@PathVariable("id") Long id, Model model) {
+    //Para mostrar detalles de un campeonato en especifico
+    @RequestMapping("/showChampionship")
+    public String showChampionship(@RequestParam("id") Long id, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
             String username = auth.getName();
@@ -51,6 +54,8 @@ public class ChampionshipsController {
             model.addAttribute("leagueId", champ.getId());
             String powerBiURL;
             String powerBiURL2;
+            //Cada campeonato tiene asignados dos informes de powerBi
+            //Obtengo el nombre y segun la competicion que sea, le asigno sus correspondientes informes
             switch (champ.getName()) {
                 case "Bundesliga":
                     powerBiURL = "https://app.powerbi.com/view?r=eyJrIjoiYTQ4YzNlMjgtZTBiNC00MTlkLWE5MjEtNjA1MzJmYzllOTg2IiwidCI6IjVmODRjNGVhLTM3MGQtNGI5ZS04MzBjLTc1NmY4YmYxYjUxZiIsImMiOjh9&pageName=24eda314bd635c9586ac";
@@ -76,6 +81,7 @@ public class ChampionshipsController {
                     powerBiURL = null;
                     powerBiURL2 = null;
             }
+            //Agrego los informes al modelo para visualizarlos
             model.addAttribute("powerBi", powerBiURL);
             model.addAttribute("powerBi2", powerBiURL2);
         }

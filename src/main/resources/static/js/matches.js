@@ -30,9 +30,10 @@ function appendMatches(container, matches) {
     cont.querySelectorAll('.article-matches').forEach(articleMatches => articleMatches.remove());
     matches.forEach(match => {
         const idMatch = match.fixture.id;
-        const date_ = match.fixture.date.split("T")[0];
+        //Necesitaba formatear la fecha del partido
+        const date_ = match.fixture.date.split("T")[0]; 
         const [year, month, day] = date_.split("-");
-        const formattedDate = `${day}-${month}-${year}`;
+        const formattedDate = `${day}-${month}-${year}`; 
         const localTeamId = match.teams.home.id;
         const awayTeamId = match.teams.away.id;
         const localTeamName = match.teams.home.name;
@@ -68,21 +69,23 @@ function appendMatches(container, matches) {
     });
 }
 
+//Esta funcion sirve para mostrar los partidos de una temporada, por defecto comenzando por la temporada 2023/2024
 function updateMatchWeek(season) {
     getMatches(season, matches => {
         allMatches = matches;
-        filterByMW(1); // Mostrar la primera jornada por defecto
-        textMW.innerText = "Jornada 1";
+        filterByMW(1); //Esta funcion me devuelve los partidos de una jornada en concreto, por defecto, me devuelve los de la temporada 1
+        textMW.innerText = "Jornada 1"; //En el desplegable de jornadas, muestro el texto "Jornada 1"
     });
 }
 
 function filterByMW(mw) {
-    const filteredMatches = allMatches.filter(m => {
+    const filteredMatches = allMatches.filter(m => { //Recorro los partidos de una jornada
         if (m.league && m.league.round) {
-            const roundParts = m.league.round.split(" - ");
-            if (roundParts.length > 1) {
-                const matchWeek = roundParts[1];
-                return matchWeek === mw.toString();
+            //Desde la API los partidos de liga se guardaban como 'Regular Season - 1'
+            const matchweek = m.league.round.split(" - "); //De esta forma, divido el texto de la jornada en un array de dos posiciones ["Regular Season", "1"]
+            if (matchweek.length > 1) {
+                const matchWeek = matchweek[1]; //Entonces accedo a la segunda posicion del array
+                return matchWeek === mw.toString(); //Y lo convierto a string
             }
         }
         return false;
@@ -95,7 +98,7 @@ text.innerText = defaultSeason;
 const defaultSeasonYear = defaultSeason.split("/")[0];
 updateMatchWeek(defaultSeasonYear);
 
-// Eventos para menús desplegables
+//Eventos para menús desplegables
 select.addEventListener("click", () => optionMenu.classList.toggle("active"));
 options.forEach(option => {
     option.addEventListener("click", () => {

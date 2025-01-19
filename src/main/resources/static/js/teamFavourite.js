@@ -31,7 +31,6 @@ function updateFavouriteState(favouriteTeams) {
 function initializeFavourites() {
     getFavouriteTeams(favouriteTeams => {
         updateFavouriteState(favouriteTeams);
-
         const starIcons = document.querySelectorAll('.star-icon ion-icon');
         starIcons.forEach(starIcon => {
             starIcon.addEventListener('click', function () {
@@ -39,7 +38,6 @@ function initializeFavourites() {
                 const isMarked = this.getAttribute('name') === 'star';
                 this.setAttribute('name', isMarked ? 'star-outline' : 'star');
                 this.classList.toggle('marked', !isMarked);
-
                 fetch(isMarked ? '/removeFavouriteTeam' : '/addFavouriteTeam', {
                     method: 'POST',
                     headers: {
@@ -53,7 +51,7 @@ function initializeFavourites() {
     });
 }
 
-// Inicializar comportamiento de favoritos al cargar la página
+//Inicializar comportamiento de favoritos al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     initializeFavourites();
 });

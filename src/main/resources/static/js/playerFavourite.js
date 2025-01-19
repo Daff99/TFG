@@ -1,4 +1,4 @@
-// Función para obtener equipos favoritos desde el backend
+//Obtengo los equipos favoritos desde el backend
 function getFavouritePlayers(done) {
     fetch('/favouritePlayers', {
         method: 'GET',
@@ -8,7 +8,7 @@ function getFavouritePlayers(done) {
     })
     .then(response => {
         if (!response.ok) {
-            return []; // Retorna una lista vacía si el usuario no está autenticado
+            return []; //Devuelve una lista vacía si el usuario no está autenticado
         }
         return response.json();
     })
@@ -16,7 +16,6 @@ function getFavouritePlayers(done) {
     .catch(error => console.error('Error al obtener favoritos:', error));
 }
 
-// Función para actualizar el estado de favoritos en el DOM
 function updateFavouriteState(favouritePlayers) {
     const starIcons = document.querySelectorAll('.star-icon ion-icon');
     starIcons.forEach(starIcon => {
@@ -27,11 +26,9 @@ function updateFavouriteState(favouritePlayers) {
     });
 }
 
-// Función para inicializar el comportamiento de favoritos
 function initializeFavourites() {
     getFavouritePlayers(favouritePlayers => {
         updateFavouriteState(favouritePlayers);
-
         const starIcons = document.querySelectorAll('.star-icon ion-icon');
         starIcons.forEach(starIcon => {
             starIcon.addEventListener('click', function () {
@@ -39,7 +36,6 @@ function initializeFavourites() {
                 const isMarked = this.getAttribute('name') === 'star';
                 this.setAttribute('name', isMarked ? 'star-outline' : 'star');
                 this.classList.toggle('marked', !isMarked);
-
                 fetch(isMarked ? '/removeFavouritePlayer' : '/addFavouritePlayer', {
                     method: 'POST',
                     headers: {
@@ -53,7 +49,6 @@ function initializeFavourites() {
     });
 }
 
-// Inicializar comportamiento de favoritos al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     initializeFavourites();
 });

@@ -23,8 +23,14 @@ public class UserService implements UserDetailsService {
     public UserService() {}
 
     public User createUser(String name, String email, String password) {
-        if (name == null || name.isBlank() || email == null || email.isBlank() || password == null || password.isBlank()) {
-            throw new IllegalArgumentException("Los campos no pueden estar vacíos");
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+        if (email == null || email.isBlank()) {
+            throw new IllegalArgumentException("El email no puede estar vacío");
+        }
+        if (name.length() < 3) {
+            throw new IllegalArgumentException("El nombre debe tener minimo 3 caracteres");
         }
         String formatEmail = "^[\\w-\\.]+@[\\w-]+\\.[a-z]{2,}$";
         Pattern pattern = Pattern.compile(formatEmail, Pattern.CASE_INSENSITIVE);
@@ -34,6 +40,9 @@ public class UserService implements UserDetailsService {
         User user = new User();
         user.setUsername(name);
         user.setEmail(email);
+        if (password == null || password.isBlank()) {
+            throw new IllegalArgumentException("La contraseña no puede estar vacía");
+        }
         if (password.length() < 6) {
             throw new IllegalArgumentException("La contraseña debe tener mínimo 6 caracteres");
         }
