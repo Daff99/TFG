@@ -15,6 +15,10 @@ html, body {
     background-color: white;
 }
 
+main {
+    min-height: 100vh;
+}
+
 header {
     width: 100%;
 }

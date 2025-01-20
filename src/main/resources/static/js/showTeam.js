@@ -192,6 +192,8 @@ function getFormationImages() {
         "4-1-2-1-2": "assets/img/alineaciones/41212.jpeg",
         "3-1-4-2": "assets/img/alineaciones/3142.jpeg",
         "3-2-4-1": "assets/img/alineaciones/3241.jpeg",
+        "3-3-3-1": "assets/img/alineaciones/3331.jpeg",
+        "3-4-3": "assets/img/alineaciones/343.jpeg"
     };
 }
 
