@@ -30,7 +30,7 @@ function appendMatches(container, matches) {
     cont.querySelectorAll('.article-matches').forEach(articleMatches => articleMatches.remove());
     matches.forEach(match => {
         const idMatch = match.fixture.id;
-        //Necesitaba formatear la fecha del partido
+        //Necesito formatear la fecha del partido
         const date_ = match.fixture.date.split("T")[0]; 
         const [year, month, day] = date_.split("-");
         const formattedDate = `${day}-${month}-${year}`; 
@@ -81,7 +81,7 @@ function updateMatchWeek(season) {
 function filterByMW(mw) {
     const filteredMatches = allMatches.filter(m => { //Recorro los partidos de una jornada
         if (m.league && m.league.round) {
-            //Desde la API los partidos de liga se guardaban como 'Regular Season - 1'
+            //Desde la API los partidos de liga se guardan como 'Regular Season - 1'
             const matchweek = m.league.round.split(" - "); //De esta forma, divido el texto de la jornada en un array de dos posiciones ["Regular Season", "1"]
             if (matchweek.length > 1) {
                 const matchWeek = matchweek[1]; //Entonces accedo a la segunda posicion del array

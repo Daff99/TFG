@@ -232,14 +232,14 @@ function appendEvents(container, datos) {
         'VAR': '📺',
     };
     datos.response.forEach(event => {
-        const {
-            team: { name: team, logo: logoTeam },
-            time: { elapsed: time = '', extra = '' },
-            player: { name: playerName = 'No disponible' } = {},
-            assist: { name: assistPlayerName = '' } = {},
-            type,
-            detail,
-        } = event;
+        const team = event.team.name;
+        const logoTeam = event.team.logo;
+        const time = event.time.elapsed || '';
+        const extra = event.time.extra ? `${event.time.extra}` : '';
+        const playerName = event.player?.name || 'No disponible';
+        const assistPlayerName = event.assist?.name || '';
+        const type = event.type;
+        const detail = event.detail;
         const typeEvent = translateValue(type, typeTranslations);
         const detailEvent = translateValue(detail, detailTranslations);
         const eventIcon = eventIcons[typeEvent] || 'ℹ️';
@@ -262,17 +262,7 @@ function translateValue(value, translations) {
     return translations[value] || value || '';
 }
 
-function createEventHtml(
-    logoTeam,
-    team,
-    time,
-    extra,
-    playerName,
-    assistPlayerName,
-    typeEvent,
-    detailEvent,
-    eventIcon
-) {
+function createEventHtml(logoTeam, team, time, extra, playerName, assistPlayerName, typeEvent, detailEvent, eventIcon) {
     return document.createRange().createContextualFragment(`
         <article class="article-events">
             <div class="event-header">

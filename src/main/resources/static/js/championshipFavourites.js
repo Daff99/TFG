@@ -23,9 +23,9 @@ function updateFavouriteState(favouriteChampionships) {
         const championshipId = parseInt(starIcon.getAttribute('data-id')); //Extraigo el id del campeonato
         const isFavourite = favouriteChampionships.includes(championshipId); //Compruebo que el campeonato esta en favoritos
         if (isFavourite) {
-            starIcon.setAttribute('name', 'star');
+            starIcon.setAttribute('name', 'star'); //Estrella rellena
         } else {
-            starIcon.setAttribute('name', 'star-outline');
+            starIcon.setAttribute('name', 'star-outline'); //Estrella sin rellenar
         }
         starIcon.classList.toggle('marked', isFavourite);
     });
