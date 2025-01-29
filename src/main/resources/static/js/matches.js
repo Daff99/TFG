@@ -10,6 +10,15 @@ const textMW = optionMenuMW.querySelector(".textMW");
 
 let allMatches = [];
 
+document.addEventListener('click', function(event) {
+    if (!optionMenu.contains(event.target)) {
+        optionMenu.classList.remove("active");
+    }
+    if (!optionMenuMW.contains(event.target)) {
+        optionMenuMW.classList.remove("active");
+    }
+});
+
 function getMatches(season, done) {
     const url = `https://v3.football.api-sports.io/fixtures?league=${leagueId}&season=${season}`;
     const apiOptions = {
