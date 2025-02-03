@@ -96,8 +96,30 @@
 }
 
 .report {
+    width: calc(95vh * 1.6732);
+    max-width: 100%;
+    height: 95vh;
+    overflow: hidden;
+    position: relative;
+}
+
+iframe {
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    position: absolute;
+}
+
+.cover {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    z-index: 10;
+    pointer-events: none;
 }
 
 .transfers-trophies {
@@ -262,15 +284,19 @@ a:hover {
     text-decoration: underline;
 }
 
+@media (max-width: 1024px) {
+    .report {
+        width: 100%;
+        height: 85vh;
+    }
+}
+
 @media (max-width: 768px) {
-    .header-player, .header-player2, .header-player3 {
+    .header-player,
+    .header-player2,
+    .header-player3 {
         flex-direction: column;
         align-items: center;
-        text-align: center;
-    }
-
-    .info-player {
-        margin-top: 10px;
         text-align: center;
     }
 
@@ -340,5 +366,19 @@ a:hover {
     .trophies h1 {
         font-size: 18px;
         text-align: center;
+    }
+
+    .report {
+        width: 100%;
+        height: 70vh;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .cover {
+        height: 50px;
     }
 }

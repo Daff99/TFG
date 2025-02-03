@@ -55,7 +55,9 @@
             <h1>INFORMACIÓN DE PLANTILLA</h1>
             <div th:each="reportUrl, stat : ${listareports}" class="report">
                 <iframe width="100%" height="100%" th:src="${reportUrl}" frameborder="0" allowFullScreen="true"></iframe>
+                <div class="cover"></div>
             </div>
+            
         </div>
         <div class="stadium-data">
             <div class="info-team"></div>
