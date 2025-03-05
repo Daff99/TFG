@@ -87,6 +87,7 @@
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
+    align-items: center;
 }
 
 .report-container h1 {
@@ -230,7 +231,7 @@ iframe {
 
 .transfer-info p {
     font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
+    font-size: 17px;
     margin: 0;
     line-height: 1.5;
 }

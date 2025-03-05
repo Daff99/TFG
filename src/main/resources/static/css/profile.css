@@ -33,6 +33,7 @@
 
 .username-span, .email-span {
     font-weight: normal;
+    font-size: 18px;
 }
 
 .logout-button {
