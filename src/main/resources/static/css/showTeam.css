@@ -146,6 +146,7 @@ iframe {
 .data-team {
     width: 100%;
     max-width: 750px;
+    min-width: 750px;
     min-height: auto;
     display: flex;
     flex-direction: column;
