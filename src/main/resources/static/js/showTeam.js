@@ -1,3 +1,5 @@
+//En otras partes de mi codigo no tengo esta funcion porque no necesito tener cargado el id del equipo o de la competicion sin tener cargada completamente mi pagina, pero aqui si, ya que necesito el id del equipo para cargar informacion proveniente de la API
+
 document.addEventListener("DOMContentLoaded", () => {
     const teamId = getTeamIdFromURL();
     if (!validateTeamId(teamId)) return;
@@ -11,7 +13,7 @@ function validateTeamId(teamId) {
         return false;
     }
     return true;
-}
+} 
 
 function loadTeamInfo(teamId) {
     getInfo(teamId, data => {
@@ -19,7 +21,6 @@ function loadTeamInfo(teamId) {
     });
 }
 
-//En otras partes de mi codigo no tengo esta funcion porque no necesito tener cargado el id del equipo o de la competicion sin tener cargada completamente mi pagina, pero aqui si, para poder ir mostrando los datos sin que haya referencias nulas
 function initializeSeasonDropdown(teamId, leagueId) {
     const defaultSeason = "2023/2024";
     const text = document.querySelector(".select-button .text");

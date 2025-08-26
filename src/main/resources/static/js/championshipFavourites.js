@@ -39,9 +39,9 @@ function initializeFavourites() {
         starIcons.forEach(starIcon => {
             starIcon.addEventListener('click', function () { //Evento de click para cada estrella
                 const championshipId = parseInt(this.getAttribute('data-id'));
-                const isMarked = this.getAttribute('name') === 'star';
-                this.setAttribute('name', isMarked ? 'star-outline' : 'star');
-                this.classList.toggle('marked', !isMarked);
+                const isMarked = this.getAttribute('name') === 'star'; //La estrella está marcada si el atributo name es star
+                this.setAttribute('name', isMarked ? 'star-outline' : 'star'); //Actualizo el atributo name de la estrella segun este marcado o no
+                this.classList.toggle('marked', !isMarked); //la clase marked se añade y se quita dependiendo de si la estrella está marcada o no
                 fetch(isMarked ? '/removeFavouriteChampionship' : '/addFavouriteChampionship', { //Si la estrella esta marcada, al pulsar se llama al metodo de eliminar de favoritos, si no esta marcada, pues se llama al metodo de añadir a favoritos
                     method: 'POST',
                     headers: {

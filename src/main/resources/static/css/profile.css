@@ -20,7 +20,7 @@
 }
 
 .profile-data {
-    justify-content: space-evenly;
+    justify-content: space-evenly; /* Espacio igual entre los elementos de un contenedor flex */
 }
 
 .h2-name {

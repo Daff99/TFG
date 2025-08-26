@@ -1,0 +1,38 @@
+@startuml player
+skinparam linetype ortho
+
+class Player {
+    - id: Long
+    - name: String
+    - image: String
+    - users: List<User>
+}
+
+interface PlayerRepository {
+    + getById(id: Long): Player
+    + findByNameContainingIgnoreCase(name: String): List<Player>
+}
+
+class PlayerService {
+    - playerRepository: PlayerRepository
+    + findById(id: Long): Player
+    + searchByName(query: String): List<Player>
+}
+
+class PlayerController {
+    - playerService: PlayerService
+    - userRepository: UserRepository
+    - reports: Map<Long, String>
+    + showPlayers(model: Model, principal: Principal): String
+    + initReports()
+    + showPlayers(model: Model, principal: Principal): String
+    + showPlayer(id: Long, model: Model): String
+    + searchPlayers(query: String): List<Player>
+}
+
+' Relaciones de Player con otras entidades
+Player "0..N" --* "0..N" User : jugadoresFavoritos
+Player " 1 " -- " 1 " PlayerController : usa
+Player " 1 " -- " 1 " PlayerService : usa
+Player " 1 " -- " 1 " PlayerRepository : usa
+@enduml

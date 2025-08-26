@@ -1,0 +1,41 @@
+@startuml team
+skinparam linetype ortho
+
+class Team {
+    - name: String
+    - competition: String
+    - apiId: Long
+    - image: String
+    - users: List<User>
+}
+
+interface TeamRepository {
+    + findByApiId(apiId: Long): Team
+    + findByNameContainingIgnoreCase(name: String): List<Team>
+}
+
+class TeamsService {
+    - teamRepository: TeamRepository
+    + findByApiId(apiId: Long): Team
+    + searchByName(query: String): List<Team>
+}
+
+class TeamController {
+    - teamsService: TeamsService
+    - userRepository: UserRepository
+    - teamRepository: TeamRepository
+    - reports: Map<Long, String[]> 
+    + initReports()
+    + showTeams(model: Model, principal: Principal): String
+    + showTeam(apiId: Long, model: Model): String
+    + searchTeams(query: String) : List<Team>
+}
+
+' Relaciones de Team con otras entidades
+Team "*" --* "*" User : equiposFavoritos
+
+' Relación con las capas del backend
+Team "1 " -- "1 " TeamRepository : usa
+Team "1 " -- "1 " TeamsService : usa
+Team " 1 " -- "1 " TeamController : usa
+@enduml

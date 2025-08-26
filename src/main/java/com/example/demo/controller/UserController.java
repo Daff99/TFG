@@ -58,7 +58,7 @@ public class UserController {
         String errorMessage = (String) request.getSession().getAttribute("errorMessage");
         if (errorMessage != null) {
             model.addAttribute("errorMessage", errorMessage);
-            request.getSession().removeAttribute("errorMessage");
+            request.getSession().removeAttribute("errorMessage"); //Esto se pone para evitar que el mensaje de error vuelva a aparecer en caso de refrescar la página
         }
         User user = new User();
         model.addAttribute("user", user);
@@ -74,19 +74,18 @@ public class UserController {
 
     @PostMapping("/register")
     public String processRegistration(@Valid @ModelAttribute("r") Register r, BindingResult result, Model model) {
-        if (userRepository.findByEmail(r.getEmail()) != null) { 
+        if (userRepository.findByEmail(r.getEmail()) != null) { //Si existe un usuario con el mismo correo, no se puede registrar en la aplicación
             model.addAttribute("errorMessage", "El correo ya está registrado");
             return "register";
         }
         try {
-            userService.createUser(r.getName(), r.getEmail(), r.getPassword());
+            userService.createUser(r.getName(), r.getEmail(), r.getPassword()); 
         } catch (IllegalArgumentException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "register";
         }
         return "redirect:/login";
     }
-
 
     @RequestMapping("editProfile")
     public String editProfile(Model model) {
@@ -111,8 +110,7 @@ public class UserController {
             user.setUsername(username);
         }
         if (password != null && !password.isBlank()) {
-            if (userService.checkPassword(password, user.getPassword())) { //Se comprueba la contraseña que se ha introducido con la asociada en la base de datos
-                //Si es la misma, se lanza el mensaje
+            if (userService.checkPassword(password, user.getPassword())) { //Se comprueba la contraseña que se ha introducido con la asociada en la base de datos, si es la misma, se lanza el mensaje
                 model.addAttribute("errorMessage", "Ya está utilizando esta contraseña");
                 model.addAttribute("user", user);
                 return "editProfile";

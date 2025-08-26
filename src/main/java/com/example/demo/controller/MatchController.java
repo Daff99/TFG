@@ -30,7 +30,7 @@ public class MatchController {
             model.addAttribute("user", user);
         }
         Match match = matchService.findById(id);
-        if (match != null) {
+        if (match != null) { //Si el partido existe en mi base de datos, lo agrego al modelo, además de su resultado para poder mostrarlo en la vista
             model.addAttribute("match", match); 
             model.addAttribute("result", match.getResult());  
         }

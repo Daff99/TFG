@@ -42,8 +42,7 @@ public class DataInitializer {
     public void init() {
          /* 
         //Equipos y Jugadores
-        for (int year = 2018; year <= 2023; year ++) {
-            int season = year;
+        for (int season = 2018; season <= 2023; season ++) {
             saveTeamsMatchesAndPlayersForLeague(PREMIER, season);
             saveTeamsMatchesAndPlayersForLeague(LALIGA, season);
             saveTeamsMatchesAndPlayersForLeague(BUNDESLIGA, season);
@@ -123,8 +122,8 @@ public class DataInitializer {
                     String playerLogo = playerObject.getString("photo");
                     Long apiId = playerObject.getLong("id");
                     Player player = new Player();
-                    if (apiId.equals(31318L)) {
-                        player.setName("M'bala Nzola");
+                    if (apiId.equals(31318L)) { //Este jugador es un caso especial, su nombre no se muestra bien en la API
+                        player.setName("M'Bala Nzola");
                     } else {
                         player.setName(playerName);
                     }

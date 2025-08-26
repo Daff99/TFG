@@ -5,7 +5,7 @@ a {
 
 a:hover h1 {
     color: #00aaa9;
-    text-decoration: underline;
+    text-decoration: underline; 
 }
 
 .championship-container {
@@ -33,7 +33,6 @@ li {
     width: 100%;
     min-width: 60vh;
     margin: 10px auto;
-    transition: al 0.3 ease-in-out;
 }
 
 .star-icon {
@@ -46,6 +45,10 @@ li {
     line-height: 57px;
     margin-bottom: 17px;
 }
+
+/* .marked {
+    color: #00aaa9;
+} */
 
 @media (max-width: 1024px) {
     .article-content {

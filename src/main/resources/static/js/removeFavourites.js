@@ -1,4 +1,4 @@
-//Estas funciones me sirven para eliminar jugadores, equipos o campeonatos de la lista de favoritos de un usuario
+//Estas funciones me sirven para eliminar jugadores, equipos o campeonatos de la lista de favoritos de un usuario, estando en la pantalla de favoritos de la aplicacion
 function removePlayerFromFavorites(trashIcon) {
     const liElement = trashIcon.closest('li'); 
     const playerId = liElement.getAttribute('data-player-id'); 

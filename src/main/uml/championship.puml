@@ -1,0 +1,34 @@
+@startuml championship
+skinparam linetype ortho
+
+class Championship {
+    - id: Long
+    - name: String
+    - image: String
+    - slider: String
+    - users: List<User>
+}
+
+interface ChampionshipsRepository {
+    + getById(id: Long): Championship
+}
+
+class ChampionshipsService {
+    - championshipRepository: ChampionshipsRepository
+    + findById2(id: Long): Championship
+    + findAll(): List<Championship>
+}
+
+class ChampionshipsController {
+    - championshipsService: ChampionshipsService
+    - userRepository: UserRepository
+    + showChampionships(model: Model, principal: Principal): String
+    + showChampionship(id: Long, model: Model): String
+}
+
+' Relación de Championship con User
+Championship "0..N" -- "0..N" User : equiposFavoritos
+Championship " 1 " -- "1" ChampionshipsController : usa
+Championship " 1 " -- "1" ChampionshipsService : usa
+Championship " 1 " -- "1" ChampionshipsRepository : usa
+@enduml

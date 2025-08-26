@@ -99,12 +99,10 @@
 }
 
 .bar-homeTeam {
-    background-color: black;
-    flex-grow: 1;
+    flex-grow: 1; /* Para ocupar el espacio disponible en el contenedor */
 }
 
 .bar-awayTeam {
-    background-color: yellow;
     flex-grow: 1;
 }
 

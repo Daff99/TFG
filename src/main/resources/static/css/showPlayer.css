@@ -144,7 +144,6 @@ iframe {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     margin-top: 20px;
-    
 }
 
 .transfers-container h1 {
@@ -282,7 +281,6 @@ a {
 
 a:hover {
     color: #00aaa9;
-    text-decoration: underline;
 }
 
 @media (max-width: 1024px) {

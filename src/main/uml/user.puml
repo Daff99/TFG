@@ -1,0 +1,62 @@
+@startuml user
+skinparam linetype ortho
+
+class User {
+    - id: Long
+    - name: String
+    - email: String
+    - password: String
+    - image: String
+    - favouriteTeams: List<Team>
+    - favouritePlayers: List<Player>
+    - favouriteChampionships: List<Championship>
+}
+
+interface UserRepository {
+    + findByEmail(email: String): User
+    + getById(id: Long): User
+}
+
+class UserService {
+    - userRepository: UserRepository
+    - passwordEncoder: PasswordEncoder
+    + findById2(id: Long): User
+    + createUser(name: String, email: String, password: String): User
+    + checkPassword(pw1: String, pw2: String): Boolean
+    + loadByUsername(email: String): UserDetails
+    + updateUser(user: User, newPassword: String)
+}
+
+class UserController {
+    - userService: UserService
+    - userRepository: UserRepository
+    - awsService: S3Service
+    - teamRepository: TeamRepository
+    - playerRepository: PlayerRepository
+    - championshipRepository: ChampionshipRepository
+    + showLoginForm(model: Model, request: HttpServletRequest): String
+    + register(model: Model): String
+    + processRegistration(r: Register, result: BindingResult, model: Model): String
+    + editProfile(model: Model): String
+    + updateProfile(model: Model, image: MultipartFile, userId: Long, username: String, password: String): String
+    + addFavouriteTeams(teamId: Long, auth: Authentication): String
+    + remove(teamId: Long, auth: Authentication, model: Model): String
+    + addFavouritePlayers(id: Long, auth: Authentication): String
+    + removePlayer(id: Long, auth: Authentication, model: Model): String
+    + addFavouriteChampionships(id: Long, auth: Authentication): String
+    + removeChampionship(id: Long, auth: Authentication, model: Model): String
+    + getFavouritePlayers(auth: Authentication): String
+    + getFavouriteTeams(auth: Authentication): String
+    + getFavouriteChampionships(auth: Authentication): String
+}
+
+' Relaciones de User con otras entidades
+User " 0..N " --* "0..N" Team : favouriteTeams
+User " 0..N " --* "0..N" Player : favouritePlayers
+User " 0..N   " --* "0..N" Championship : favouriteChampionships
+
+' Relación con las capas del backend
+User " 1 " -- "1 " UserRepository : usa 
+UserService "1 " -- "1 " User : usa
+UserController " 1 " -- " 1  " User : usa
+@enduml

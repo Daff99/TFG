@@ -86,6 +86,6 @@ public class UserService implements UserDetailsService {
         }
         user2.setImage(user.getImage());
         userRepository.save(user2);
-        return user;
+        return user2;
     }
 }

@@ -58,7 +58,15 @@ function getTransfers(playerId, done) {
         .catch(error => console.error('Error al obtener jugadores:', error));
 }
 
-function appendTranfers(container, data) {
+function getTranslations() { //Mapa con las traducciones de cesion, fichaje o agente libre
+    return {
+        'N/A' : 'Fin de cesión',
+        'Loan': 'Cedido',
+        'Free': 'Gratis'
+    };
+}
+
+function appendTransfers(container, data) {
     const cont = document.querySelector(container);
     cont.querySelectorAll('.transfers-container').forEach(transfersContainer => transfersContainer.remove());
 	data.response[0].transfers.forEach(element => {
@@ -96,14 +104,6 @@ function appendTranfers(container, data) {
 	});
 }
 
-function getTranslations() {
-    return {
-        'N/A' : 'Fin de cesión',
-        'Loan': 'Cedido',
-        'Free': 'Gratis'
-    };
-}
-
 function getTrophies(playerId, done) {
     const url = `https://v3.football.api-sports.io/trophies?player=${playerId}`;
     const apiOptions = {
@@ -126,7 +126,7 @@ function appendTrophies(container, data) {
         appendNoTrophiesArticle(cont);
         return;
     }
-    const sortedTrophies = data.response.sort((a, b) => b.season - a.season); //Ordeno los trofeos que mas reciente a menos reciente
+    const sortedTrophies = data.response.sort((a, b) => b.season - a.season); //Ordeno los trofeos de mas reciente a menos reciente
     sortedTrophies.forEach(t => {
         const trophyDetails = getTrophyDetails(t);
         appendTrophyCard('.trophies-container', trophyDetails);
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
             appendInfo('.info-player', data);
         });
         getTransfers(playerId, data => {
-            appendTranfers('.transfers-container', data);
+            appendTransfers('.transfers-container', data);
         });
         getTrophies(playerId, data => {
             appendTrophies('.trophies-container', data);

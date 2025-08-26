@@ -42,7 +42,7 @@
     position: relative; 
     width: 100%;
     height: 95vh;
-    overflow: hidden;
+    overflow: hidden; /* Para evitar que sobresalga el reporte de Power BI */
     margin-bottom: 0;
 }
 

@@ -16,7 +16,7 @@
     border-radius: 8px;
     align-items: center;
     justify-content: space-between;
-    cursor: pointer;
+    cursor: pointer; /* Para que el cursor cambie a una mano, indicando que se puede hacer click en el */
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
 }
 

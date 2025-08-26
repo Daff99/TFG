@@ -1,3 +1,4 @@
+//Obtengo las estadisticas del partido, alineaciones y eventos
 function getStatistics(idMatch, done) {
     const url = `https://v3.football.api-sports.io/fixtures/statistics?fixture=${idMatch}`;
     const apiOptions = {
@@ -36,7 +37,7 @@ function appendStatistics(container, datos) {
     };
 }
 
-//Función para crear el encabezado
+//Función para crear el encabezado. Aqui necesito pasar el resultado del partido desde el backend al frontend ya que la API me lo proporciona de manera diferente. Por eso en la vista de showMatch tengo una variable que se llama matchResult
 function createHeader(main, homeTeam, awayTeam) {
     const headerArticle = document.createRange().createContextualFragment(`
         <article class="article-header">
@@ -280,7 +281,6 @@ function createEventHtml(logoTeam, team, time, extra, playerName, assistPlayerNa
         </article>
     `);
 }
-
 
 function getMatchIdFromURL() {
     const params = new URLSearchParams(window.location.search);

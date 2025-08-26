@@ -58,11 +58,11 @@ h2 {
     transform: translateY(-50%);
     font-size: 1em;
     color: #fff;
-    pointer-events: none;
-    transition: .5s;
+    pointer-events: none; /* Para ignorar eventos de ratón */
+    transition: .5s; /*  */
 }
 
-.inputs input:focus~label, .inputs input:valid~label {
+.inputs input:focus~label, .inputs input:valid~label { /* Para que el label no se superponga al texto cuando el usuario empieza a escribir */
     top: -5px;
 }
 

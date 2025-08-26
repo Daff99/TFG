@@ -10,7 +10,7 @@ const textMW = optionMenuMW.querySelector(".textMW");
 
 let allMatches = [];
 
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function(event) { //Este codigo sirve para cerrar los menus desplegables de temporada y jornada si se hace click fuera de ellos
     if (!optionMenu.contains(event.target)) {
         optionMenu.classList.remove("active");
     }
@@ -39,10 +39,10 @@ function appendMatches(container, matches) {
     cont.querySelectorAll('.article-matches').forEach(articleMatches => articleMatches.remove());
     matches.forEach(match => {
         const idMatch = match.fixture.id;
-        //Necesito formatear la fecha del partido
-        const date_ = match.fixture.date.split("T")[0]; 
-        const [year, month, day] = date_.split("-");
-        const formattedDate = `${day}-${month}-${year}`; 
+        //Necesito formatear la fecha del partido, ya que me viene en este formato '2022-08-06T19:00:00+00:00'
+        const date_ = match.fixture.date.split("T")[0]; //Cojo la parte que está antes de la T
+        const [year, month, day] = date_.split("-"); //Divido por año, mes y dia
+        const formattedDate = `${day}-${month}-${year}`; //Cambio el orden
         const localTeamId = match.teams.home.id;
         const awayTeamId = match.teams.away.id;
         const localTeamName = match.teams.home.name;
@@ -51,7 +51,6 @@ function appendMatches(container, matches) {
         const awayTeamLogo = match.teams.away.logo;
         const resultHome = match.goals.home ?? '-';
         const resultAway = match.goals.away ?? '-';
-
         const article = document.createRange().createContextualFragment(`
             <article class="article-matches">
                 <h2>${formattedDate}</h2>
@@ -82,7 +81,7 @@ function appendMatches(container, matches) {
 function updateMatchWeek(season) {
     getMatches(season, matches => {
         allMatches = matches;
-        filterByMW(1); //Esta funcion me devuelve los partidos de una jornada en concreto, por defecto, me devuelve los de la temporada 1
+        filterByMW(1); //Esta funcion me devuelve los partidos de una jornada en concreto, por defecto, me devuelve los de la jornada 1
         textMW.innerText = "Jornada 1"; //En el desplegable de jornadas, muestro el texto "Jornada 1"
     });
 }

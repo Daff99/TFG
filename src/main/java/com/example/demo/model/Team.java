@@ -14,6 +14,7 @@ import jakarta.persistence.Column;
 @Table(name = "TEAMS")
 @Data
 public class Team {
+    
     @Id
     @Column(name = "API_ID")
     private Long apiId;

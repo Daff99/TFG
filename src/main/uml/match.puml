@@ -1,0 +1,33 @@
+@startuml match
+skinparam linetype ortho
+
+class Match {
+    - matchId: Long
+    - result: String
+    - homeTeam: String
+    - awayTeam: String
+    - competition: String
+    - season: String
+   
+}
+
+interface MatchRepository {
+    + getById(id: Long): Match
+}
+
+class MatchService {
+    - matchRepository: MatchRepository
+    + findById(id: Long): Match
+}
+
+class MatchController {
+    - matchService: MatchService
+    - userRepository: UserRepository
+    + showMatch(id: Long. model: Model): String
+}
+
+' Relación con las capas del backend
+Match "1 " -- "1 " MatchRepository : usa
+Match "1 " -- "1 " MatchService : usa
+Match "1 " -- "1 " MatchController : usa
+@enduml

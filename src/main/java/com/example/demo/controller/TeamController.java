@@ -33,14 +33,13 @@ public class TeamController {
     @Autowired
     private TeamRepository teamRepository;
     private Map<Long, String[]> reports;
-    
     //Lo mismo que hago con los jugadores, lo hago con los equipos
     @PostConstruct
     public void initReports() {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            InputStream input = getClass().getResourceAsStream("/reportsTeams.json");
-            reports = mapper.readValue(input, new TypeReference<Map<Long, String[]>>() {});
+            ObjectMapper mapper = new ObjectMapper(); //Permite trabajar con JSON
+            InputStream input = getClass().getResourceAsStream("/reportsTeams.json"); //Busco el archivo reportsTeams.json en mi aplicacion
+            reports = mapper.readValue(input, new TypeReference<Map<Long, String[]>>() {}); //Convierto el contenido del archivo JSON en un objeto Java, concretamente en un objeto del tipo Map<Long, String[]>
         } catch (Exception e) {
             e.printStackTrace();
             reports = Map.of();
@@ -83,7 +82,7 @@ public class TeamController {
         Team team = teamsService.findByApiId(apiId);
         if (team != null) {
             model.addAttribute("team", team);
-            //Necesitaba sacar el ID de la liga para luego poder hacer una llamada a la API
+            //Necesitaba sacar el ID de la liga para luego poder hacer llamadas a la API
             Map<String, Long> competitionLeagueId = Map.of(
                 "Premier League", 39L,
                 "La Liga", 140L,

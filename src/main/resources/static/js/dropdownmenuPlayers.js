@@ -46,12 +46,13 @@ function getFavouritePlayers(done) {
     .catch(error => console.error('Error al obtener favoritos:', error));
 }
 
+//Esta funcion se encarga de añadir los jugadores al div correspondiente
 function appendPlayers(container, players, favouritePlayers) {
     const cont = document.querySelector(container);
     cont.querySelectorAll('.player-card').forEach(playerCard => playerCard.remove()); //Me sirve para mantener el titulo en el div
     const limitedPlayers = players.slice(0, 10); //La API me devuelve 20 jugadores por liga, pero lo limito a 10
-    const playerCards = limitedPlayers.map(player => createPlayerCard(player, favouritePlayers));
-    playerCards.forEach(card => cont.append(card)); 
+    const playerCards = limitedPlayers.map(player => createPlayerCard(player, favouritePlayers)); //Por cada jugador, me creo una funcion que me crea el article con los datos de cada jugador y me devuelva un array con todos los articles
+    playerCards.forEach(card => cont.append(card)); //El array que me devuelve la funcion lo recorro y lo añado al div
 }
 
 function createPlayerCard(player, favouritePlayers) {
@@ -85,19 +86,19 @@ function createPlayerCard(player, favouritePlayers) {
             </div>
         </article>
     `);
-    if (isLog) {
+    if (isLog) { //Si el usuario está logueado, inicializo los jugadores favoritos que tiene dicho usuario guardados
         setUpStarIcon(article, playerId);
     }
     return article;
 }
 
 function setUpStarIcon(article, playerId) {
-    const starIcon = article.querySelector('.star-icon ion-icon');
-    starIcon.addEventListener('click', function () {
-        const isMarked = this.getAttribute('name') === 'star';
-        this.setAttribute('name', isMarked ? 'star-outline' : 'star');
+    const starIcon = article.querySelector('.star-icon ion-icon'); //Busco el icono de la estrella en el article del jugador
+    starIcon.addEventListener('click', function () { //Cada vez que el usuario hace click en una estrella se ejecuta esta funcion
+        const isMarked = this.getAttribute('name') === 'star'; //Compruebo si la estrella esta marcada o no
+        this.setAttribute('name', isMarked ? 'star-outline' : 'star'); //Si esta marcada la desmarco y viceversa
         this.classList.toggle('marked', !isMarked);
-        fetch(isMarked ? '/removeFavouritePlayer' : '/addFavouritePlayer', {
+        fetch(isMarked ? '/removeFavouritePlayer' : '/addFavouritePlayer', { //Si la estrella esta marcada, se elimina el jugador de favoritos, si no, se añade
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -137,7 +138,7 @@ text.innerText = defaultSeason;
 const defaultSeasonYear = defaultSeason.split("/")[0]; //Las temporadas se enumeran como "2018/2019" pero necesito sacar el primer valor, ya que la API almacena las temporadas como un valor unico (2018, 2019 etc)
 updatePlayersForSeason(defaultSeasonYear);
 
-//Para desplegar las opciones del desplegable cuando hago click en el
+//Para desplegar las opciones del desplegable cuando hago click en el, agrego un elemento active
 select.addEventListener("click", () => optionMenu.classList.toggle("active"));
 
 options.forEach(option => { //A cada opcion del desplegable le añado un evento de click

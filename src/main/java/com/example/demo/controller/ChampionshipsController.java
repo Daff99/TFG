@@ -29,7 +29,7 @@ public class ChampionshipsController {
         boolean isLog = (principal != null);
         model.addAttribute("isLog", isLog);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication(); //Para obtener informacion del usuario autenticado
-        if (auth != null && auth.isAuthenticated()) {
+        if (auth != null && auth.isAuthenticated()) { //Si el usuario está autenticado, cojo su nombre y lo añado al modelo
             String username = auth.getName();
             User user = userRepository.findByEmail(username);
             model.addAttribute("user", user);
@@ -42,6 +42,7 @@ public class ChampionshipsController {
     //Para mostrar detalles de un campeonato en especifico
     @RequestMapping("/showChampionship")
     public String showChampionship(@RequestParam("id") Long id, Model model) {
+        //Con RequestParam recojo el id del campeonato que quiero mostrar
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
             String username = auth.getName();
@@ -51,7 +52,7 @@ public class ChampionshipsController {
         Championship champ = championshipsService.findById2(id);
         if (champ != null) {
             model.addAttribute("championship", champ);
-            model.addAttribute("leagueId", champ.getId());
+            model.addAttribute("leagueId", champ.getId()); //Necesito el id de la competicion para hacer la llamada de la API que me devuelve los partidos de una competicion
             String powerBiURL;
             String powerBiURL2;
             //Cada campeonato tiene asignados dos informes de powerBi
